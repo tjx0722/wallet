@@ -192,4 +192,13 @@ public class User {
     public void setIsdelete(Boolean isdelete) {
         this.isdelete = isdelete;
     }
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", account=" + account + ", password=" + password + ", phone=" + phone
+				+ ", email=" + email + ", isdelete=" + isdelete + "]";
+	}
+    
+    
+    
 }
