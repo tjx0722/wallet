@@ -87,7 +87,7 @@
 			    <option>按贷款利率</option>  
 			    <option>按集资截至日期</option>  
 			    <option>按已投资金额</option>
-			    <option>按还款期限</option>  
+			    <option>按还款期限 </option>  
 			</select>
 			<select id="cc" class="easyui-combobox" name="dept" style="width:200px;">  
 			    <option value="aa">从大到小</option>  
