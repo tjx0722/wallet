@@ -26,8 +26,8 @@ $(function(){
 	    columns:[[   
 	        {field:'debtinvestid',title:'序号',width:100,align:'center'},   
 	        {field:'userinfoid',title:'用户id',width:100,align:'center'},   
-	        {field:'investamount',title:'投资金额',width:100,align:'center'},  
-	        {field:'paytime',title:'投资金额',width:100,align:'center'},
+	        {field:'investamount',title:'债权投资金额',width:100,align:'center'},  
+	        {field:'paytime',title:'支付时间',width:100,align:'center'},
 	        {field:'istransfer',title:'是否转让给他人',width:100,align:'center',formatter: function(value,row,index){
 				if (value){
 					return '已转让';
@@ -37,7 +37,7 @@ $(function(){
 			}}, 
 	        {field:'servicecharge',title:'手续费',width:100,align:'center'}, 
 	        {field:'servicechargeid',title:'手续费型号',width:100,align:'center'},  
-	        {field:'debttransferdisplay',title:'债权转让大厅源',width:100,align:'center'},
+	        {field:'debttransferdisplay',title:'债权源序号',width:100,align:'center'},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
 				var btns="<a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
 	        	return btns;

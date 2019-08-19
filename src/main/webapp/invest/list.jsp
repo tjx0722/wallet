@@ -30,7 +30,7 @@
 		$('#dg')
 				.datagrid(
 						{
-							url : 'findAllLoanApply',
+							url : 'findAllLoanDisplay',
 							fitColumns : true,
 							toolbar : '#tb',
 							pageSize : 20,
@@ -44,23 +44,23 @@
 										width : 100
 									},
 									{
-										field : 'applytime',
-										title : '申请时间',
-										width : 100
-									},
-									{
-										field : 'reason',
-										title : '申请原因',
-										width : 100,
-									},
-									{
 										field : 'loanrateid',
 										title : '贷款利率',
 										width : 100,
 									},
 									{
+										field : 'applytime',
+										title : '集资截至日期',
+										width : 100
+									},
+									{
 										field : 'operate',
 										title : '已投资金额',
+										width : 100,
+									} ,
+									{
+										field : 'operate',
+										title : '还款期限',
 										width : 100,
 									} ,
 									{
@@ -83,10 +83,11 @@
 		<form action="">
 			排序：
 			<select id="cc" class="easyui-combobox" name="dept" style="width:200px;">  
-			    <option value="aa">按还款利率</option>  
-			    <option>按申请时间</option>  
-			    <option>按用户信用</option>  
-			    <option>按已投资金额</option>  
+			    <option value="aa">按贷款金额</option>  
+			    <option>按贷款利率</option>  
+			    <option>按集资截至日期</option>  
+			    <option>按已投资金额</option>
+			    <option>按还款期限 </option>  
 			</select>
 			<select id="cc" class="easyui-combobox" name="dept" style="width:200px;">  
 			    <option value="aa">从大到小</option>  
