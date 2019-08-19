@@ -10,22 +10,15 @@ import com.woniu.service.IUserService;
 
 @Controller
 @RequestMapping("/authorityModule")
-public class LoginController {
+public class UserController {
+
 	@Resource
-	private IUserService userService;
+	private IUserService service;
 	
-	@RequestMapping("/login")
-	private String login(User user) {
-		User loginUser = userService.login(user);
-		System.out.println(loginUser);
-		if (loginUser==null) {
-			return "/authorityModule/login";
-		}else {
-			return "redirect:/index.jsp";
-		}
+	@RequestMapping("save")
+	public String save(User user) {
+		service.save(user);
+		return "index";
 	}
+	
 }
-
-
-
-

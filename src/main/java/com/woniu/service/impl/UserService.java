@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.UserMapper;
 import com.woniu.domain.User;
 import com.woniu.service.IUserService;
 
-@Controller
+@Service
 public class UserService implements IUserService {
 	@Resource 
 	private UserMapper userMapper;
@@ -18,7 +19,7 @@ public class UserService implements IUserService {
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
-		userMapper.insert(user);
+		userMapper.insertSelective(user);
 	}
 
 	@Override
@@ -43,6 +44,13 @@ public class UserService implements IUserService {
 	public List findAll() {
 		// TODO Auto-generated method stub
 		return userMapper.selectByExample(null);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public User login(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.login(user);
 	}
 
 }

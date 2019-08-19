@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 	<div id="win" class="text-center" >
-		<form action="" style="margin-top:60px">
+		<form action="/authorityModule/save" method="post" style="margin-top:60px">
 			账户：<input type="text" name="account" style="margin-top:10px"><br>
 			密码：<input type="text" name="password" style="margin-top:10px"><br>
 			电话：<input type="text" name="phone" style="margin-top:10px"><br>
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<span class="h3">Wallet小额贷款系统</span>
 	</div>
 	<div class="col-md-2 text-right"  style="margin-top:10px">
-		<button onclick="location.href='authorityModule/login.jsp'">login</button>
+		<button onclick="location.href='/authorityModule/login.jsp'">login</button>
 		|
 		<button onclick="register()">register</button>
 	</div>
