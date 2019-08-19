@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<classPathEntry location="D:\apache-maven-3.6.1\Repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar"/>
+  <context id="context1" >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.111.31.86:3306/prj3?characterEncoding=utf-8" userId="prj3" password="#@$*()#$" />
+    <javaModelGenerator targetPackage="com.woniu.domain" targetProject="wallet" ></javaModelGenerator>
+    <sqlMapGenerator targetPackage="com.woniu.dao" targetProject="wallet" ></sqlMapGenerator>
+    <javaClientGenerator targetPackage="com.woniu.dao" targetProject="wallet" type="XMLMAPPER" />
+    
+    <table schema="" tableName="bankcard" ></table>
+    <table schema="" tableName="certification" ></table>
+    <table schema="" tableName="contact" ></table>
+    <table schema="" tableName="debtinvest" ></table>
+    <table schema="" tableName="debttransferapply" ></table>
+    <table schema="" tableName="debttransferdisplay" ></table>
+    <table schema="" tableName="invest" ></table>
+    <table schema="" tableName="loanapply" ></table>
+    <table schema="" tableName="loandisplay" ></table>
+    <table schema="" tableName="loanrate" ></table>
+    <table schema="" tableName="loantime" ></table>
+    <table schema="" tableName="recharge_withdraw" ></table>
+    <table schema="" tableName="repay" ></table>
+    <table schema="" tableName="role" ></table>
+    <table schema="" tableName="roletree" ></table>
+    <table schema="" tableName="servicecharge" ></table>
+    <table schema="" tableName="systemlog" ></table>
+    <table schema="" tableName="transactionlog" ></table>
+    <table schema="" tableName="transactiontype" ></table>
+    <table schema="" tableName="tree" ></table>
+    <table schema="" tableName="user" ></table>
+    <table schema="" tableName="userinfo" ></table>
+    <table schema="" tableName="userrole" ></table>
+    <table schema="" tableName="wallet" ></table>
+ 
+    
+  </context>
+</generatorConfiguration>

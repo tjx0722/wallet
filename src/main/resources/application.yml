@@ -1,0 +1,13 @@
+server: 
+   port: 8888
+
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  datasource: 
+    driver-class-name: com.mysql.jdbc.Driver 
+    url: jdbc:mysql://47.111.31.86:3306/prj3?characterEncoding=utf-8
+    username: prj3
+    password: #@$*()#$
