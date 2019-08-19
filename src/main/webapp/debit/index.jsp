@@ -65,7 +65,7 @@
 			<br>
 			<div>
 				<div style="width: 30%; float: left" align="center">
-					<label for="email">贷款利率</label>
+					<label for="email">贷款 利率</label>
 				</div>
 				<div style="width: 70%; float: left" align="center">
 					<select id="cc" class="easyui-combobox" name="dept"
