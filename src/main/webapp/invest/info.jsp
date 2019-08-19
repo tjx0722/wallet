@@ -26,6 +26,9 @@
 		async : false
 	});
 
+	$(function() {
+	})
+
 </script>
 </head>
 <body class="easyui-layout">  
@@ -34,10 +37,49 @@
         <div class="easyui-layout" data-options="fit:true">  
             <div data-options="region:'west',collapsed:true" style="width:180px"></div>  
             <div data-options="region:'center'">
-            	<table  id="pg" class="easyui-propertygrid" style="width:800px"  
-        data-options="url:'findOneApply',showGroup:true,scrollbarSize:0">
+            	<table>
+            		<tr>
+            			<th>借款人姓名</th>
+            			<th>苗**</th>
+            		</tr>
+            		<tr>
+            			<th>电话</th>
+            			<th>188********</th>
+            		</tr>
+            		<tr>
+            			<th>籍贯</th>
+            			<th>中国内蒙古鄂尔多斯</th>
+            		</tr>
+            		<tr>
+            			<th>工作</th>
+            			<th>鼓励师</th>
+            		</tr>
+            		<tr>
+            			<th>贷款原因</th>
+            			<th>学习</th>
+            		</tr>
+            		<tr>
+            			<th>贷款利率</th>
+            			<th>10%</th>
+            		</tr>
+            		<tr>
+            			<th>贷款金额</th>
+            			<th>10000元</th>
+            		</tr>
+            		<tr>
+            			<th>已募集金额</th>
+            			<th>8000元</th>
+            		</tr>
+            		<tr>
+            			<th>还款期限</th>
+            			<th>12个月</th>
+            		</tr>
             	</table>
-            </div>  
+            </div>
+            <form action="">
+            	投资金额<input name="" /><br>
+            	<input type="submit" value="购买">
+            </form>  
         </div>  
     </div>  
 </body>  
