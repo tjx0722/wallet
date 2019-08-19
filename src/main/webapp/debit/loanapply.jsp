@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -70,13 +71,9 @@
 				<div style="width: 70%; float: left" align="center">
 					<select id="cc" class="easyui-combobox" name="dept"
 						style="width: 200px;">
-						<option value="aa">8%</option>
-						<option>10%</option>
-						<option>12%</option>
-						<option>14%</option>
-						<option>16%</option>
-						<option>18%</option>
-						<option>20%</option>
+						<c:forEach items="${loanrates }" var="rate">
+						<option value="aa">${rate.loanrate *100}%</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>
@@ -88,13 +85,9 @@
 				<div style="width: 70%; float: left" align="center">
 					<select id="cc" class="easyui-combobox" name="dept"
 						style="width: 200px;">
-						<option value="aa">1个月</option>
-						<option>3个月</option>
-						<option>6个月</option>
-						<option>9个月</option>
-						<option>12个月</option>
-						<option>18个月</option>
-						<option>36个月</option>
+						<c:forEach items="${Loantimes}" var="time">
+						<option value="aa">${time.loantime }个月</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>

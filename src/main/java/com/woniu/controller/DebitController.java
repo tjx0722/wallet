@@ -8,18 +8,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 import com.woniu.service.IDebitService;
-@RequestMapping("/Debit/")
+@RequestMapping("/debit/")
 @Controller
 public class DebitController {
 	@Resource
 	private IDebitService debitServiceImpl;
 	
+	
 	@RequestMapping("findAllLoantime")
 	private String findAllLoantime(ModelMap map) {
-		List<Loantime> list = debitServiceImpl.findAllLoantime();
-		map.put("list", list);
-		return null;
+		List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
+		map.put("Loantimes", Loantimes);
+		return "forward:findAllLoanrate";
+	}
+	@RequestMapping("findAllLoanrate")
+	private String findAllLoanrate(ModelMap map) {
+		List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
+		map.put("loanrates", loanrates);
+		return "/debit/loanapply";
 	}
 }
