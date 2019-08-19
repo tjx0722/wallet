@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.woniu.dao.LoantimeMapper;
+import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 import com.woniu.service.IDebitService;
 @Service
@@ -19,5 +20,11 @@ public class DebitServiceImpl implements IDebitService {
 		// TODO Auto-generated method stub
 		List<Loantime> times = loantimeMapper.selectByExample(null);
 		return times;
+	}
+	@Override
+	public List<Loanrate> findAllLoanrate() {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 }
