@@ -80,7 +80,7 @@
 			<br>
 			<div style="text-align: center;">
 				<div style="width: 30%; float: left" align="center">
-					<label for="email">贷款 时间</label>
+					<label for="email">贷款时间</label>
 				</div>
 				<div style="width: 70%; float: left" align="center">
 					<select id="cc" class="easyui-combobox" name="dept"
@@ -89,6 +89,14 @@
 						<option value="aa">${time.loantime }个月</option>
 						</c:forEach>
 					</select>
+				</div>
+			</div>
+			<div style="text-align: center;">
+				<div style="width: 30%; float: left" align="center">
+					<label for="email">贷款理由</label>
+				</div>
+				<div style="width: 70%; float: left" align="center">
+				<textarea rows="10" cols="50"></textarea>
 				</div>
 			</div>
 			<div style="width: 100%; float: left" align="right">
