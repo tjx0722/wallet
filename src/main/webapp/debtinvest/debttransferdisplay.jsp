@@ -25,7 +25,7 @@ $(function(){
 	    toolbar: '#tb',  
 	    columns:[[   
 	        {field:'debtinvestid',title:'序号',width:100,align:'center'},   
-	        {field:'investamount',title:'转让价格',width:100,align:'center'},  
+	        {field:'investamount',title:'债权金额',width:100,align:'center'},  
 	        {field:'displaytime',title:'开始时间',width:100,align:'center'},
 	        {field:'deadtime',title:'截止日期',width:100,align:'center'},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
