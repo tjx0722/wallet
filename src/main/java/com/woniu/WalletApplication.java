@@ -3,8 +3,11 @@ package com.woniu;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-@MapperScan("com.woniu.dao")
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 @SpringBootApplication
+@MapperScan("com.woniu.dao")
+@EnableTransactionManagement
 public class WalletApplication {
 
 	public static void main(String[] args) {
