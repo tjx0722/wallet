@@ -30,7 +30,7 @@
 		$('#dg')
 				.datagrid(
 						{
-							url : 'findAllLoanDisplay',
+							url : '/invest/findAllLoanDisplay',
 							fitColumns : true,
 							toolbar : '#tb',
 							pageSize : 20,
