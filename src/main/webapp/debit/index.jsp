@@ -31,7 +31,7 @@
 			url : '',
 			fitColumns : true,
 			striped : true,
-			title : '借款页面',
+			title : '借款页面'
 			onLoadSuccess : function(index, field, value) {
 				$('.easyui-linkbutton').linkbutton({});
 			}
@@ -83,7 +83,7 @@
 			<br>
 			<div style="text-align: center;">
 				<div style="width: 30%; float: left" align="center">
-					<label for="email">贷款时间</label>
+					<label for="email">贷款 时间</label>
 				</div>
 				<div style="width: 70%; float: left" align="center">
 					<select id="cc" class="easyui-combobox" name="dept"
