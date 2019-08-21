@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 import com.woniu.service.IDebitService;
@@ -29,5 +30,11 @@ public class DebitController {
 		List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
 		map.put("loanrates", loanrates);
 		return "/debit/loanapply";
+	}
+	@RequestMapping("test")
+	private String test(Loanapply loanapply) {
+		System.out.println("DebitController.test()");
+		System.out.println(loanapply.toString());
+		return null;
 	}
 }
