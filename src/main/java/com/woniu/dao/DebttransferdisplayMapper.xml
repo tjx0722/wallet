@@ -14,6 +14,13 @@
     <result column="isdead" property="isdead" jdbcType="BIT" />
     <result column="debttransferapplyid" property="debttransferapplyid" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap extends="BaseResultMap" id="BaseResultMapWithInvestamount" type="com.woniu.domain.Debttransferdisplay">
+  	<association property="invest" select="com.woniu.dao.InvestMapper.findBydebttransferapplyid" column="debttransferapplyid"></association>
+  </resultMap>
+  <!--查出所有可投资债权，并附带invest对象  -->
+  <select id="findUndead" resultMap="BaseResultMapWithInvestamount">
+  	select * from debttransferdisplay where isfinished=0 and isdead=0
+  </select>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated
