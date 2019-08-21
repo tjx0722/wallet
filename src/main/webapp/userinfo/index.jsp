@@ -42,7 +42,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        {field:'nickname',title:'昵称'},
 		        {field:'userjob',title:'工作'},
 		        {field:'degree',title:'学历'},
-		        {field:'birthday',title:'生日'},
+		        {field:'birthday',title:'生日',
+		        	formatter: function (value) {
+                        var dateMat = new Date(value);
+                        var year = dateMat.getFullYear();
+                        var month = dateMat.getMonth()+1;
+                        var day = dateMat.getDate();
+                        return  year + "/" + month + "/" + day;
+                    }
+		        	
+			        },
 		        {field:'stsex',title:'性别',formatter: function(value,row,index){
 					if (value){
 						return '女';
@@ -55,8 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				{field:'ismarried',title:'婚否'},
 				{field:'isfochecked',title:'审核是否通过'},
 		        {field:'operate',title:'操作',width:100,formatter: function(value,row,index){
-		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.stid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
-		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.stid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
+		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
+		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
 					return btns;
 				}
 				}
@@ -124,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function dosave(){
+		
 		var userinfoid = $("#userinfoid").val();
 		var path = "save";
 		if(userinfoid!=null&&userinfoid!=""&&userinfoid!=undefined){
@@ -170,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div>  
 	    <div>  
 	        <label for="username">username:</label>  
-	        <input class="easyui-validatebox" type="text" name="username:" data-options="required:true" />  
+	        <input class="easyui-validatebox" type="text" name="username" data-options="required:true" />  
 	    </div> 
 	    <div>  
 	        <label for="currentaddress">currentaddress:</label>  
@@ -198,7 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </div> 
 	    <div>  
 	        <label for="birthday">birthday:</label>  
-	        <input class="easyui-validatebox" type="text" name="birthday" data-options="required:true" />  
+	        <input class="easyui-datebox" type="date" name="birthday" data-options="required:true" />  
 	    </div> 
 	    <div>  
 	        <label for="sex">sex:</label>  

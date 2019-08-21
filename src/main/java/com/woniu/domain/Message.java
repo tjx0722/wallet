@@ -2,12 +2,13 @@ package com.woniu.domain;
 
 public class Message {
 	private boolean success;
-	private String message;
+	private String msg;
 	
-	public Message(boolean success, String message) {
+	
+	public Message(boolean success, String msg) {
 		super();
 		this.success = success;
-		this.message = message;
+		this.msg = msg;
 	}
 	public boolean isSuccess() {
 		return success;
@@ -15,10 +16,11 @@ public class Message {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	public String getMessage() {
-		return message;
+	public String getMsg() {
+		
+		return msg;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 }
