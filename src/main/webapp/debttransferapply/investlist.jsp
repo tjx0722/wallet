@@ -62,5 +62,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="tb">
 		<a href="javascript:deleteBatch()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">转让</a>
 	</div>
+	<div id="win" class="easyui-window" title="My Window" style="width:600px;height:400px"  
+        data-options="iconCls:'icon-save',modal:true,closed:true">  
+   	 	借贷账单详情
+		<div>  
+			<label>贷款金额:</label>  
+			<input readonly="readonly" type="text" name="loanamount" data-options="required:true" />  
+		</div>  
+		<div>  
+			<label>还款方式:</label>  
+			<input readonly="readonly" type="text" name="loantimeid" data-options="required:true" />  
+		</div> 
+		<div>  
+			<label>贷款利率:</label>  
+			<input readonly="readonly" type="text" name="loanrateid" data-options="required:true" />  
+		</div>
+		<div>  
+			<label>通过时间:</label>  
+			<input readonly="readonly" type="text" name="deadtime" data-options="required:true" />  
+		</div>
+	</div>  
 </body>
 </html>
