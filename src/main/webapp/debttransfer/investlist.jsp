@@ -44,8 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				},
 				{field:'operate',title:'操作',width:100,formatter: function(value,row,index){ 
-		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.sid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
-		        	btns += "<a id=\"btn\" href=\"javascript:findOne("+row.sid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">售出</a>"; 
+		        	var btns = "<a id=\"btn\" href=\"javascript:findOne("+row.sid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
+		        	btns += "<a id=\"btn\" href=\"javascript:transfer("+row.sid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">售出</a>"; 
 					return btns;
 				}
 				}

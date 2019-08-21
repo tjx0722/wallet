@@ -3,27 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%> 
 <meta charset="utf-8">
 <title>详细信息</title>
-<link rel="stylesheet" type="text/css" href="<%=basePath%>js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=basePath%>js/easyui/themes/icon.css">
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
-<script type="text/javascript">
-	$(function(){
-		$('#pg').propertygrid({   
-		    url: 'findOne',   
-		    showGroup: true,   
-		    scrollbarSize: 0   
-		});  
-	})
-</script>
 <body>
-	<table id="pg" style="width:300px"></table> 
+	<div style="width: 80%;margin: auto;">
+		<div style="width: 100%">借款人姓名</div>
+		<div style="width: 100%">总金额</div>
+		<div style="width: 100%">还款方式</div>
+		<div style="width: 100%">利率</div>
+		<div style="width: 100%">借款人工作</div>
+		<div style="width: 100%">借款人工资</div>
+		<div style="width: 100%">借款人信用评估</div>
+	</div>
+</body>
 </html>
