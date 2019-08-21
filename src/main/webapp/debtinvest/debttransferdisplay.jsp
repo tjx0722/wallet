@@ -28,14 +28,23 @@ $(function(){
 	        {field:'invest',title:'债权金额',width:100,align:'center',formatter: function(value,row,index){
 				return value.investamount;
 			}},  
-	        {field:'displaytime',title:'开始时间',width:100,align:'center',formatter: function (value) {
+			{field:'loanrate',title:'利率',width:100,align:'center',formatter: function(value,row,index){
+				return row.loanapply.loanrate.loanrate;
+			}}, 
+			{field:'loantime',title:'期数（月）',width:100,align:'center',formatter: function(value,row,index){
+				return row.loanapply.loantime.loantime;
+			}}, 
+			{field:'loanreason',title:'借款理由',width:100,align:'center',formatter: function(value,row,index){
+				return row.loanapply.reason;
+			}}, 
+	        {field:'displaytime',title:'开始筹标时间',width:100,align:'center',formatter: function (value) {
                 var dateMat = new Date(value);
                 var year = dateMat.getFullYear();
                 var month = dateMat.getMonth()+1;
                 var day = dateMat.getDate();
                 return  year + "-" + month + "-" + day;
             }},
-	        {field:'deadtime',title:'截止日期',width:100,align:'center',formatter: function (value) {
+	        {field:'deadtime',title:'截止筹标日期',width:100,align:'center',formatter: function (value) {
                 var dateMat = new Date(value);
                 var year = dateMat.getFullYear();
                 var month = dateMat.getMonth()+1;

@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoandisplayMapper;
 import com.woniu.domain.Loandisplay;
 import com.woniu.service.IInvestService;
@@ -33,6 +32,9 @@ public class InvestServiceImpl implements IInvestService {
 		// TODO Auto-generated method stub
 		return investMapper.selectByExample(null);
 	}
-	
-	
+	@Override
+	public Loandisplay findLoandisplayById(Integer loandisplayid) {
+		return loandisplayMapper.selectByPrimaryKey(loandisplayid);
+	}
+
 }

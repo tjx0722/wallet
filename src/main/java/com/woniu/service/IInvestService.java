@@ -9,4 +9,6 @@ public interface IInvestService {
 
 	List<Loandisplay> findAllLoadDisplay();
 	List findAllInvest();
+	Loandisplay findLoandisplayById(Integer loandisplayid);
+	
 }
