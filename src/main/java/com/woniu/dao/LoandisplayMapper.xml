@@ -14,7 +14,7 @@
     <result column="isdead" property="isdead" jdbcType="BIT" />
     <result column="loanapplyid" property="loanapplyid" jdbcType="INTEGER" />
     <association column="loandisplayid" property="investcount" select="com.woniu.dao.InvestMapper.countByLoandisplayid" /><!-- 查看已投资的总额 -->
-    <association property="loanapply" column="loanapplyid" select="com.woniu.dao.LoanapplyMapper.selectByPrimaryKey"></association>
+    <association property="loanapply" column="loanapplyid" select="com.woniu.dao.LoanapplyMapper.selectByPrimaryKey"  />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <!--

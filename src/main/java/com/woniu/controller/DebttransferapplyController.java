@@ -32,4 +32,12 @@ public class DebttransferapplyController {
 		return map;
 	}
 	
+	@RequestMapping("/findAllInvest")
+	public Map findAllInvest(PageBean pageBean) {
+		Map map=new HashMap();
+		List rows=investServiceImpl.findAllInvest();
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
 }

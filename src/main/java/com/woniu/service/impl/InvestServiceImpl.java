@@ -18,6 +18,8 @@ public class InvestServiceImpl implements IInvestService {
 
 	@Resource
 	private LoandisplayMapper loandisplayMapper;
+	@Resource
+	private InvestMapper investMapper;
 	
 	@Override
 	public List<Loandisplay> findAllLoadDisplay() {
@@ -25,6 +27,11 @@ public class InvestServiceImpl implements IInvestService {
 		return loandisplayMapper.selectByExample(null);
 	}
 
+	@Override
+	public List findAllInvest() {
+		// TODO Auto-generated method stub
+		return investMapper.selectByExample(null);
+	}
 	@Override
 	public Loandisplay findLoandisplayById(Integer loandisplayid) {
 		return loandisplayMapper.selectByPrimaryKey(loandisplayid);
