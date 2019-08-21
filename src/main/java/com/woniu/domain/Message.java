@@ -17,6 +17,7 @@ public class Message {
 		this.success = success;
 	}
 	public String getMsg() {
+		
 		return msg;
 	}
 	public void setMsg(String msg) {
