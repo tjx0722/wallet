@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoandisplayMapper;
 import com.woniu.domain.Loandisplay;
 import com.woniu.service.IInvestService;
