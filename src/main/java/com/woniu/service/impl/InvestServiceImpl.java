@@ -25,4 +25,9 @@ public class InvestServiceImpl implements IInvestService {
 		return loandisplayMapper.selectByExample(null);
 	}
 
+	@Override
+	public Loandisplay findLoandisplayById(Integer loandisplayid) {
+		return loandisplayMapper.selectByPrimaryKey(loandisplayid);
+	}
+
 }

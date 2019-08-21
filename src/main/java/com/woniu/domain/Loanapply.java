@@ -3,7 +3,18 @@ package com.woniu.domain;
 import java.util.Date;
 
 public class Loanapply {
-    @Override
+	
+	private Userinfo userinfo;		//获取借款申请人信息
+	
+    public Userinfo getUserinfo() {
+		return userinfo;
+	}
+
+	public void setUserinfo(Userinfo userinfo) {
+		this.userinfo = userinfo;
+	}
+
+	@Override
 	public String toString() {
 		return "Loanapply [loanapplyid=" + loanapplyid + ", userinfoid=" + userinfoid + ", loanamount=" + loanamount
 				+ ", applytime=" + applytime + ", checked=" + checked + ", loantimeid=" + loantimeid + ", loanrateid="

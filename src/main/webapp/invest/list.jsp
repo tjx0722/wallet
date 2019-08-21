@@ -51,7 +51,7 @@
 										title : '贷款利率',
 										width : 100,
 										formatter:function(value,row,index){
-											return row.loanapply.loanrate.loanrate;
+											return row.loanapply.loanrate.loanrate*100+"%";
 										}
 									},
 									{
@@ -79,7 +79,12 @@
 										field : 'operate',
 										title : '操作',
 										width : 100,
-									}] ],
+										formatter : function(value, row, index) {
+											var btns = "<a id=\"btn\" href=\"/invest/findLoandisplayById/"
+													+ row.loandisplayid +"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">买买买</a>";
+											return btns;
+										}
+									} ] ],
 							onLoadSuccess : function(index, field, value) {
 								$('.easyui-linkbutton').linkbutton({});
 							}

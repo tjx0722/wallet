@@ -15,7 +15,7 @@ import com.woniu.service.IDebttransferdisplayService;
 @RestController
 @RequestMapping("/debttransferdispaly")
 public class DebttransferdispalyController {
-	@Resource
+	@Resource 
 	private IDebttransferdisplayService debttransferdisplayServiceImpl;
 	
 	@RequestMapping("/findAll")

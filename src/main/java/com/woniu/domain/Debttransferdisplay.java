@@ -3,7 +3,16 @@ package com.woniu.domain;
 import java.util.Date;
 
 public class Debttransferdisplay {
+	private Loanapply loanapply;
 	private Invest invest;
+	public Loanapply getLoanapply() {
+		return loanapply;
+	}
+
+	public void setLoanapply(Loanapply loanapply) {
+		this.loanapply = loanapply;
+	}
+	
     public Invest getInvest() {
 		return invest;
 	}

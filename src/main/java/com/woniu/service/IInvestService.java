@@ -8,5 +8,7 @@ import com.woniu.domain.Loandisplay;
 public interface IInvestService {
 
 	List<Loandisplay> findAllLoadDisplay();
+
+	Loandisplay findLoandisplayById(Integer loandisplayid);
 	
 }

@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.woniu.service.IDebttransferapplyService;
+import com.woniu.service.IInvestService;
+import com.woniu.service.impl.InvestServiceImpl;
 import com.woniu.domain.PageBean;
 
 @RestController
 @RequestMapping("/debttransferapply")
 public class DebttransferapplyController {
-	@Resource
+	@Resource 
 	private IDebttransferapplyService debttransferapplyServiceImpl;
+	@Resource
+	private IInvestService investServiceImpl;
 	
 	@RequestMapping("/findAll")
 	public Map findAll(PageBean pageBean) {
