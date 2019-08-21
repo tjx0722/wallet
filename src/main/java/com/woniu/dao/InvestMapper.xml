@@ -16,6 +16,10 @@
     <result column="servicecharge" property="servicecharge" jdbcType="DOUBLE" />
     <result column="servicechargeid" property="servicechargeid" jdbcType="INTEGER" />
   </resultMap>
+  <!--根债权转让申请表id查出invset  -->
+  <select id="findBydebttransferapplyid" resultMap="BaseResultMap">
+  	select * from invest a,debttransferapply b where a.invsetid=b.investid and b.debttransferapplyid=#{id};
+  </select>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated
