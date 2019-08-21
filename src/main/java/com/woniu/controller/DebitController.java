@@ -23,6 +23,9 @@ public class DebitController {
 	@Resource
 	private IDebitService debitServiceImpl;
 	
+	@Resource
+	private IServicechargeService servicechargeServiceImpl;
+	
 	@RequestMapping("findAllLoantimeAndLoanrate")
 	private String findAllLoantimeAndLoanrate(ModelMap map) {
 		List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();

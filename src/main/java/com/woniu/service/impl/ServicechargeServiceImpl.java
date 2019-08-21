@@ -23,4 +23,11 @@ public class ServicechargeServiceImpl implements IServicechargeService {
 		return servicechargeMapper.selectByExample(null);
 	}
 
+	@Override
+	public Servicecharge findByServicechargeid(int servicechargeid) {
+		// TODO Auto-generated method stub
+		return servicechargeMapper.selectByPrimaryKey(servicechargeid);
+	}
+
+
 }
