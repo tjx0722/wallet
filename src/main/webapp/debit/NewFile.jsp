@@ -8,8 +8,8 @@
 </head>
 <body>
 <form action="test1">
-<input name="userid"/>
-<input name="account"/>
+<input name="userinfoid"/>
+<input name="username"/>
 <button>submit</button>
 </form>
 </body>

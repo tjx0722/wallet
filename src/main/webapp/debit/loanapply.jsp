@@ -63,7 +63,8 @@ $(document).ready(function(){
 <body class="easyui-layout">
 	<div data-options="region:'north',split:true"
 		style="height: 100px; background-color: #ccffff" align="center">
-		<h1>借 款 界 面</h1>
+		<h1>这 里 是借 款 界 面</h1>
+		<h3>欢迎用户 ${userinfo.username }</h3>
 	</div>
 	<div data-options="region:'center'"
 		style="padding: 50px; background: #eee;">
