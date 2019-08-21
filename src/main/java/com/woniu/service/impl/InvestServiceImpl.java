@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoandisplayMapper;
+import com.woniu.domain.Invest;
 import com.woniu.domain.Loandisplay;
 import com.woniu.service.IInvestService;
 
@@ -32,6 +33,12 @@ public class InvestServiceImpl implements IInvestService {
 	public List findAllInvest() {
 		// TODO Auto-generated method stub
 		return investMapper.selectByExample(null);
+	}
+
+	@Override
+	public Invest findOneInvest(int investId) {
+		// TODO Auto-generated method stub
+		return investMapper.selectByPrimaryKey(investId);
 	}
 	
 	

@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        {field:'investamount',title:'投资金额',width:100},   
 		        {field:'paytime',title:'付款时间',width:100},
 		        {field:'loandisplayid',title:'具体账单',width:100,formatter:function(value,row,index){
-		        	var btns = "<a id=\"btn\" href=\"javascript:findOneInvest("+row.loandisplayid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
+		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneInvest/"+row.loandisplayid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;
 				 }},
 		        {field:'istransfer',title:'是否转让',width:100,formatter:function(value,row,index){
@@ -56,37 +56,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}     
 		});  
 	});
-	function findOneInvest(loandisplayid){
-		$('#win').window('open');
-		$.getJSON("findOneInvest",{loandisplayid:loandisplayid},function(json){ 
-			
-		})
-	}; 
 </script>
 <body>
 	<table id="dg"></table>  
 	<div id="tb">
 		<a href="javascript:deleteBatch()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true">转让</a>
 	</div>
-	<div id="win" class="easyui-window" title="My Window" style="width:600px;height:400px"  
-        data-options="iconCls:'icon-save',modal:true,closed:true">  
-   	 	借贷账单详情
-		<div>  
-			<label>贷款金额:</label>  
-			<input readonly="readonly" type="text" name="loanamount" id="loanamount" data-options="required:true" />  
-		</div>  
-		<div>  
-			<label>还款方式:</label>  
-			<input readonly="readonly" type="text" name="loantimeid" id="loantimeid" data-options="required:true" />  
-		</div> 
-		<div>  
-			<label>贷款利率:</label>  
-			<input readonly="readonly" type="text" name="loanrateid" id="loanrateid" data-options="required:true" />  
-		</div>
-		<div>  
-			<label>通过时间:</label>  
-			<input readonly="readonly" type="text" name="deadtime" id="deadtime" data-options="required:true" />  
-		</div>
-	</div>  
 </body>
 </html>
