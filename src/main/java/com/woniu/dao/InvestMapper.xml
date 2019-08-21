@@ -20,6 +20,12 @@
   <select id="findBydebttransferapplyid" resultMap="BaseResultMap">
   	select * from invest a,debttransferapply b where a.invsetid=b.investid and b.debttransferapplyid=#{id};
   </select>
+  
+   <!--根据loandisplayid查出对应的投资总额  -->
+  <select id="countByLoandisplayid" resultType="DOUBLE">
+  	select sum(investamount) from invest where loandisplayid=#{loandisplayid};
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated

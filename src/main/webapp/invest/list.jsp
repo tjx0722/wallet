@@ -39,11 +39,11 @@
 							pagination : true,
 							columns : [ [
 									{
-										field : 'loanapply',
+										field : 'loanamount',
 										title : '贷款金额',
 										width : 100,
 										formatter:function(value,row,index){
-											return value.loanamount;
+											return row.loanapply.loanamount;
 										}
 									},
 									{
@@ -51,7 +51,7 @@
 										title : '贷款利率',
 										width : 100,
 										formatter:function(value,row,index){
-											
+											return row.loanapply.loanrate.loanrate;
 										}
 									},
 									{
@@ -60,14 +60,20 @@
 										width : 100
 									},
 									{
-										field : 'operate',
+										field : 'investcount',
 										title : '已投资金额',
 										width : 100,
+										formatter:function(value,row,index){
+											return row.investcount;
+										}
 									} ,
 									{
 										field : 'loantime',
-										title : '还款期限',
+										title : '还款期限（/月）',
 										width : 100,
+										formatter:function(value,row,index){
+											return row.loanapply.loantime.loantime+"个月";
+										}
 									} ,
 									{
 										field : 'operate',
@@ -84,7 +90,7 @@
 </head>
 <body>
 	<table id="dg"></table>
-
+	${list }
 	<div id="tb">
 		<form action="">
 			排序：

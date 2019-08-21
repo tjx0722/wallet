@@ -17,6 +17,7 @@
     <result column="servicecharge" property="servicecharge" jdbcType="DOUBLE" />
     <result column="servicechargeid" property="servicechargeid" jdbcType="INTEGER" />
     <association property="loanrate" column="loanrateid" select="com.woniu.dao.LoanrateMapper.selectByPrimaryKey"></association>
+    <association property="loantime" column="loantimeid" select="com.woniu.dao.LoantimeMapper.selectByPrimaryKey"></association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.woniu.domain.Loanapply" extends="BaseResultMap" >
     <!--

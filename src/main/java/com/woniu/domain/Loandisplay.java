@@ -3,8 +3,18 @@ package com.woniu.domain;
 import java.util.Date;
 
 public class Loandisplay {
-	private Loanapply loanapply;
-    public Loanapply getLoanapply() {
+	private Loanapply loanapply;		//查看所依据的借贷申请信息
+	private Double investcount;			//查看已投资的总额
+	
+    public Double getInvestcount() {
+		return investcount;
+	}
+
+	public void setInvestcount(Double investcount) {
+		this.investcount = investcount;
+	}
+
+	public Loanapply getLoanapply() {
 		return loanapply;
 	}
 

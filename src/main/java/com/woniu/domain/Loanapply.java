@@ -3,9 +3,18 @@ package com.woniu.domain;
 import java.util.Date;
 
 public class Loanapply {
-	private Loanrate loanrate;
+	private Loanrate loanrate;		//通过此类查看贷款利率
+	private Loantime loantime;		//通过此类查看还款时间
 	
-    public Loanrate getLoanrate() {
+    public Loantime getLoantime() {
+		return loantime;
+	}
+
+	public void setLoantime(Loantime loantime) {
+		this.loantime = loantime;
+	}
+
+	public Loanrate getLoanrate() {
 		return loanrate;
 	}
 
