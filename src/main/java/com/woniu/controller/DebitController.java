@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
+import com.woniu.domain.User;
 import com.woniu.service.IDebitService;
 @RequestMapping("/debit/")
 @Controller
 public class DebitController {
 	@Resource
 	private IDebitService debitServiceImpl;
-	
 	
 	@RequestMapping("findAllLoantime")
 	private String findAllLoantime(ModelMap map) {
@@ -30,6 +30,12 @@ public class DebitController {
 		List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
 		map.put("loanrates", loanrates);
 		return "/debit/loanapply";
+	}
+	@RequestMapping("test1")
+	private String test1(User user) {
+		
+		System.out.println(user.toString());
+		return null;
 	}
 	@RequestMapping("test")
 	private String test(Loanapply loanapply) {

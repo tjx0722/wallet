@@ -39,17 +39,23 @@
 							pagination : true,
 							columns : [ [
 									{
-										field : 'loanamout',
+										field : 'loanapply',
 										title : '贷款金额',
-										width : 100
+										width : 100,
+										formatter:function(value,row,index){
+											return value.loanamount;
+										}
 									},
 									{
-										field : 'loanrateid',
+										field : 'loanrate',
 										title : '贷款利率',
 										width : 100,
+										formatter:function(value,row,index){
+											
+										}
 									},
 									{
-										field : 'applytime',
+										field : 'deadtime',
 										title : '集资截至日期',
 										width : 100
 									},
@@ -59,7 +65,7 @@
 										width : 100,
 									} ,
 									{
-										field : 'operate',
+										field : 'loantime',
 										title : '还款期限',
 										width : 100,
 									} ,

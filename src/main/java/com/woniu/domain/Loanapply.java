@@ -9,6 +9,15 @@ public class Loanapply {
 				+ ", applytime=" + applytime + ", checked=" + checked + ", loantimeid=" + loantimeid + ", loanrateid="
 				+ loanrateid + ", servicecharge=" + servicecharge + ", servicechargeid=" + servicechargeid + ", reason="
 				+ reason + "]";
+		}
+	private Loanrate loanrate;
+	
+    public Loanrate getLoanrate() {
+		return loanrate;
+	}
+
+	public void setLoanrate(Loanrate loanrate) {
+		this.loanrate = loanrate;
 	}
 
 	/**

@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/debit/findAllLoantime">
+<form action="test1">
+<input name="userid"/>
+<input name="account"/>
 <button>submit</button>
 </form>
 </body>
