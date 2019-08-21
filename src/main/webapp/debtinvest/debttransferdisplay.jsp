@@ -22,7 +22,7 @@ $(function(){
 	    striped:true,
 	    pagination:true,
 	    title:'可投资债权',
-	    toolbar: '#tb',  
+	    toolbar: '#tb',
 	    columns:[[   
 	        {field:'debttransferdisplay',title:'序号',width:100,align:'center'},   
 	        {field:'invest',title:'债权金额',width:100,align:'center',formatter: function(value,row,index){
