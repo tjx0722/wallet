@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
+import com.woniu.domain.Servicecharge;
 import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
 import com.woniu.service.IDebitService;
@@ -42,12 +43,14 @@ public class DebitController {
 	}
 	@RequestMapping("test")
 	private String test(Loanapply loanapply,HttpSession session) {
-		System.out.println(loanapply.toString());
 		loanapply.setUserinfoid(((Userinfo) session.getAttribute("userinfo")).getUserinfoid());
 		loanapply.setApplytime(new Date());
-		System.out.println(new Date());
 		loanapply.setChecked(false);
-		loanapply.setServicecharge(loanapply.getLoanamount());
+		loanapply.setServicechargeid(1);
+		Servicecharge servicecharge = servicechargeServiceImpl.findByServicechargeid(loanapply.getServicechargeid());
+		Double chargerate = servicecharge.getChargerate();
+		loanapply.setServicecharge(loanapply.getLoanamount()*chargerate);
+		System.out.println(loanapply.toString());
 		return null;
 	}
 }

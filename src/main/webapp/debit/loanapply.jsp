@@ -74,7 +74,7 @@ $(document).ready(function(){
 					<label for="name">贷款金额:</label>
 				</div>
 				<div style="width: 70%; float: left; text-align: 40px">
-					<input id="slider" class="easyui-slider" value="$('#slider').slider('getValue')"
+					<input id="slider" class="easyui-slider" value="0"
 						name="loanamount"
 						style="width: 300px"
 						data-options="showTip:true,max:100000,rule:[0,'|',2500,'|',5000,'|',7500,'|',10000]" />

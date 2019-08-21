@@ -34,4 +34,14 @@ public class DebitServiceImpl implements IDebitService {
 		List<Loanrate> rates = loanrateMapper.selectByExample(null);
 		return rates;
 	}
+	@Override
+	public Loantime findLoantimeByLoantimeid(int loantimeid) {
+		// TODO Auto-generated method stub
+		return loantimeMapper.selectByPrimaryKey(loantimeid);
+	}
+	@Override
+	public Loanrate findLoanrateByservicechargeid(int servicechargeid) {
+		// TODO Auto-generated method stub
+		return loanrateMapper.selectByPrimaryKey(servicechargeid);
+	}
 }
