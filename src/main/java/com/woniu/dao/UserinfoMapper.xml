@@ -22,6 +22,12 @@
     <result column="ismarried" property="ismarried" jdbcType="BIT" />
     <result column="infochecked" property="infochecked" jdbcType="BIT" />
   </resultMap>
+  <delete id="deleteBatch">
+  	delete from userinfo where userinfoid in 
+  	<foreach collection="array" item="item" open="(" close=")" index="index" separator=",">
+  		#{item}
+  	</foreach>
+  </delete>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated

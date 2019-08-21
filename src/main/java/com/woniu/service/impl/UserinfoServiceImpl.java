@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.PageBean;
+import com.woniu.domain.Userinfo;
 import com.woniu.service.IUserinfoService;
 @Service
 public class UserinfoServiceImpl implements IUserinfoService {
@@ -21,6 +22,31 @@ private UserinfoMapper userinfoMapper;
 		int count=userinfoMapper.countByExample(null);
 		pagebean.setCount(count);	
 		return list;
+	}
+	@Override
+	public int delete(Integer userinfoid) {
+		// TODO Auto-generated method stub
+		return userinfoMapper.deleteByPrimaryKey(userinfoid);
+	}
+	@Override
+	public void deleteBatch(Integer[] userinfoid) {
+		// TODO Auto-generated method stub
+		userinfoMapper.deleteBatch(userinfoid);
+	}
+	@Override
+	public void save(Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		userinfoMapper.insert(userinfo);
+	}
+	@Override
+	public void update(Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		userinfoMapper.updateByPrimaryKey(userinfo);
+	}
+	@Override
+	public Userinfo findById(Integer userinfoid) {
+		// TODO Auto-generated method stub
+		return userinfoMapper.selectByPrimaryKey(userinfoid);
 	}
 
 }
