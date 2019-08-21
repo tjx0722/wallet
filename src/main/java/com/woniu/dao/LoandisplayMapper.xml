@@ -13,6 +13,7 @@
     <result column="isfinished" property="isfinished" jdbcType="BIT" />
     <result column="isdead" property="isdead" jdbcType="BIT" />
     <result column="loanapplyid" property="loanapplyid" jdbcType="INTEGER" />
+    <association property="loanapply" column="loanapplyid" select="com.woniu.dao.LoanapplyMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <!--
