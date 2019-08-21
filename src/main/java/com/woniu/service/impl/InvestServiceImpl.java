@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoandisplayMapper;
 import com.woniu.domain.Loandisplay;
 import com.woniu.service.IInvestService;
@@ -18,6 +19,8 @@ public class InvestServiceImpl implements IInvestService {
 
 	@Resource
 	private LoandisplayMapper loandisplayMapper;
+	@Resource
+	private InvestMapper investMapper;
 	
 	@Override
 	public List<Loandisplay> findAllLoadDisplay() {
@@ -25,4 +28,11 @@ public class InvestServiceImpl implements IInvestService {
 		return loandisplayMapper.selectByExample(null);
 	}
 
+	@Override
+	public List findAllInvest() {
+		// TODO Auto-generated method stub
+		return investMapper.selectByExample(null);
+	}
+	
+	
 }
