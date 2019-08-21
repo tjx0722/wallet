@@ -28,15 +28,30 @@ $(function(){
 	        {field:'invest',title:'债权金额',width:100,align:'center',formatter: function(value,row,index){
 				return value.investamount;
 			}},  
-	        {field:'displaytime',title:'开始时间',width:100,align:'center'},
-	        {field:'deadtime',title:'截止日期',width:100,align:'center'},
+	        {field:'displaytime',title:'开始时间',width:100,align:'center',formatter: function (value) {
+                var dateMat = new Date(value);
+                var year = dateMat.getFullYear();
+                var month = dateMat.getMonth()+1;
+                var day = dateMat.getDate();
+                return  year + "-" + month + "-" + day;
+            }},
+	        {field:'deadtime',title:'截止日期',width:100,align:'center',formatter: function (value) {
+                var dateMat = new Date(value);
+                var year = dateMat.getFullYear();
+                var month = dateMat.getMonth()+1;
+                var day = dateMat.getDate();
+                return  year + "-" + month + "-" + day;
+            }},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
-				var btns="<a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
+	        	var btns="<a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
 	        	return btns;
-				
 			}
 	        }   
-	    ]]   
+	    ]],
+	    onLoadSuccess: function(index,field,value){
+			$('.easyui-linkbutton').linkbutton({   
+			});  
+		}      
 	});  
 	
 })

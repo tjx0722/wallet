@@ -19,6 +19,14 @@
     <association property="loanrate" column="loanrateid" select="com.woniu.dao.LoanrateMapper.selectByPrimaryKey"></association>
     <association property="loantime" column="loantimeid" select="com.woniu.dao.LoantimeMapper.selectByPrimaryKey"></association>
   </resultMap>
+    <!--根据债权转让申请表id查出loanapply  -->
+  <select id="findBydebttransferapplyid" resultMap="BaseResultMap">
+  	select * from loanapply a,loandisplay b where 
+  	a.loanapplyid=b.loanapplyid and 
+	b.loandisplayid=
+	(select c.loandisplayid  from invest c,debttransferapply d where 
+	c.investid=d.investid and d.debttransferapplyid=#{id})
+  </select>
   <resultMap id="ResultMapWithBLOBs" type="com.woniu.domain.Loanapply" extends="BaseResultMap" >
     <!--
       WARNING - @mbggenerated
