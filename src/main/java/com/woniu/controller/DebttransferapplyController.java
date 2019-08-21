@@ -38,7 +38,7 @@ public class DebttransferapplyController {
 	@RequestMapping("/findAllInvest")
 	public Map findAllInvest(PageBean pageBean) {
 		Map map=new HashMap();
-		List rows=investServiceImpl.findAllInvest();
+		List rows=investServiceImpl.findAllInvest() ;
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
