@@ -34,7 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        {field:'userinfoid',title:'借贷人',width:100},   
 		        {field:'investamount',title:'投资金额',width:100},   
 		        {field:'displaytime',title:'付款时间',width:100},
-		        {field:'loandisplayid',title:'具体账单',width:100},
+		        {field:'loandisplayid',title:'具体账单',width:100，formatter:function(value,row,index){
+					
+			     }},
 		        {field:'istransfer',title:'是否转让',width:100,formatter:function(value,row,index){
 					if(!value){
 						return "N";
