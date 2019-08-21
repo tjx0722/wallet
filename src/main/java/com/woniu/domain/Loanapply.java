@@ -10,9 +10,18 @@ public class Loanapply {
 				+ loanrateid + ", servicecharge=" + servicecharge + ", servicechargeid=" + servicechargeid + ", reason="
 				+ reason + "]";
 		}
-	private Loanrate loanrate;
+	private Loanrate loanrate;		//通过此类查看贷款利率
+	private Loantime loantime;		//通过此类查看还款时间
 	
-    public Loanrate getLoanrate() {
+    public Loantime getLoantime() {
+		return loantime;
+	}
+
+	public void setLoantime(Loantime loantime) {
+		this.loantime = loantime;
+	}
+
+	public Loanrate getLoanrate() {
 		return loanrate;
 	}
 
