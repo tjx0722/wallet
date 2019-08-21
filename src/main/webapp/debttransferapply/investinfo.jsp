@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -13,3 +14,5 @@
 	</div>
 </body>
 </html>
+=======
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git

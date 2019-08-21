@@ -12,6 +12,12 @@
     <result column="debt" property="debt" jdbcType="DOUBLE" />
     <result column="userinfoid" property="userinfoid" jdbcType="INTEGER" />
   </resultMap>
+   <delete id="deleteBatch">
+  	delete from wallet where walletid in 
+  	<foreach collection="array" item="item" open="(" close=")" index="index" separator=",">
+  		#{item}
+  	</foreach>
+  </delete>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated

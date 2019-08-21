@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    toolbar: '#tb',
 		    pageSize:20,
 		    striped:true,
-		    title:'钱包信息管理',
+		    title:'钱包管理',
 		    pagination:true,
 		    columns:[[   
 		    	{field:'walletid',checkbox:'checkbox',title:'编号'},      
@@ -37,10 +37,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        {field:'balance',title:'余额'},   
 		        {field:'debt',title:'欠款'}, 
 		        {field:'userinfoid',title:'用户详情id'},
-		       
+
 		        {field:'operate',title:'操作',width:100,formatter: function(value,row,index){
-		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.stid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
-		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.stid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
+		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.walletid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
+		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.walletid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
 					return btns;
 				}
 				}
@@ -95,8 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#win').window('open');  // open a window 
 			$.getJSON("findById",{walletid:walletid},function(json){
 				$('#ff').form('load',json);	// 从URL加载
-				var sex = json.stsex?1:0;
-				$("input[name='sex'][value="+sex+"]").prop('checked','true');
+				
 			});
 		
 	}
@@ -108,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function dosave(){
-		var stid = $("#walletid").val();
+		var walletid = $("#walletid").val();
 		var path = "save";
 		if(walletid!=null&&walletid!=""&&walletid!=undefined){
 			path = "update";
@@ -145,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div id="win" class="easyui-window" title="My Window" style="width:600px;height:400px"  
         data-options="iconCls:'icon-save',modal:true,closed:true">  
-    	用户详情管理
+    	钱包管理
     	<form id="ff" method="post">  
     	<input type="hidden" name="walletid" id="walletid">
 	    <div>  

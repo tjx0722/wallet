@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     }
 		        	
 			        },
-		        {field:'stsex',title:'性别',formatter: function(value,row,index){
+		        {field:'sex',title:'性别',formatter: function(value,row,index){
 					if (value){
 						return '女';
 					} else {
@@ -120,8 +120,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$('#win').window('open');  // open a window 
 			$.getJSON("findById",{userinfoid:userinfoid},function(json){
 				$('#ff').form('load',json);	// 从URL加载
-				var sex = json.stsex?1:0;
-				$("input[name='stsex'][value="+sex+"]").prop('checked','true');
+				var sex = json.sex?1:0;
+				$("input[name='sex'][value="+sex+"]").prop('checked','true');
 			});
 		
 	}

@@ -11,4 +11,6 @@ public interface IInvestService {
 	List<Loandisplay> findAllLoadDisplay();
 	List findAllInvest();
 	Invest findOneInvest(int investId);
+	Loandisplay findLoandisplayById(Integer loandisplayid);
+	
 }
