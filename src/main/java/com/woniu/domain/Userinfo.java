@@ -6,7 +6,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Userinfo {
 	
-    @Override
+	private User user;		//可以查到对应的user
+	
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
 	public String toString() {
 		return "Userinfo [userinfoid=" + userinfoid + ", userid=" + userid + ", username=" + username
 				+ ", currentaddress=" + currentaddress + ", nativeplace=" + nativeplace + ", usericon=" + usericon
