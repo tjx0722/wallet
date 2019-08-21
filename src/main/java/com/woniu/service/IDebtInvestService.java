@@ -6,4 +6,5 @@ import com.woniu.domain.Debttransferdisplay;
 
 public interface IDebtInvestService {
 	List<Debttransferdisplay> findAll();
+	List<Debttransferdisplay> findUndead();
 }
