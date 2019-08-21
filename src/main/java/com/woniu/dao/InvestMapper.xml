@@ -18,7 +18,7 @@
   </resultMap>
   <!--根债权转让申请表id查出invset  -->
   <select id="findBydebttransferapplyid" resultMap="BaseResultMap">
-  	select * from invest a,debttransferapply b where a.invsetid=b.investid and b.debttransferapplyid=#{id};
+  	select * from invest a,debttransferapply b where a.investid=b.investid and b.debttransferapplyid=#{id};
   </select>
   
    <!--根据loandisplayid查出对应的投资总额  -->

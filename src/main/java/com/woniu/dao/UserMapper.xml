@@ -13,13 +13,18 @@
     <result column="phone" property="phone" jdbcType="CHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="isdelete" property="isdelete" jdbcType="BIT" />
+    <collection property="roles" column="userid" select="com.woniu.dao.RoleMapper.findByUid"></collection>
   </resultMap>
   
-  <resultMap id="BaseResultMapWithTree" type="com.woniu.domain.Userinfo" >
-  	<collection property="trees" column="uid" select="com.woniu.dao.TreeMapper.findByUid"></collection>
+  <resultMap id="BaseResultMapWithTree" type="com.woniu.domain.User" extends="BaseResultMap">
+  	<collection property="trees" column="userid" select="com.woniu.dao.TreeMapper.findByUid"></collection>
   </resultMap>
   
-   <select id="login" resultMap="BaseResultMap">
+   <!-- <resultMap id="BaseResultMapWithRole" type="com.woniu.domain.User" extends="BaseResultMap">
+  	<collection property="roles" column="userid" select="com.woniu.dao.RoleMapper.findByUid"></collection>
+  </resultMap> -->
+  
+   <select id="login" resultMap="BaseResultMapWithTree">
   	SELECT * from user where account=#{account} and password=#{password} and isdelete=0
   </select>
   

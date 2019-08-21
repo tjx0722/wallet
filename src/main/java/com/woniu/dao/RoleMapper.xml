@@ -10,6 +10,13 @@
     <id column="roleid" property="roleid" jdbcType="INTEGER" />
     <result column="rolename" property="rolename" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <select id="findByUid" resultMap="BaseResultMap">
+  	SELECT * FROM role r WHERE EXISTS (
+	    SELECT roleid FROM userrole WHERE userid=#{userid} AND roleid=r.roleid		
+	)
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated
