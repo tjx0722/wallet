@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-userlist
+userlist ${user.account } ${user.password } ${user.roles } 
 </body>
 </html>

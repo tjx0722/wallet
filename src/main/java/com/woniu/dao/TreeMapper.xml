@@ -13,6 +13,14 @@
     <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="parentid" property="parentid" jdbcType="INTEGER" />
   </resultMap>
+  
+  <select id="findByUid" resultMap="BaseResultMap" >
+  	select * from tree t where exists (
+		select a.treeid from roletree a,userrole b 
+		where a.treeid=t.treeid and a.roleid=b.roleid and b.userid=#{userid}
+	)
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated
