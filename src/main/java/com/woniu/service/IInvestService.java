@@ -13,5 +13,5 @@ public interface IInvestService {
 	Invest findOneInvest(int investId);
 	Loandisplay findLoandisplayById(Integer loandisplayid);
 	void transfer(int investId);
-	
+	void update(Invest invest);
 }

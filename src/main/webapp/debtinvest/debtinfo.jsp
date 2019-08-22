@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="col-md-6" style="height:100px;float:left;padding: 15px ">
 	<h4>债权总额</h4>
 		<div style="text-align: center">
-			<font class="text-danger" size="6px">${invest.investamount }</font> 
+			<font class="text-danger" size="6px" id="investamount">${invest.investamount }</font> 
 		</div>
 	</div>
 	<div class="col-md-6" style="height:100px;float:left;padding: 15px ">
@@ -79,10 +79,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div class="col-md-6" style="height:100px;float:left;padding: 15px ">
 	<h4>借款人信息</h4>
-	<div style="text-align: center">
+		<div style="text-align: center">
 			<table width="100%">
 				<tr>
-					<td>姓名：${userinfo. username} </td>
+					<td>姓名：${userinfo. username}</td>
 				</tr>
 				<tr>
 					<td>工作：${userinfo. userjob} </td>
@@ -100,8 +100,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div class="col-md-12" style="margin-top:40px;">
-		<button type="button" class="btn btn-warning col-md-12" >我要投资该笔债权</button>
+		<button type="button" class="btn btn-warning col-md-12" data-toggle="modal" data-target="#myModal" >我要投资该笔债权</button>
 	</div>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"><sapn >请支付${payment }</span>  &nbsp;&nbsp;&nbsp;(手续费${realcharge}) </h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="pay">确定支付</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </body>
+<script>
+	$(function(){
+		$("#pay").click(function(){
+			$("#myModal").modal('hide');
+			
+			location.href="debtinvestPay/"+${payment}+"/"+${servicecharge.servicechargeid}+"/"+${debttransferdisplay};
+		});
+
+	});
+</script>
 </html>

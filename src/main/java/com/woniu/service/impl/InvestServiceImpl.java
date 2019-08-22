@@ -55,4 +55,10 @@ public class InvestServiceImpl implements IInvestService {
 		invest.setIstransfer(true);
 		investMapper.updateByPrimaryKeySelective(invest);
 	}
+
+	@Override
+	public void update(Invest invest) {
+		// TODO Auto-generated method stub
+		investMapper.updateByPrimaryKey(invest);
+	}
 }
