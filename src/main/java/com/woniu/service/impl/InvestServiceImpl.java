@@ -55,4 +55,5 @@ public class InvestServiceImpl implements IInvestService {
 		invest.setIstransfer(true);
 		investMapper.updateByPrimaryKeySelective(invest);
 	}
+	
 }
