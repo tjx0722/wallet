@@ -61,6 +61,10 @@
        			<th>${loandisplay.investcount }元 </th>
        		</tr>
        		<tr>
+       			<th>可投资金额</th>
+       			<th>{{restcount}}元 </th>
+       		</tr>
+       		<tr>
        			<th>还款期限</th>
        			<th>${loandisplay.loanapply.loantime.loantime }个月</th>
        		</tr>
@@ -69,6 +73,7 @@
        <form action="">
             <div class="input-group">
 			  <span class="input-group-addon">投资金额</span>
+			  <span style="color: red" class="input-group-addon">{{msg}}</span>
 			  <input name="investamount" v-model="investamount" type="text" class="form-control" placeholder="请输入投资金额">
 			  <button class="btn btn-default" type="button" @click="purchase()">确认购买</button>
 			</div>
@@ -82,13 +87,19 @@
 			el:"#app",
 			data:{
 				json:"",
-				loandisplayid:"${loandisplay.loandisplayid }",
+				loandisplayid:${loandisplay.loandisplayid },
 				investamount:"",
-				action:""
+				restcount:${loandisplay.loanapply.loanamount-loandisplay.investcount },
+				msg:""
 			},
 			watch:{
 				investamount(newValue,oldValue){
+					this.msg="";
 					this.investamount=this.investamount.replace(/[^\d]/g,"");
+					if(this.investamount>this.restcount){
+						this.investamount="";
+						this.msg="投资金额必须小于或等于剩余筹款金额！";
+					}
 				}
 			},
 			methods:{

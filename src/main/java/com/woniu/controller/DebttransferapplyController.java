@@ -62,10 +62,13 @@ public class DebttransferapplyController {
 	
 	@RequestMapping("/transfer/{investId}")
 	public ModelAndView transfer(@PathVariable int investId,HttpSession session) {
-		ModelAndView mdv=new ModelAndView("debttransferapply/investlist");
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/investlist.jsp");
 		investServiceImpl.transfer(investId);
-		User user=(User) session.getAttribute("user");
-		int userinfoid=user.getUserinfo().getUserinfoid() ;
+		/*
+		 * User user=(User) session.getAttribute("user"); int
+		 * userinfoid=user.getUserinfo().getUserinfoid();
+		 */
+		int userinfoid=1;
 		debttransferapplyServiceImpl.add(investId,userinfoid);
 		return mdv;
 	}
