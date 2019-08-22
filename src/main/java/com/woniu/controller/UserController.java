@@ -6,12 +6,15 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
+import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.service.IUserService;
 
 @Controller
@@ -46,5 +49,11 @@ public class UserController {
 		
 		return "authorityModule/houtai/userlist";
 	}
-	
+	@RequestMapping("findUserinfoByUserid/{userid}")
+	public ModelAndView findUserinfoByUserid(@PathVariable Integer userid) {
+		Userinfo userinfo=service.findUserinfoByUserid(userid);
+		ModelAndView mav=new ModelAndView("userinfo/list");
+		mav.addObject("userinfo", userinfo);
+		return mav;
+	}
 }

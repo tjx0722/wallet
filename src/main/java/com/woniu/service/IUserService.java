@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
+import com.woniu.domain.Userinfo;
 
 public interface IUserService {
 	public void save(User user);
@@ -12,4 +13,5 @@ public interface IUserService {
 	public User findByUserid(Integer userid);
 	public List findAll(PageBean pb);
 	public User  login(User user);
+	public Userinfo findUserinfoByUserid(Integer userid);
 }
