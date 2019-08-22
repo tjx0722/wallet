@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="test1">
-<input name="userinfoid"/>
-<input name="username"/>
-<button>submit</button>
-</form>
+<h1>请登录后再试</h1>
 </body>
 </html>

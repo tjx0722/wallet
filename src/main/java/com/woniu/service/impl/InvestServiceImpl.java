@@ -47,4 +47,12 @@ public class InvestServiceImpl implements IInvestService {
 		return loandisplayMapper.selectByPrimaryKey(loandisplayid);
 	}
 
+	@Override
+	public void transfer(int investId) {
+		// TODO Auto-generated method stub
+		Invest invest=new Invest();
+		invest.setInvestid(investId);
+		invest.setIstransfer(true);
+		investMapper.updateByPrimaryKeySelective(invest);
+	}
 }
