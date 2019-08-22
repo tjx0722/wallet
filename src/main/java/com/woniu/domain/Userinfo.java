@@ -1,10 +1,11 @@
 package com.woniu.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class Userinfo {
+public class Userinfo implements Serializable{
 	
 	private User user;		//可以查到对应的user
 	
