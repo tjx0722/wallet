@@ -31,11 +31,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    columns:[[   
 		    	{field:'debttransferapplyid',checkbox:'checkbox',title:'编号',width:100},   
 		        {field:'userinfoid',title:'借贷人',width:100,formatter:function(value,row,index){
-		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneUser/"+row.userinfoid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
+		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/admin/findOneUser/"+row.userinfoid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;
 				 }}, 
 				{field:'investid',title:'投资表',width:100,formatter:function(value,row,index){
-			        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneUser/"+row.userinfoid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
+			        	var btns = "<a id=\"btn\" href=\"/debttransferapply/admin/findOneInvest/"+row.investid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 						return btns;
 				}},    
 		        {field:'applytime',title:'转让申请时间',width:100},   

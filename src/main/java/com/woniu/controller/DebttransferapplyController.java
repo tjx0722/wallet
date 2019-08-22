@@ -66,9 +66,23 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
+	@RequestMapping("/admin/findOneInvest/{investId}")
+	public ModelAndView findOneInvestadmin(@PathVariable int investId) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/admin/investinfo");
+		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		return mdv;
+	}
+	
 	@RequestMapping("/findOneUser/{investId}")
 	public ModelAndView findOneUser(@PathVariable int investId) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/userinfo");
+		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		return mdv;
+	}
+	
+	@RequestMapping("/admin/findOneUser/{investId}")
+	public ModelAndView findOneUseradmin(@PathVariable int investId) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/admin/userinfo");
 		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
 		return mdv;
 	}
