@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.impl.InvestServiceImpl;
+import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
 
@@ -60,16 +61,24 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
-	@RequestMapping("/transfer/{investId}")
-	public ModelAndView transfer(@PathVariable int investId,HttpSession session) {
-		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/investlist.jsp");
-		investServiceImpl.transfer(investId);
+	@RequestMapping("/istransfer/{investId}")
+	public ModelAndView istransfer(@PathVariable int investId,HttpSession session) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/tipsinfo");
 		/*
 		 * User user=(User) session.getAttribute("user"); int
 		 * userinfoid=user.getUserinfo().getUserinfoid();
 		 */
 		int userinfoid=1;
-		debttransferapplyServiceImpl.add(investId,userinfoid);
+		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
+		mdv.addObject("apply", debttransferapply);
+		return mdv;
+	}
+	
+	@RequestMapping("/transfer/{investid},{userinfoid}")
+	public ModelAndView transfer(@PathVariable Integer investid,@PathVariable Integer userinfoid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/investlist.jsp");
+		investServiceImpl.transfer(investid);
+		debttransferapplyServiceImpl.add(investid,userinfoid);
 		return mdv;
 	}
 	

@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+<title>Insert title here</title>
 <!-- 新 Bootstrap4 核心 CSS 文件 -->
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
  
@@ -14,15 +16,13 @@
  
 <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<meta charset="utf-8">
-<title>账单信息</title>
 </head>
 <body>
 	<div style="width: 500px;margin: auto;text-align: center;">
 		<table class="table table-striped table-bordered table-hover ">
 		    <thead>
 		      <tr>
-		        <th colspan="2">账单信息</th>
+		        <th colspan="2">确认信息</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -31,29 +31,32 @@
 		        <th>数据</th>
 		      </tr>
 		      <tr>
-		        <td>贷款金额</td>
-		        <td>${invest.loandisplay.loanapply.loanamount }</td>
+		        <td>用户详情id</td>
+		        <td>${apply.userinfoid }</td>
 		      </tr>
 		      <tr>
-		        <td>申请时间</td>
-		        <td>${invest.loandisplay.loanapply.applytime }</td>
+		        <td>投资表id</td>
+		        <td>${apply.investid }</td>
 		      </tr>
 		      <tr>
-		        <td>申请原因</td>
-		        <td>${invest.loandisplay.loanapply.reason }</td>
+		        <td>转让申请时间</td>
+		        <td>${apply.applytime }</td>
 		      </tr>
 		      <tr>
-		        <td>还款方式</td>
-		        <td>分期${invest.loandisplay.loanapply.loantime.loantime }月</td>
+		        <td>手续费类型</td>
+		        <td>${apply.servicechargeid }</td>
 		      </tr>
 		      <tr>
-		        <td>还款利率</td>
-		        <td>${invest.loandisplay.loanapply.loanrate.loanrate }%</td>
+		        <td>手续费</td>
+		        <td>${apply.servicecharge }</td>
 		      </tr>
 		    </tbody>
 		</table>
-		<input type="button" value="SALE" onclick="location.href='/debttransferapply/istransfer/${invest.investid}'">
-		<input type="button" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
+		<input type="button" value="确认"  onclick="location.href='/debttransferapply/transfer/${apply.investid},${apply.userinfoid}'" >
+		<input type="button" value="取消"  onclick="location.href='/debttransferapply/investlist.jsp'">
 	</div>
 </body>
+<script type="text/javascript">
+	
+</script>
 </html>

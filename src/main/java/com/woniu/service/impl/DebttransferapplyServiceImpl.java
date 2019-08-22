@@ -53,4 +53,29 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferapply.setServicechargeid(servicechargeid);
 		debttransferapplyMapper.insert(debttransferapply);
 	}
+
+	@Override
+	public Debttransferapply get(int investId, int userinfoid) {
+		// TODO Auto-generated method stub
+		Debttransferapply debttransferapply=new Debttransferapply();
+		debttransferapply.setInvestid(investId);
+		debttransferapply.setApplytime(new Date());
+		debttransferapply.setUserinfoid(userinfoid);
+		debttransferapply.setChecked(false);
+		
+		double investamount=investMapper.selectByPrimaryKey(investId).getInvestamount();
+		
+		List<Servicecharge> list=servicechargeMapper.selectByExample(null);
+		double servicecharge=0;
+		int servicechargeid=0;
+		for (Servicecharge s:list) {
+			if (s.getServicetype().equals("债权转让")) {
+				servicechargeid=s.getServicechargeid();
+				servicecharge=(s.getChargerate())*investamount;
+			}
+		}
+		debttransferapply.setServicecharge(servicecharge);
+		debttransferapply.setServicechargeid(servicechargeid);
+		return debttransferapply;
+	}
 }
