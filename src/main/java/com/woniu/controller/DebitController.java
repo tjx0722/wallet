@@ -37,21 +37,22 @@ public class DebitController {
 	private IUserinfoService UserinfoServiceImpl;
 	
 	@RequestMapping("findAllLoantimeAndLoanrate")
-	public String findAllLoantimeAndLoanrate(ModelMap map) {
-		System.out.println(1);
-		List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
-		System.out.println(2);
-		List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
-		for (Loanrate loanrate : loanrates) {
-			System.out.println(loanrate.getLoanrate());
-			loanrate.setLoanrate( (double) Math.round((loanrate.getLoanrate())*100) / 100);
-			System.out.println(loanrate.getLoanrate());
+	public String findAllLoantimeAndLoanrate(ModelMap map,HttpSession session) {
+		if(session.getAttribute("user") != null) {
+			List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
+			List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
+			for (Loanrate loanrate : loanrates) {
+				System.out.println(loanrate.getLoanrate());
+				loanrate.setLoanrate( (double) Math.round((loanrate.getLoanrate())*100) / 100);
+				System.out.println(loanrate.getLoanrate());
+			}
+			map.put("Loantimes", Loantimes);
+			map.put("loanrates", loanrates);
+			return "/debit/loanapply";
+		}else {
+			return "/unauthorized";
 		}
-		System.out.println(3);
-		map.put("Loantimes", Loantimes);
-		map.put("loanrates", loanrates);
-		System.out.println(4);
-		return "/debit/loanapply";
+		
 	}
 	@RequestMapping("test1")
 	public String test1(Userinfo userinfo,HttpSession session) {
