@@ -31,16 +31,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    modal:true  
 		}); 
 	}
+
+	function sendSms(){
+		var mobile = $("input[name=phone]").val();
+		$.get("sendSms",{mobile:mobile},function(json){
+			console.log(json);
+			$("#sp").html(json);
+		});
+	}
 </script>
 </head>
 <body>
 	<div id="win" class="text-center" >
 		<form action="/authorityModule/save" method="post" style="margin-top:60px">
-			账户：<input type="text" name="account" style="margin-top:10px"><br>
-			密码：<input type="text" name="password" style="margin-top:10px"><br>
-			电话：<input type="text" name="phone" style="margin-top:10px"><br>
-			邮箱：<input type="text" name="email" style="margin-top:10px"><br>
-			<button style="margin-top:10px">register</button>
+		<table>
+		<tr align-text="center">
+			<td>账户</td>
+			<td><input type="text" name="account" style="margin-top:10px"></td>
+		</tr>
+		<tr align-text="center">
+			<td>密码：</td>
+			<td><input type="text" name="password" style="margin-top:10px"></td>
+		</tr>
+		<tr align-text="center">
+			<td>电话：</td>
+			<td><span id="sp"></span>
+			<input type="text" name="phone" style="margin-top:10px"></td>
+		</tr>
+		<tr align-text="center">
+			<td colspan="2"><INPUT TYPE="button" onclick="sendSms()" value="发送验证码到手机"></td>
+		</tr>
+		<tr align-text="center">
+			<td>确认验证码:</td>
+			<td><INPUT TYPE="text" NAME="number" style="margin-top:10px"></td>
+		</tr>
+		<tr align-text="center">
+			<td colspan="2">(此验证码60秒之内有效)</td>
+		</tr>
+		<tr align-text="center">
+			<td>邮箱：</td>
+			<td><input type="text" name="email" style="margin-top:10px"></td>
+		</tr>
+		<tr align-text="center">
+			<td colspan="2"><button style="margin-top:10px">register</button></td>
+		</tr>
+		</table>
 		</form>
 	</div>  
 	
