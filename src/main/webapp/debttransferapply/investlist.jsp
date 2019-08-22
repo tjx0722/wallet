@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				}},
 				{field:'operate',title:'操作',width:100,formatter: function(value,row,index){ 
-		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/transfer("+row.investid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">售出</a>"; 
+		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/transfer/"+row.investid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">售出</a>"; 
 					return btns;
 				}}
 		    ]],

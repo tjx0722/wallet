@@ -7,6 +7,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Userinfo implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private User user;		//可以查到对应的user
 	
     public User getUser() {
