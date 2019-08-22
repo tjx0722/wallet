@@ -46,7 +46,7 @@ public class UserinfoController {
    @RequestMapping("findById")
 	public @ResponseBody Userinfo findById(Integer userinfoid) {
 	   Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
-		return userinfo;
+	return userinfo;
 	}
 	@RequestMapping("delete")
 	public @ResponseBody Message delete(Integer userinfoid) {

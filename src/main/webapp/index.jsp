@@ -43,28 +43,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<button style="margin-top:10px">register</button>
 		</form>
 	</div>  
-	<div class="col-md-10 text-center" style="margin-top:10px">
-		<span class="h3">Wallet小额贷款系统</span>
+	
+	<div class="container">
+	   <div class="jumbotron">
+	        <h1>Wallet小额贷款系统！</h1>
+	        <!-- <p><a class="btn btn-primary btn-lg" role="button">
+	        注册</a>
+	      </p> -->
+	    <button onclick="location.href='/authorityModule/GLYlogin.jsp'">Login</button>
+		|
+		<button onclick="register()">register</button>
+	   </div>
 	</div>
-	<div class="col-md-2 text-right"  style="margin-top:10px">
-		<!-- <button onclick="location.href='/authorityModule/login.jsp'">login</button>
-		| -->
+	
+	<!-- <div class="col-md-10 text-center" style="margin-top:10px">
+		<span class="h2">Wallet小额贷款系统</span>
+	</div> -->
+	<!-- <div class="col-md-2 text-right"  style="margin-top:10px">
+		<button onclick="location.href='/authorityModule/login.jsp'">login</button>
+		|
 		<button onclick="location.href='/authorityModule/GLYlogin.jsp'">Login</button>
 		|
 		<button onclick="register()">register</button>
-	</div>
-	<ul class="nav nav-tabs col-md-12" style="margin-top:30px">
-         <li class="col-md-2" style="text-align:center"><a href="http://www.baidu.com" target="iframe">个人中心</a></li>
-         <li class="col-md-2" style="text-align:center"><a href="/debit/findAllLoantimeAndLoanrate" target="iframe">借贷</a></li>
-         <li class="col-md-2" style="text-align:center"><a href="##">投资</a></li>
-         <li class="col-md-2" style="text-align:center"><a href="##">债权转让</a></li>
-         <li class="col-md-2" style="text-align:center"><a href="##">债权投资</a></li>
-     </ul>
+	</div> -->
+		<!-- <ul class="nav nav-tabs col-md-12" style="margin-top:30px">
+	         <li class="col-md-2" style="text-align:center"><a href="http://www.baidu.com" target="iframe">个人中心</a></li>
+	         <li class="col-md-2" style="text-align:center"><a href="/debit/findAllLoantimeAndLoanrate" target="iframe">借贷</a></li>
+	         <li class="col-md-2" style="text-align:center"><a href="##">投资</a></li>
+	         <li class="col-md-2" style="text-align:center"><a href="##">债权转让</a></li>
+	         <li class="col-md-2" style="text-align:center"><a href="##">债权投资</a></li>
+	     </ul> -->
 	 
-	<div>
+	<!-- <div>
 		<iframe id="iframe" name="iframe" src="" width="100%" height="400px">
 		  
 		</iframe>
-	</div>
+	</div> -->
+	
+	
 </body>
 </html>
