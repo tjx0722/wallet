@@ -7,10 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="test1">
-<input name="userinfoid"/>
-<input name="username"/>
-<button>submit</button>
-</form>
+<h1>这是用户提交借款信息完成 测试接口(用户id:1  用户名字:ROOT)</h1>
+
+
+<h2>您的信息已提交，5秒后返回主页面、、、、、</h2>
 </body>
 </html>

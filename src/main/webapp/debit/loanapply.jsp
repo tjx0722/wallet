@@ -21,43 +21,36 @@
 <script type="text/javascript"
 	src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
-$(document).ready(function(){ 
-	$.ajaxSetup({
-		global : true,
-		cache : false,
-		async : false
-	});
-	$("#btn").click(function() {
-		$.messager.progress();
-		alert($('#slider').slider('getValue'));
-		$('#ff').form('submit', {
-			url: 'test',
-			onSubmit: function(){
-				var isValid = $(this).form('validate');
-				if (!isValid){
-					$.messager.progress('close');	// 当form不合法的时候隐藏工具条
+	$(document).ready(function() {
+		$.ajaxSetup({
+			global : true,
+			cache : false,
+			async : false
+		});
+		/* 	$('#btn').click(function() {
+			$.messager.progress();
+
+			$('#ff').form('submit', {
+				url : 'excessive',
+				onSubmit : function() {
+					var isValid = $(this).form('validate');
+					if (!isValid) {
+						$.messager.progress('close'); // 当form不合法的时候隐藏工具条\
+					}
+					return isValid; // 返回false将停止form提交 
+				},
+				success : function() {
+					$.messager.progress('close'); // 当成功提交之后隐藏进度条
 				}
-				return isValid;	// 返回false将停止form提交 
-			},
-			success: function(){
-				$.messager.progress('close');	// 当成功提交之后隐藏进度条
-			}
+			});
+		}); */
+
+		$('#applytime').combo({
+			required : true,
+			multiple : true
 		});
 
-	});
-
-	$('#test').click(function(){
-		var a= 2.3;
-		var str=Number(a*100).toFixed();
-	alert(str);
-		})
-	
-	$('#applytime').combo({
-		required : true,
-		multiple : true
-	});
-
-})
+	})
 </script>
 </head>
 <body class="easyui-layout">
@@ -68,15 +61,14 @@ $(document).ready(function(){
 	</div>
 	<div data-options="region:'center'"
 		style="padding: 50px; background: #eee;">
-		<form id="ff" method="post">
+		<form id="ff" method="post" action="excessive">
 			<div style="height: 40px" align="center">
 				<div style="width: 30%; float: left" align="center">
 					<label for="name">贷款金额:</label>
 				</div>
 				<div style="width: 70%; float: left; text-align: 40px">
 					<input id="slider" class="easyui-slider" value="0"
-						name="loanamount"
-						style="width: 300px"
+						name="loanamount" style="width: 300px"
 						data-options="showTip:true,max:100000,rule:[0,'|',2500,'|',5000,'|',7500,'|',10000]" />
 				</div>
 			</div>
@@ -89,7 +81,7 @@ $(document).ready(function(){
 					<select id="cc" class="easyui-combobox" name="loanrateid"
 						style="width: 200px;">
 						<c:forEach items="${loanrates }" var="rate">
-							<option value="${rate.loanrateid}">${rate.loanrate *100}%</option>
+							<option value="${rate.loanrateid}">${(rate.loanrate)*1000/10}%</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -117,9 +109,10 @@ $(document).ready(function(){
 				</div>
 			</div>
 			<div style="width: 100%; float: left" align="right">
-				<a id="btn" href="#" class="easyui-linkbutton"
-					data-options="iconCls:'icon-add'">提交</a>
-					<button id="test" type="button">测试</button>
+				<button id="btn"  class="easyui-linkbutton"
+					data-options="iconCls:'icon-add'">提交</button>
+<!-- 				<a id="btn"  class="easyui-linkbutton"
+					data-options="iconCls:'icon-add'">提交</a> -->
 			</div>
 		</form>
 	</div>
