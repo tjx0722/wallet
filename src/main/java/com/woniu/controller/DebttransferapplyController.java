@@ -57,4 +57,11 @@ public class DebttransferapplyController {
 		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
 		return mdv;
 	}
+	
+	@RequestMapping("/transfer/{investId}")
+	public ModelAndView transfer(@PathVariable int investId) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/investlist");
+		investServiceImpl.transfer(investId);
+		return mdv;
+	}
 }
