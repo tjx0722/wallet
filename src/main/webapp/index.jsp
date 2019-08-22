@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<ul class="nav nav-tabs col-md-12" style="margin-top:30px">
          <li class="col-md-2" style="text-align:center"><a href="http://www.baidu.com" target="iframe">个人中心</a></li>
-         <li class="col-md-2" style="text-align:center"><a href="/debit/index.jsp" target="iframe">借贷</a></li>
+         <li class="col-md-2" style="text-align:center"><a href="/debit/findAllLoantimeAndLoanrate" target="iframe">借贷</a></li>
          <li class="col-md-2" style="text-align:center"><a href="##">投资</a></li>
          <li class="col-md-2" style="text-align:center"><a href="##">债权转让</a></li>
          <li class="col-md-2" style="text-align:center"><a href="##">债权投资</a></li>
