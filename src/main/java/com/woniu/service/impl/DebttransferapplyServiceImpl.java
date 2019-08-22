@@ -1,17 +1,25 @@
 package com.woniu.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
+
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.DebttransferapplyMapper;
+import com.woniu.dao.DebttransferdisplayMapper;
 import com.woniu.dao.InvestMapper;
 import com.woniu.dao.ServicechargeMapper;
 import com.woniu.domain.Debttransferapply;
+import com.woniu.domain.DebttransferapplyExample;
+import com.woniu.domain.DebttransferapplyExample.Criteria;
+import com.woniu.domain.Debttransferdisplay;
+import com.woniu.domain.PageBean;
 import com.woniu.domain.Servicecharge;
 import com.woniu.service.IDebttransferapplyService;
 
@@ -24,10 +32,16 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 	private ServicechargeMapper servicechargeMapper;
 	@Resource
 	private InvestMapper investMapper;
+	@Resource
+	private DebttransferdisplayMapper debttransferdisplayMapper;
 	@Override
-	public List findAll() {
+	public List findAll(PageBean pageBean) {
 		// TODO Auto-generated method stub
-		return debttransferapplyMapper.selectByExample(null);
+		DebttransferapplyExample example=new DebttransferapplyExample();
+		Criteria criteria=example.createCriteria();
+		criteria.andCheckedEqualTo(false);
+		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
+		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
 
 	@Override
@@ -77,5 +91,25 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferapply.setServicecharge(servicecharge);
 		debttransferapply.setServicechargeid(servicechargeid);
 		return debttransferapply;
+	}
+
+	@Override
+	public void check(int debttransferapplyid) {
+		// TODO Auto-generated method stub
+		Debttransferapply debttransferapply=new Debttransferapply();
+		debttransferapply.setDebttransferapplyid(debttransferapplyid);
+		debttransferapply.setChecked(true);
+		debttransferapplyMapper.updateByPrimaryKeySelective(debttransferapply);
+		Debttransferdisplay debttransferdisplay=new Debttransferdisplay();
+		Date date=new Date();
+		debttransferdisplay.setDisplaytime(date);
+		Calendar calendar=Calendar.getInstance();
+		calendar.add(Calendar.DATE, 3);
+		date=calendar.getTime();
+		debttransferdisplay.setDeadtime(date);
+		debttransferdisplay.setIsfinished(false);
+		debttransferdisplay.setIsdead(false);
+		debttransferdisplay.setDebttransferapplyid(debttransferapplyid);
+		debttransferdisplayMapper.insert(debttransferdisplay);
 	}
 }
