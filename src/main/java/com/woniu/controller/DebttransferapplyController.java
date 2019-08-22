@@ -29,19 +29,31 @@ public class DebttransferapplyController {
 	@Resource
 	private IInvestService investServiceImpl;
 	
-	@RequestMapping("/findAll")
+	@RequestMapping("/admin/findAll")
 	public Map findAll(PageBean pageBean) {
 		Map map=new HashMap();
-		List rows=debttransferapplyServiceImpl.findAll();
+		List rows=debttransferapplyServiceImpl.findAll(pageBean);
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
 	}
 	
+	@RequestMapping("/admin/check/{debttransferapplyid}")
+	public ModelAndView check(@PathVariable int debttransferapplyid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");
+		debttransferapplyServiceImpl.check(debttransferapplyid);
+		return mdv;
+	}
+	
 	@RequestMapping("/findAllInvest")
-	public Map findAllInvest(PageBean pageBean) {
+	public Map findAllInvest(PageBean pageBean,HttpSession session) {
 		Map map=new HashMap();
-		List rows=investServiceImpl.findAllInvest() ;
+		/*
+		 * User user=(User) session.getAttribute("user"); int
+		 * userinfoid=user.getUserinfo().getUserinfoid();
+		 */
+		int userinfoid=1;
+		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
