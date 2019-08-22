@@ -20,6 +20,7 @@ import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 import com.woniu.domain.Servicecharge;
+import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
 import com.woniu.service.IDebitService;
 import com.woniu.service.IServicechargeService;
@@ -38,7 +39,9 @@ public class DebitController {
 	
 	@RequestMapping("findAllLoantimeAndLoanrate")
 	public String findAllLoantimeAndLoanrate(ModelMap map,HttpSession session) {
-		if(session.getAttribute("user") != null) {
+		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+		if(userinfo != null) {
+			
 			List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
 			List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
 			for (Loanrate loanrate : loanrates) {
@@ -63,7 +66,9 @@ public class DebitController {
 	
 	@RequestMapping("excessive")
 	public  ModelAndView excessive(Loanapply loanapply,HttpSession session) {
-		loanapply.setUserinfoid((Userinfo) session.getAttribute("user")).getUserinfoid());
+		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+//		Userinfo userinfo = user.getUserinfo();
+		loanapply.setUserinfoid(userinfo.getUserinfoid());
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date=new Date();
 		String datetime = sdf.format(date);
