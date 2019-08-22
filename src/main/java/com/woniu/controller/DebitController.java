@@ -63,7 +63,7 @@ public class DebitController {
 	
 	@RequestMapping("excessive")
 	public  ModelAndView excessive(Loanapply loanapply,HttpSession session) {
-		loanapply.setUserinfoid(((Userinfo) session.getAttribute("userinfo")).getUserinfoid());
+		loanapply.setUserinfoid((Userinfo) session.getAttribute("user")).getUserinfoid());
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date=new Date();
 		String datetime = sdf.format(date);
