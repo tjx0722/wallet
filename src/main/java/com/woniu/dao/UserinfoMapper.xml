@@ -23,6 +23,9 @@
     <result column="infochecked" property="infochecked" jdbcType="BIT" />
     <association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
   </resultMap>
+  <select id="findByUid" resultMap="BaseResultMap">
+  	SELECT * FROM userinfo WHERE userid=#{userid}
+  </select>
   <delete id="deleteBatch">
   	delete from userinfo where userinfoid in 
   	<foreach collection="array" item="item" open="(" close=")" index="index" separator=",">

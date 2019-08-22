@@ -14,6 +14,7 @@
     <result column="phone" property="phone" jdbcType="CHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="isdelete" property="isdelete" jdbcType="BIT" />
+    <association property="userinfo" column="userid" select="com.woniu.dao.UserinfoMapper.findByUid"></association>
     <collection property="roles" column="userid" select="com.woniu.dao.RoleMapper.findByUid"></collection>
   </resultMap>
   

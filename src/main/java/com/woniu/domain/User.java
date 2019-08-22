@@ -3,6 +3,7 @@ package com.woniu.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -21,8 +22,19 @@ public class User implements Serializable{
 
     private String email;
 
+    private Userinfo userinfo;
     
-    public List getTrees() {
+    @JsonBackReference
+    public Userinfo getUserinfo() {
+		return userinfo;
+	}
+    
+    @JsonBackReference
+	public void setUserinfo(Userinfo userinfo) {
+		this.userinfo = userinfo;
+	}
+
+	public List getTrees() {
 		return trees;
 	}
 

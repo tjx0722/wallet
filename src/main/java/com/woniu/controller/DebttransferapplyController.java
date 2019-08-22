@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.impl.InvestServiceImpl;
 import com.woniu.domain.PageBean;
+import com.woniu.domain.User;
 
 @RestController
 @RequestMapping("/debttransferapply")
@@ -59,9 +61,12 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/transfer/{investId}")
-	public ModelAndView transfer(@PathVariable int investId) {
+	public ModelAndView transfer(@PathVariable int investId,HttpSession session) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/investlist");
 		investServiceImpl.transfer(investId);
+		User user=(User) session.getAttribute("user");
+		int userinfoid=user.getUserinfo().getUserinfoid() ;
+		debttransferapplyServiceImpl.add(investId,userinfoid);
 		return mdv;
 	}
 	
