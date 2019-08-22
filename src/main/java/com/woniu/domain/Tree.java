@@ -1,6 +1,8 @@
 package com.woniu.domain;
 
-public class Tree {
+import java.io.Serializable;
+
+public class Tree implements Serializable{
 	private boolean open = true;
 	
     public boolean isOpen() {

@@ -23,12 +23,13 @@ public class LoginController {
 	private ITreeService treeService;
 	
 	@RequestMapping("/login")
-	private String login(User user) {
+	private String login(User user,HttpSession session) {
 		User loginUser = userService.login(user);
 		System.out.println(loginUser);
 		if (loginUser==null) {
 			return "/authorityModule/login";
 		}else {
+			session.setAttribute("user", user);
 			return "redirect:/index.jsp";
 		}
 	}
@@ -45,7 +46,7 @@ public class LoginController {
 			String json = mapper.writeValueAsString(user.getTrees());
 			session.setAttribute("user", user);
 			session.setAttribute("json", json);
-			return "redirect:houtai/index.jsp";
+			return "redirect:houtai/userlist.jsp";
 		}
 	}
 }
