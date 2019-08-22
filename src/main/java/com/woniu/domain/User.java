@@ -2,6 +2,8 @@ package com.woniu.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class User {
 	private List trees;
 	
@@ -17,8 +19,19 @@ public class User {
 
     private String email;
 
+    private Userinfo userinfo;
     
-    public List getTrees() {
+    @JsonBackReference
+    public Userinfo getUserinfo() {
+		return userinfo;
+	}
+    
+    @JsonBackReference
+	public void setUserinfo(Userinfo userinfo) {
+		this.userinfo = userinfo;
+	}
+
+	public List getTrees() {
 		return trees;
 	}
 
