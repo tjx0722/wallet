@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.UserMapper;
+import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
 import com.woniu.service.IUserService;
 
@@ -41,9 +43,11 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public List findAll() {
+	public List findAll(PageBean pb) {
 		// TODO Auto-generated method stub
-		return userMapper.selectByExample(null);
+		int count = userMapper.countByExample(null);
+		pb.setCount(count);
+		return userMapper.selectByExample(null,new RowBounds(pb.getOffset(),pb.getLimit()));
 	}
 
 	@Override

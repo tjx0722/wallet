@@ -47,11 +47,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<span class="h3">Wallet小额贷款系统</span>
 	</div>
 	<div class="col-md-2 text-right"  style="margin-top:10px">
-		<button onclick="location.href='/authorityModule/login.jsp'">login</button>
+		<!-- <button onclick="location.href='/authorityModule/login.jsp'">login</button>
+		| -->
+		<button onclick="location.href='/authorityModule/GLYlogin.jsp'">Login</button>
 		|
 		<button onclick="register()">register</button>
-		|
-		<button onclick="location.href='/authorityModule/GLYlogin.jsp'">GLY Login</button>
 	</div>
 	<ul class="nav nav-tabs col-md-12" style="margin-top:30px">
          <li class="col-md-2" style="text-align:center"><a href="http://www.baidu.com" target="iframe">个人中心</a></li>
