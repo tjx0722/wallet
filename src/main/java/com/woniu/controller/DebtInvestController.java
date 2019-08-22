@@ -71,7 +71,6 @@ public class DebtInvestController {
 	@RequestMapping("debtinvestPay/{payment}/{servicechargeid}/{debttransferdisplay}")
 	public String  debtinvsetPay(HttpSession session,@PathVariable double payment,@PathVariable Integer servicechargeid,@PathVariable Integer debttransferdisplay) {
 		User user = (User) session.getAttribute("user");
-		System.out.println("DebtInvestController.debtinvsetPay()");
 //	往debtinvset表插数据	
 		Userinfo userinfo = user.getUserinfo();
 		Debtinvest debtinvest=new Debtinvest();		
