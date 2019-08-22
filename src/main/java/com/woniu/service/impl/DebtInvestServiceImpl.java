@@ -29,5 +29,11 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 		List<Debttransferdisplay> list = debttransferdisplayMapper.selectByExample(null);
 		return list;
 	}
+	@Override
+	public Debttransferdisplay findById(Integer debttransferdisplay) {
+		// TODO Auto-generated method stub
+		
+		return debttransferdisplayMapper.findById(debttransferdisplay);
+	}
 
 }

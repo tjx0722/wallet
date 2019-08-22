@@ -52,7 +52,7 @@ $(function(){
                 return  year + "-" + month + "-" + day;
             }},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
-	        	var btns="<a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
+	        	var btns="<a id=\"btn\" href=\"findById?debttransferdisplay="+row.debttransferdisplay+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
 	        	return btns;
 			}
 	        }   

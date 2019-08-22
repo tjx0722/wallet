@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DebttransferdisplayMapper {
+	Debttransferdisplay findById(Integer debttransferdisplay);
 	
 	List<Debttransferdisplay> findUndead();
     /**
