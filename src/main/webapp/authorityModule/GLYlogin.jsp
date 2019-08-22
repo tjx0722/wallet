@@ -29,7 +29,7 @@
 </script>
 </head>
 <body>
-	<h2>管理员登录界面！</h2>
+	<h2>登录界面！</h2>
 	<form action="/authorityModule/adminlogin" method="post">
 		<table>
 			<tr>

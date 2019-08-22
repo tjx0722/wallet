@@ -24,29 +24,29 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	private String login(User user,HttpSession session) {
-		User loginUser = userService.login(user);
-		System.out.println(loginUser);
-		if (loginUser==null) {
+		User LoginUser = userService.login(user);
+		System.out.println(LoginUser);
+		if (LoginUser==null) {
 			return "/authorityModule/login";
 		}else {
-			session.setAttribute("user", user);
+			session.setAttribute("user", LoginUser);
 			return "redirect:/index.jsp";
 		}
 	}
 	
 	@RequestMapping("/adminlogin")
 	private String adminlogin(User user,HttpSession session) throws JsonProcessingException {
-		user = userService.login(user);
-		System.out.println(user);
-		if (user==null) {
+		User LoginUser  = userService.login(user);
+		System.out.println(LoginUser);
+		if (LoginUser==null) {
 			return "/authorityModule/GLYlogin";
 		}else {
 			List trees = treeService.findAll();
 			ObjectMapper mapper =  new ObjectMapper();
-			String json = mapper.writeValueAsString(user.getTrees());
-			session.setAttribute("user", user);
+			String json = mapper.writeValueAsString(LoginUser.getTrees());
+			session.setAttribute("user", LoginUser);
 			session.setAttribute("json", json);
-			return "redirect:houtai/userlist.jsp";
+			return "redirect:houtai/index.jsp";
 		}
 	}
 }
