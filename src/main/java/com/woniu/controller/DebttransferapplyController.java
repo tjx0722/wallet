@@ -64,4 +64,5 @@ public class DebttransferapplyController {
 		investServiceImpl.transfer(investId);
 		return mdv;
 	}
+	
 }
