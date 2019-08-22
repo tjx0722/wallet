@@ -37,6 +37,7 @@ public class InvestController {
 	
 	@RequestMapping("purchase")
 	public ModelAndView purchase(Integer loandisplayid,Double investamount) {
+		
 		return null;
 	}
 
