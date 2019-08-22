@@ -42,7 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				enable:true,
 				idKey: "treeid",
 				pIdKey: "parentid",
-				
 				rootPId: ""
 			},
 			key: {
@@ -56,8 +55,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					zTree.expandNode(treeNode);
 					return false;
 				} else {
-					demoIframe.attr("src",treeNode.file + ".html");
-					return true;
+					demoIframe.attr("src",treeNode.file);
+					return null;
 				}
 			}
 		}
