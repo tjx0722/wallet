@@ -65,7 +65,7 @@ public class DebttransferapplyController {
 		ModelAndView mdv=new ModelAndView("debttransferapply/investlist");
 		investServiceImpl.transfer(investId);
 		User user=(User) session.getAttribute("user");
-		int userinfoid=user.getUserinfo().getUserinfoid();
+		int userinfoid=user.getUserinfo().getUserinfoid() ;
 		debttransferapplyServiceImpl.add(investId,userinfoid);
 		return mdv;
 	}
