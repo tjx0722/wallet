@@ -12,7 +12,7 @@
 		借贷人名称：${invest.loandisplay.loanapply.userinfo.username }<br/>
 		籍贯：${invest.loandisplay.loanapply.userinfo.nativeplace }<br/>
 		工作：${invest.loandisplay.loanapply.userinfo.userjob }<br/>
-		学历：${invest.loandisplay.loanapply.userinfo.degree }<br/>
+		学历：${invest.loandisplay.loanapply.userinfo.degree }<br/> 
 		工资：${invest.loandisplay.loanapply.userinfo.salary }<br/>
 		<input type="button" value="SALE" onclick="">
 		
