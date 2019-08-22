@@ -56,4 +56,5 @@ public class InvestServiceImpl implements IInvestService {
 		investMapper.updateByPrimaryKeySelective(invest);
 	}
 
+	
 }
