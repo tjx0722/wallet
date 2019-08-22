@@ -15,6 +15,7 @@
 		还款方式：${invest.loandisplay.loanapply.loantime.loantime }<br/>
 		还款利率：${invest.loandisplay.loanapply.loanrate.loanrate }<br/>
 		<input type="button" value="SALE" onclick="">
+		<input type="button" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
 	</div>
 </body>
 </html>

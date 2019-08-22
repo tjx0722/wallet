@@ -15,7 +15,7 @@
 		学历：${invest.loandisplay.loanapply.userinfo.degree }<br/> 
 		工资：${invest.loandisplay.loanapply.userinfo.salary }<br/>
 		<input type="button" value="SALE" onclick="">
-		
+		<input type="button" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
 	</div>
 </body>
 </html>
