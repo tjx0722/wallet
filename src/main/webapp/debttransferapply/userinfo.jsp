@@ -15,6 +15,7 @@
 		学历：${invest.loandisplay.loanapply.userinfo.degree }<br/>
 		工资：${invest.loandisplay.loanapply.userinfo.salary }<br/>
 		<input type="button" value="SALE" onclick="">
+		
 	</div>
 </body>
 </html>
