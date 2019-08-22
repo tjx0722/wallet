@@ -51,7 +51,7 @@ public class UserinfoController {
 	@RequestMapping("delete")
 	public @ResponseBody Message delete(Integer userinfoid) {
 		Message msg = null;
-		try {
+		try { 
 			int  count = userinfoServiceImpl.delete(userinfoid);
 			msg = new Message(true, "客户信息删除成功");
 		} catch (Exception e) {
