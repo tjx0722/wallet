@@ -68,8 +68,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
 					return btns;
 				}
-				}
-		    ]],
+				},
+				{
+					field : 'operate2',
+					title : '操作',
+					width : 100,
+					formatter : function(value, row, index) {
+						var btns = "<a id=\"btn\" href=\"/userinfo/findWalletByUserinfoid/"
+								+ row.userinfoid +"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">钱包</a>";
+						return btns;
+					}
+				} 
+
+	    ]],
 		    onLoadSuccess: function(index,field,value){
 				$('.easyui-linkbutton').linkbutton({   
 				});  
