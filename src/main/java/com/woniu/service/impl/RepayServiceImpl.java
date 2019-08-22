@@ -21,6 +21,7 @@ public class RepayServiceImpl implements IRepayService {
 		// TODO Auto-generated method stub
 		RepayExample example=new RepayExample();
 		example.createCriteria().andUserinfoidEqualTo(userinfoid);	
+		example.createCriteria().andIsfinishedEqualTo(true);
 		return repayMapper.selectByExample(example);
 	}
 

@@ -32,6 +32,9 @@ public class DebtInvestController {
 	public String  findUndead(Integer debttransferdisplay,ModelMap map) {
 		Debttransferdisplay debttransfer = debtInvestServiceImpl.findById(debttransferdisplay);
 		List<Repay> repays = repayServiceImpl.findByUser(debttransfer.getLoanapply().getUserinfo().getUserinfoid());
+		for (Repay repay : repays) {
+			System.out.println(repay.getPayAmount());
+		}
 		map.put("invest", debttransfer.getInvest());
 		map.put("loanapply", debttransfer.getLoanapply());
 		map.put("loantime", debttransfer.getLoanapply().getLoantime());
