@@ -45,8 +45,15 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/findOneInvest/{investId}")
-	public ModelAndView findAllInvest(@PathVariable int investId) {
+	public ModelAndView findOneInvest(@PathVariable int investId) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/investinfo");
+		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		return mdv;
+	}
+	
+	@RequestMapping("/findOneUser/{investId}")
+	public ModelAndView findOneUser(@PathVariable int investId) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/userinfo");
 		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
 		return mdv;
 	}
