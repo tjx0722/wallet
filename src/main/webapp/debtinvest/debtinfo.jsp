@@ -27,8 +27,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><a href="<%=basePath %>index.jsp"><span class="glyphicon glyphicon-log-in"></span> 注册</a></li>
 					</c:if>
 					<c:if test="${user!=null }">
-						<li><a href="<%=basePath %>index.jsp" id="login"><span class="glyphicon glyphicon-user"></span> ${user.account}</a></li>
-						<li><a href="<%=basePath %>index.jsp"><span class="glyphicon glyphicon-th"></span> 钱包</a></li>
+						<li><a href="#" id="login"><span class="glyphicon glyphicon-user"></span> ${user.account}</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-th"></span> 钱包</a></li>
 					</c:if>
 				</ul>
 			</div>			
