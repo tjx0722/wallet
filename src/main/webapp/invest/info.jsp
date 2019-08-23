@@ -77,7 +77,8 @@
 					name="investamount" v-model="investamount" type="text"
 					class="form-control"
 					placeholder="剩余可投资金额：${loandisplay.loanapply.loanamount-loandisplay.investcount }元,请输入投资金额">
-				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">确认购买</button>
+				<button class="btn btn-primary btn-lg" data-toggle="modal"
+					data-target="#myModal">确认购买</button>
 			</div>
 		</div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -87,31 +88,27 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">×</button>
-						<h4 class="modal-title text-center" id="myModalLabel">贼安全的支付页面</h4>
+						<h4 class="modal-title text-center" id="myModalLabel">请确认订单信息</h4>
 					</div>
-					<div class="modal-body">按下 ESC 按钮退出。</div>
-					<div class="modal-footer">
-						<table class="table table-striped table-bordered table-hover table-condensed">
-				       		<tr>
-				       			<th colspan="2">金盾正在为您保驾护航，请确认支付信息后输入支付密码</th>
-				       		</tr>
-				       		<tr>
-				       			<th>付款金额</th>
-				       			<th><span class="glyphicon glyphicon-gbp" style="color: red">{{investamount}}</span></th>
-				       		</tr>
-				       		<tr>
-				       			<th colspan="2">请输入6位支付密码</th>
-				       		</tr>
-				       		<tr>
-				       			<th colspan="2"><input name="password" v-model="password" type="password" /></th>
-				       		<tr/>
-				       		<tr>
-				       			<th colspan="2">
-									<button type="button" class="btn btn-primary">确认付款</button>
+					<div class="modal-body">按下 Esc 按钮退出。</div>
+					<div class="modal-body">
+						<table
+							class="table table-striped table-bordered table-hover table-condensed">
+							<tr>
+								<th colspan="2">14期全体成员正在为您保驾护航，请确认支付信息</th>
+							</tr>
+							<tr>
+								<th><font size="36">付款金额</font></th>
+								<th><span class="glyphicon glyphicon-gbp"
+									style="color: red">{{investamount}}</span></th>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<div  align="center"><button type="button" class="btn btn-primary">确认付款</button></div>
 								</th>
-				       		</tr>
-				       	</table>
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							</tr>
+						</table>
+						<div align="right"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></div>
 					</div>
 				</div>
 			</div>
