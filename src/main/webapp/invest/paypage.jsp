@@ -19,6 +19,8 @@
 	src="<%=basePath%>bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.js"></script>
+
 </head>
 <body>
 	<div id="app" class="panel panel-default">
@@ -27,7 +29,23 @@
 	  </div>
 	  <div class="panel-body">
 	   <div  class="col-md-12" >
-       	
+       	<table class="table table-striped table-bordered table-hover table-condensed">
+       		<tr>
+       			<th colspan="2">14期全体组员正在为您保驾护航，请确认支付信息后输入支付密码</th>
+       			<th>${loandisplay.loanapply.userinfo.username }</th>
+       		</tr>
+       		<tr>
+       			<th>付款金额</th>
+       			<th>${investamount }</th>
+       		</tr>
+       		<tr>
+       			<th>请输入6位支付密码</th>
+       			<th><input name="password" type="text" /></th>
+       		</tr>
+       		<tr>
+       			<th colspan="2"><input type="button" @click="pay()" value="确认"></th>
+       		</tr>
+       	</table>
        </div>
 	  </div>
 	</div>  
@@ -62,5 +80,5 @@
 			}
 		});
 	}
-</script>  
+</script>
 </html>

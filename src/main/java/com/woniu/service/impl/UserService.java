@@ -33,13 +33,13 @@ public class UserService implements IUserService {
 	@Override
 	public void update(User user) {
 		// TODO Auto-generated method stub
-
+		userMapper.updateByPrimaryKeySelective(user);
 	}
 
 	@Override
 	public User findByUserid(Integer userid) {
 		// TODO Auto-generated method stub
-		return null;
+		return userMapper.selectByPrimaryKey(userid);
 	}
 
 	@Override
