@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -53,7 +54,7 @@
 					</tr>
 					<tr>
 						<th>贷款利率</th>
-						<th>${loandisplay.loanapply.loanrate.loanrate*100 }%</th>
+						<th><fmt:formatNumber type="number" value="${loandisplay.loanapply.loanrate.loanrate*100 }" maxFractionDigits="0"/>%</th>
 					</tr>
 					<tr>
 						<th>贷款金额</th>
@@ -76,7 +77,7 @@
 			<div class="input-group">
 				<span class="input-group-addon">投资金额</span> <input
 					name="investamount" v-model="investamount" type="text"
-					class="form-control"
+					class="form-control" size="10" 
 					placeholder="剩余可投资金额：${loandisplay.loanapply.loanamount-loandisplay.investcount }元,请输入投资金额">
 				<button class="btn btn-primary btn-lg" data-toggle="modal"
 					data-target="#myModal">确认购买</button>
@@ -101,11 +102,7 @@
 								</td>
 							</tr>
 							<tr>
-<<<<<<< HEAD
 								<th style="text-align: center"><font color="blue" size="4">付款金额</font></th>
-=======
-								<th><font size="4">付款金额</font></th>
->>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
 								<th><span class="glyphicon glyphicon-gbp"
 									style="color: red">{{investamount}}</span></th>
 							</tr>
