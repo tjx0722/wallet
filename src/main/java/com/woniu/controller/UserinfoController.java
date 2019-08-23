@@ -85,6 +85,7 @@ public class UserinfoController {
 	public @ResponseBody Message update(Userinfo userinfo) {
 		Message msg = null;
 		try {
+			
 			userinfoServiceImpl.update(userinfo);
 			msg = new Message(true, "用户详细信息修改成功");
 		} catch (Exception e) {
