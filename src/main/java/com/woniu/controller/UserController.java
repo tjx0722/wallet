@@ -40,7 +40,6 @@ public class UserController {
 		System.out.println(phone+"  "+number+" "+redisNumber);
 		if(redisNumber!=null&&number!=null&&number.equals(redisNumber)) {
 			System.out.println("开始插入数据库，证明这个手机就是你的");
-			
 			service.save(user);
 			return "index";
 		}else {
@@ -89,7 +88,7 @@ public class UserController {
 	@RequestMapping("editPage")
 	public String editPage(HttpSession session,ModelMap map) {
 		User user = (User) session.getAttribute("user");
-		map.put("user", user);
+	//	map.put("user", user);
 		return "authorityModule/houtai/editUser"; 
 	}
 }
