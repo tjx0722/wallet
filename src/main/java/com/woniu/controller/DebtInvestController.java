@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniu.domain.Debtinvest;
-import com.woniu.domain.DebtinvestExample;
 import com.woniu.domain.Debttransferdisplay;
 import com.woniu.domain.Invest;
 import com.woniu.domain.PageBean;

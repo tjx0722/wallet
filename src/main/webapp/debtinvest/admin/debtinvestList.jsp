@@ -21,12 +21,15 @@ $(function(){
 	    fitColumns:true,  
 	    striped:true,
 	    pagination:true,
-	    title:'债权交易历史记录',
+	    title:'债权交易历史',
 	    toolbar: '#tb',  
 	    columns:[[   
 	        {field:'debtinvestid',title:'序号',width:100,align:'center'},   
 	        {field:'userinfo',title:'买进用户',width:100,align:'center',formatter: function (value) {
                 return  value.username;
+            }}, 
+            {field:'debttransferapply',title:'转出用户',width:100,align:'center',formatter: function (value,row,index) {
+                return row.display.debttransferapply.userinfo.username;
             }},   
 	        {field:'investamount',title:'总支付金额',width:100,align:'center'},  
 	        {field:'paytime',title:'支付时间',width:100,align:'center',formatter: function (value) {
@@ -42,11 +45,8 @@ $(function(){
 			}}, 
 	        {field:'servicecharge',title:'手续费',width:100,align:'center'}, 
 	        {field:'servicechargeid',title:'手续费型号',width:100,align:'center'},  
-	        {field:'display',title:'转出用户',width:100,align:'center',formatter: function (value) {
-                return value.debttransferapply.userinfo.username;
-            }},
-	        {field:'loanapply',title:'借款人',width:100,align:'center',formatter: function (value) {
-                return value.userinfo.username;
+	        {field:'loanapply',title:'借款人',width:100,align:'center',formatter: function (value,row,index) {
+                return row.display.loanapply.userinfo.username;
             }},
 	        {field:'debttransferdisplay',title:'债权通过表序号',width:100,align:'center'},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
