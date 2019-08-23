@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woniu.dao.LoanapplyMapper;
 import com.woniu.dao.LoanrateMapper;
 import com.woniu.dao.LoantimeMapper;
+import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 import com.woniu.service.IDebitService;
