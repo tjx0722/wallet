@@ -21,13 +21,18 @@ $(function(){
 	    fitColumns:true,  
 	    striped:true,
 	    pagination:true,
-	    title:'债权买进列表',
+	    title:'债权交易历史记录',
 	    toolbar: '#tb',  
 	    columns:[[   
 	        {field:'debtinvestid',title:'序号',width:100,align:'center'},   
-	        {field:'userinfoid',title:'用户id',width:100,align:'center'},   
-	        {field:'investamount',title:'债权投资金额',width:100,align:'center'},  
-	        {field:'paytime',title:'支付时间',width:100,align:'center'},
+	        {field:'userinfo',title:'买进用户',width:100,align:'center',formatter: function (value) {
+                return  value.username;
+            }},   
+	        {field:'investamount',title:'总支付金额',width:100,align:'center'},  
+	        {field:'paytime',title:'支付时间',width:100,align:'center',formatter: function (value) {
+                var dateMat = new Date(value);
+                return  dateMat.toLocaleString();
+            }},
 	        {field:'istransfer',title:'是否转让给他人',width:100,align:'center',formatter: function(value,row,index){
 				if (value){
 					return '已转让';
@@ -37,14 +42,24 @@ $(function(){
 			}}, 
 	        {field:'servicecharge',title:'手续费',width:100,align:'center'}, 
 	        {field:'servicechargeid',title:'手续费型号',width:100,align:'center'},  
-	        {field:'debttransferdisplay',title:'债权源序号',width:100,align:'center'},
+	        {field:'display',title:'转出用户',width:100,align:'center',formatter: function (value) {
+                return value.debttransferapply.userinfo.username;
+            }},
+	        {field:'loanapply',title:'借款人',width:100,align:'center',formatter: function (value) {
+                return value.userinfo.username;
+            }},
+	        {field:'debttransferdisplay',title:'债权通过表序号',width:100,align:'center'},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
 				var btns="<a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
 	        	return btns;
 				
 			}
 	        }   
-	    ]]   
+	    ]],
+	    onLoadSuccess: function(index,field,value){
+			$('.easyui-linkbutton').linkbutton({   
+			});  
+		}       
 	});  
 	
 })
