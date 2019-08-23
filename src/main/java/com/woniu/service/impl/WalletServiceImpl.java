@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
-
+import com.woniu.domain.WalletExample;
 import com.woniu.dao.BankcardMapper;
 import com.woniu.dao.WalletMapper;
 import com.woniu.domain.Bankcard;
@@ -63,5 +63,12 @@ public class WalletServiceImpl implements IWalletService {
 		// TODO Auto-generated method stub
 		return bankcardMapper.selectByPrimaryKey(walletid);
 	}
-
+	@Override
+	public Wallet findByUserinfo(Integer userinfoid) {
+		// TODO Auto-generated method stub
+		WalletExample example=new WalletExample();
+		example.createCriteria().andUserinfoidEqualTo(userinfoid);
+		List<Wallet> list = walletMapper.selectByExample(example);
+		return list.get(0);
+	}
 }

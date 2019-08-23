@@ -19,7 +19,7 @@
 </head>
 <body>
 	<div style="width: 500px;margin: auto;text-align: center;">
-	<table class="table table-striped table-bordered table-hover table-condensed">
+	<table class="table table-striped table-bordered table-hover ">
 		    <thead>
 		      <tr>
 		        <th colspan="2">借贷人信息</th>
@@ -52,8 +52,7 @@
 		      </tr>
 		    </tbody>
 		</table>
-		<input type="button" class="btn btn-primary" value="SALE" onclick="location.href='/debttransferapply/istransfer/${invest.investid}'" >
-		<input type="button" class="btn btn-primary" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
+		<input type="button" class="btn btn-primary" value="返回"  onclick="location.href='/debttransferapply/admin/applylist.jsp'">
 	</div>
 </body>
 </html>

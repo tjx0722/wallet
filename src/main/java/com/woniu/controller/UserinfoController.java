@@ -50,12 +50,12 @@ public class UserinfoController {
    @RequestMapping("findById")
 	public @ResponseBody Userinfo findById(Integer userinfoid) {
 	   Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
-		return userinfo;
+	return userinfo;
 	}
 	@RequestMapping("delete")
 	public @ResponseBody Message delete(Integer userinfoid) {
 		Message msg = null;
-		try {
+		try { 
 			int  count = userinfoServiceImpl.delete(userinfoid);
 			msg = new Message(true, "客户信息删除成功");
 		} catch (Exception e) {

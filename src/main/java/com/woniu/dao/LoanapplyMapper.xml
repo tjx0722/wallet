@@ -28,6 +28,10 @@
 	(select c.loandisplayid  from invest c,debttransferapply d where 
 	c.investid=d.investid and d.debttransferapplyid=#{id})
   </select>
+   <!--根据贷款申请表loanapplyid查出每期还款金额  -->
+  <select id="findPayAmount" resultType="double">
+  	select a.loanamount*b.loanrate from loanapply a,loanrate b where a.loanrateid=b.loanrateid and loanapplyid=#{id}
+  </select>
   <resultMap id="ResultMapWithBLOBs" type="com.woniu.domain.Loanapply" extends="BaseResultMap" >
     <!--
       WARNING - @mbggenerated

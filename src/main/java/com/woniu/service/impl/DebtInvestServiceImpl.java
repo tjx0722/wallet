@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woniu.dao.DebtinvestMapper;
 import com.woniu.dao.DebttransferdisplayMapper;
+import com.woniu.domain.Debtinvest;
 import com.woniu.domain.Debttransferdisplay;
 import com.woniu.service.IDebtInvestService;
 @Service
@@ -15,6 +17,8 @@ import com.woniu.service.IDebtInvestService;
 public class DebtInvestServiceImpl implements IDebtInvestService {
 	@Resource
 	private DebttransferdisplayMapper debttransferdisplayMapper;
+	@Resource
+	private DebtinvestMapper debtinvestMapper;
 	
 	@Override
 	public List<Debttransferdisplay> findUndead() {
@@ -34,6 +38,11 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 		// TODO Auto-generated method stub
 		
 		return debttransferdisplayMapper.findById(debttransferdisplay);
+	}
+	@Override
+	public void save(Debtinvest debtinvest) {
+		// TODO Auto-generated method stub
+		debtinvestMapper.insertSelective(debtinvest);
 	}
 
 }

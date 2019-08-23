@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.impl.InvestServiceImpl;
+import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
 
@@ -28,19 +29,31 @@ public class DebttransferapplyController {
 	@Resource
 	private IInvestService investServiceImpl;
 	
-	@RequestMapping("/findAll")
+	@RequestMapping("/admin/findAll")
 	public Map findAll(PageBean pageBean) {
 		Map map=new HashMap();
-		List rows=debttransferapplyServiceImpl.findAll();
+		List rows=debttransferapplyServiceImpl.findAll(pageBean);
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
 	}
 	
+	@RequestMapping("/admin/check/{debttransferapplyid}")
+	public ModelAndView check(@PathVariable int debttransferapplyid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");
+		debttransferapplyServiceImpl.check(debttransferapplyid);
+		return mdv;
+	}
+	
 	@RequestMapping("/findAllInvest")
-	public Map findAllInvest(PageBean pageBean) {
+	public Map findAllInvest(PageBean pageBean,HttpSession session) {
 		Map map=new HashMap();
-		List rows=investServiceImpl.findAllInvest() ;
+		/*
+		 * User user=(User) session.getAttribute("user"); int
+		 * userinfoid=user.getUserinfo().getUserinfoid();
+		 */
+		int userinfoid=1;
+		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
@@ -53,6 +66,13 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
+	@RequestMapping("/admin/findOneInvest/{investId}")
+	public ModelAndView findOneInvestadmin(@PathVariable int investId) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/admin/investinfo");
+		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		return mdv;
+	}
+	
 	@RequestMapping("/findOneUser/{investId}")
 	public ModelAndView findOneUser(@PathVariable int investId) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/userinfo");
@@ -60,16 +80,31 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
-	@RequestMapping("/transfer/{investId}")
-	public ModelAndView transfer(@PathVariable int investId,HttpSession session) {
-		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/investlist.jsp");
-		investServiceImpl.transfer(investId);
+	@RequestMapping("/admin/findOneUser/{investId}")
+	public ModelAndView findOneUseradmin(@PathVariable int investId) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/admin/userinfo");
+		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		return mdv;
+	}
+	
+	@RequestMapping("/istransfer/{investId}")
+	public ModelAndView istransfer(@PathVariable int investId,HttpSession session) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/tipsinfo");
 		/*
 		 * User user=(User) session.getAttribute("user"); int
 		 * userinfoid=user.getUserinfo().getUserinfoid();
 		 */
 		int userinfoid=1;
-		debttransferapplyServiceImpl.add(investId,userinfoid);
+		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
+		mdv.addObject("apply", debttransferapply);
+		return mdv;
+	}
+	
+	@RequestMapping("/transfer/{investid},{userinfoid}")
+	public ModelAndView transfer(@PathVariable Integer investid,@PathVariable Integer userinfoid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/investlist.jsp");
+		investServiceImpl.transfer(investid);
+		debttransferapplyServiceImpl.add(investid,userinfoid);
 		return mdv;
 	}
 	

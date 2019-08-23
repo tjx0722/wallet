@@ -1,18 +1,19 @@
 package com.woniu.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoandisplayMapper;
 import com.woniu.domain.Invest;
+import com.woniu.domain.InvestExample;
+import com.woniu.domain.InvestExample.Criteria;
 import com.woniu.domain.Loandisplay;
+import com.woniu.domain.PageBean;
 import com.woniu.service.IInvestService;
 
 @Service
@@ -24,15 +25,9 @@ public class InvestServiceImpl implements IInvestService {
 	private InvestMapper investMapper;
 	
 	@Override
-	public List<Loandisplay> findAllLoadDisplay() {
-		
-		return loandisplayMapper.selectByExample(null);
-	}
-
-	@Override
-	public List findAllInvest() {
-		// TODO Auto-generated method stub
-		return investMapper.selectByExample(null);
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb) {
+		pb.setCount(loandisplayMapper.countByExample(null));
+		return loandisplayMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
 	@Override
@@ -54,5 +49,21 @@ public class InvestServiceImpl implements IInvestService {
 		invest.setInvestid(investId);
 		invest.setIstransfer(true);
 		investMapper.updateByPrimaryKeySelective(invest);
+	}
+
+	@Override
+	public void update(Invest invest) {
+		// TODO Auto-generated method stub
+		investMapper.updateByPrimaryKey(invest);
+	}
+	@Override
+	public List findAllInvest(PageBean pageBean, int userinfoid) {
+		// TODO Auto-generated method stub
+		InvestExample example=new InvestExample();
+		Criteria criteria=example.createCriteria();
+		/* criteria.andIstransferEqualTo(false); */
+		criteria.andUserinfoidEqualTo(userinfoid);
+		pageBean.setCount((int)investMapper.countByExample(example));
+		return investMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
 }
