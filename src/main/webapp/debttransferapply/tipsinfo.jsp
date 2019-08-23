@@ -19,7 +19,7 @@
 </head>
 <body>
 	<div style="width: 500px;margin: auto;text-align: center;">
-		<table class="table table-striped table-bordered table-hover ">
+		<table class="table table-striped table-bordered table-hover table-condensed">
 		    <thead>
 		      <tr>
 		        <th colspan="2">确认信息</th>
@@ -88,6 +88,5 @@
 		</div>
 </body>
 <script type="text/javascript">
-	
 </script>
 </html>

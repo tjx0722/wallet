@@ -25,9 +25,9 @@ public class InvestServiceImpl implements IInvestService {
 	private InvestMapper investMapper;
 	
 	@Override
-	public List<Loandisplay> findAllLoadDisplay() {
-		
-		return loandisplayMapper.selectByExample(null);
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb) {
+		pb.setCount(loandisplayMapper.countByExample(null));
+		return loandisplayMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
 	@Override

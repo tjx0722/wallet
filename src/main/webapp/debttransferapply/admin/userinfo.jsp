@@ -52,7 +52,7 @@
 		      </tr>
 		    </tbody>
 		</table>
-		<input type="button" value="返回"  onclick="location.href='/debttransferapply/admin/applylist.jsp'">
+		<input type="button" class="btn btn-primary" value="返回"  onclick="location.href='/debttransferapply/admin/applylist.jsp'">
 	</div>
 </body>
 </html>

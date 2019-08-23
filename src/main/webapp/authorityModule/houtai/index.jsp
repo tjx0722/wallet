@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					demoIframe.attr("src",treeNode.file);
 					return null;
 				}
-			}
+			} 
 		}
 	};
 

@@ -59,14 +59,16 @@ public class DebtInvestController {
 		List<Repay> repays = repayServiceImpl.findByUser(debttransfer.getLoanapply().getUserinfo().getUserinfoid());
 		Servicecharge servicecharge = servicechargeServiceImpl.findByServicechargeid(3);
 		User user = (User) session.getAttribute("user");
-		Userinfo loginuserinfo = user.getUserinfo();
-		Wallet wallet = walletService.findByUserinfo(loginuserinfo.getUserinfoid());
+		if(user!=null) {
+			Userinfo loginuserinfo = user.getUserinfo();
+			Wallet wallet = walletService.findByUserinfo(loginuserinfo.getUserinfoid());
+			map.put("wallet", wallet);
+		}		
 		map.put("invest", debttransfer.getInvest());
 		map.put("loanapply", debttransfer.getLoanapply());
 		map.put("loantime", debttransfer.getLoanapply().getLoantime());
 		map.put("loanrate", debttransfer.getLoanapply().getLoanrate());
-		map.put("userinfo", debttransfer.getLoanapply().getUserinfo());
-		map.put("wallet", wallet);
+		map.put("userinfo", debttransfer.getLoanapply().getUserinfo());		
 		map.put("loandispaly",debttransfer.getInvest().getLoandisplay());
 		map.put("servicecharge", servicecharge);
 		map.put("realcharge", debttransfer.getInvest().getInvestamount()*servicecharge.getChargerate());
