@@ -33,12 +33,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 
 	function sendSms(){
-		var mobile = $("input[name=phone]").val();
-		$.get("sendSms",{mobile:mobile},function(json){
-			console.log(json);
-			$("#sp").html(json);
-		});
-	}
+		var phone = $("input[name=phone]").val();
+		$.get("sendSms",{phone:phone}/* ,
+			function(){
+				alert(phone);	
+			} */
+		);
+	} 
 </script>
 </head>
 <body>
@@ -59,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="text" name="phone" style="margin-top:10px"></td>
 		</tr>
 		<tr align-text="center">
-			<td colspan="2"><INPUT TYPE="button" onclick="sendSms()" value="发送验证码到手机"></td>
+			<td colspan="2"><INPUT TYPE="button"  onclick="sendSms()" value="发送验证码到手机"></td>
 		</tr>
 		<tr align-text="center">
 			<td>确认验证码:</td>
