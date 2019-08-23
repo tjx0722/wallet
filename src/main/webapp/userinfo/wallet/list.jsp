@@ -44,9 +44,11 @@
        		
        		
        	</table>
-       
+       <form action="/userinfo/wallet/findBankcardByWalletid">
+              <input  type="hidden" name="walletid" value="${wallet.walletid }"/>
+             <button class="btn btn-default" type="submit" >我的钱包</button>
+       </form>
        </div>
-       
 	  </div>
 	</div>  
 </body>
@@ -61,7 +63,8 @@
 				restcount:${wallet },
 				msg:""
 			},
-
+			methods:{
+			}	
 			
 		});
 	}

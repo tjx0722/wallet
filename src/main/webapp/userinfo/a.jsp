@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-11111
+
+${bankcard.bankcardid }
+${bankcard.bankcardnum }
+${bankcard.bankcardname }
+${bankcard.walletid }
+
 </body>
 </html>
