@@ -80,15 +80,18 @@ public class UserController {
 	
 	@RequestMapping("updateUser")
 	public String updateUser(User user) {
+		System.out.println(user+"+++++");
 		service.update(user);
 		System.out.println("update");
-		return "redirect:/authorityModule/houtai/personal.jsp";
+		return "authorityModule/houtai/personal";
 	}
 	
 	@RequestMapping("editPage")
-	public String editPage(HttpSession session,ModelMap map) {
-		User user = (User) session.getAttribute("user");
-	//	map.put("user", user);
+	public String editPage(Integer userid,HttpSession session,ModelMap map) {
+		//User user = (User) session.getAttribute("user");
+		User user = service.findByUserid(userid);
+		System.out.println(user+".....");
+		map.put("user", user);
 		return "authorityModule/houtai/editUser"; 
 	}
 }
