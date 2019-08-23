@@ -111,8 +111,6 @@
 			<div style="width: 100%; float: left" align="right">
 				<button id="btn"  class="easyui-linkbutton"
 					data-options="iconCls:'icon-add'">提交</button>
-<!-- 				<a id="btn"  class="easyui-linkbutton"
-					data-options="iconCls:'icon-add'">提交</a> -->
 			</div>
 		</form>
 	</div>
