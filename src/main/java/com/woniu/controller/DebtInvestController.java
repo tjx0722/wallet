@@ -19,11 +19,13 @@ import com.woniu.domain.Repay;
 import com.woniu.domain.Servicecharge;
 import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.service.IDebtInvestService;
 import com.woniu.service.IDebttransferdisplayService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.IRepayService;
 import com.woniu.service.IServicechargeService;
+import com.woniu.service.IWalletService;
 @Controller
 @RequestMapping("/debtinvest")
 public class DebtInvestController {
@@ -42,6 +44,8 @@ public class DebtInvestController {
 	@Resource
 	private IDebttransferdisplayService debttransferdisplayServiceImpl;
 	
+	@Resource
+	private IWalletService walletService;
 	
 	@RequestMapping("findUndead")
 	@ResponseBody
@@ -50,15 +54,19 @@ public class DebtInvestController {
 		
 	}
 	@RequestMapping("findById")
-	public String  findUndead(Integer debttransferdisplay,ModelMap map) {
+	public String  findUndead(HttpSession session,Integer debttransferdisplay,ModelMap map) {
 		Debttransferdisplay debttransfer = debtInvestServiceImpl.findById(debttransferdisplay);
 		List<Repay> repays = repayServiceImpl.findByUser(debttransfer.getLoanapply().getUserinfo().getUserinfoid());
 		Servicecharge servicecharge = servicechargeServiceImpl.findByServicechargeid(3);
+		User user = (User) session.getAttribute("user");
+		Userinfo loginuserinfo = user.getUserinfo();
+		Wallet wallet = walletService.findByUserinfo(loginuserinfo.getUserinfoid());
 		map.put("invest", debttransfer.getInvest());
 		map.put("loanapply", debttransfer.getLoanapply());
 		map.put("loantime", debttransfer.getLoanapply().getLoantime());
 		map.put("loanrate", debttransfer.getLoanapply().getLoanrate());
 		map.put("userinfo", debttransfer.getLoanapply().getUserinfo());
+		map.put("wallet", wallet);
 		map.put("loandispaly",debttransfer.getInvest().getLoandisplay());
 		map.put("servicecharge", servicecharge);
 		map.put("realcharge", debttransfer.getInvest().getInvestamount()*servicecharge.getChargerate());

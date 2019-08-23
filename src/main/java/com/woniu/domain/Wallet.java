@@ -128,4 +128,11 @@ public class Wallet {
     public void setUserinfoid(Integer userinfoid) {
         this.userinfoid = userinfoid;
     }
+
+	@Override
+	public String toString() {
+		return "Wallet [walletid=" + walletid + ", balance=" + balance + ", debt=" + debt + ", userinfoid=" + userinfoid
+				+ "]";
+	}
+    
 }

@@ -1,9 +1,14 @@
 package com.woniu.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +26,27 @@ public class UserController {
 	@Resource
 	private IUserService service;
 	
+	@Resource
+	private RedisTemplate<String, String> redisTemplate;
+	
 	@RequestMapping("save")
-	public String save(User user) {
-		service.save(user);
-		return "index";
+	public String save(User user,String phone,String number) {
+		
+		
+		System.out.println("=====2"+redisTemplate);
+		String redisNumber = redisTemplate.opsForValue().get(phone);
+		System.out.println(phone+"  "+number+" "+redisNumber);
+		redisTemplate.opsForValue().set(phone, null);
+		System.out.println(phone+"  "+number+" "+redisNumber);
+		if(redisNumber!=null&&number!=null&&number.equals(redisNumber)) {
+			System.out.println("开始插入数据库，证明这个手机就是你的");
+			
+			service.save(user);
+			return "index";
+		}else {
+			return "index";
+		}
+		
 	}
 	
 	@RequestMapping("findAll")
@@ -33,7 +55,6 @@ public class UserController {
 		map.put("list", list);
 		map.put("page", pb);
 //		map.put("user", user);
-		
 		return "authorityModule/houtai/userlist";
 	}
 	
@@ -47,4 +68,28 @@ public class UserController {
 		return "authorityModule/houtai/userlist";
 	}
 	
+	@RequestMapping("findByUserid")
+	public String findByUserid(ModelMap map,HttpSession session) {
+//		User user = service.findByUserid(userid);
+		User user = (User) session.getAttribute("user");
+		//int userid = user.getUserid();
+		map.put("user", user);
+	
+		System.out.println("personal");
+		return "authorityModule/houtai/personal";
+	}
+	
+	@RequestMapping("updateUser")
+	public String updateUser(User user) {
+		service.update(user);
+		System.out.println("update");
+		return "redirect:/authorityModule/houtai/personal.jsp";
+	}
+	
+	@RequestMapping("editPage")
+	public String editPage(HttpSession session,ModelMap map) {
+		User user = (User) session.getAttribute("user");
+		map.put("user", user);
+		return "authorityModule/houtai/editUser"; 
+	}
 }

@@ -101,7 +101,11 @@
 								</td>
 							</tr>
 							<tr>
+<<<<<<< HEAD
 								<th style="text-align: center"><font color="blue" size="4">付款金额</font></th>
+=======
+								<th><font size="4">付款金额</font></th>
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
 								<th><span class="glyphicon glyphicon-gbp"
 									style="color: red">{{investamount}}</span></th>
 							</tr>
