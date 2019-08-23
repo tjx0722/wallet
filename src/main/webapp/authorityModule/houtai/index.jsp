@@ -57,13 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				} else {
 					demoIframe.attr("src",treeNode.file);
 					return null;
-<<<<<<< HEAD
 				}
-=======
 				} 
->>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
 			}
-		}
 	};
 
 	var zNodes =${json };
