@@ -141,18 +141,7 @@
 			},
 			methods:{
 				purchase:function(){
-					this.$http({
-	                	method:'post',
-	                	url:'/invest/purchase',
-	                	emulateJSON:true, 
-	                	params:{
-	                		investamount:this.investamount,
-	                		loandisplayid:this.loandisplayid
-	                	},	
-	                }).then(function(res){
-	                },function(){
-	                    console.log('请求失败处理');
-	                });
+					location.href="/invest/purchase/"+this.investamount+"!"+this.loandisplayid;
 				}
 			}
 		});
