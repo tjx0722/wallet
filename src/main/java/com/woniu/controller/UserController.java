@@ -90,6 +90,6 @@ public class UserController {
 	public String editPage(HttpSession session,ModelMap map) {
 		User user = (User) session.getAttribute("user");
 		map.put("user", user);
-		return "authorityModule/houtai/editUser";
+		return "authorityModule/houtai/editUser"; 
 	}
 }
