@@ -52,8 +52,8 @@
 		      </tr>
 		    </tbody>
 		</table>
-		<input type="button" value="SALE" onclick="location.href='/debttransferapply/istransfer/${invest.investid}'" >
-		<input type="button" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
+		<input type="button" class="btn btn-primary" value="SALE" onclick="location.href='/debttransferapply/istransfer/${invest.investid}'" >
+		<input type="button" class="btn btn-primary" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
 	</div>
 </body>
 </html>

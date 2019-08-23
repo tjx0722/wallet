@@ -98,7 +98,7 @@
 								<th colspan="2">14期全体成员正在为您保驾护航，请确认支付信息</th>
 							</tr>
 							<tr>
-								<th><font size="36">付款金额</font></th>
+								<th><font size="4">付款金额</font></th>
 								<th><span class="glyphicon glyphicon-gbp"
 									style="color: red">{{investamount}}</span></th>
 							</tr>
