@@ -13,4 +13,5 @@ public interface IWalletService {
 		public void save(Wallet wallet);
 		public void update(Wallet wallet);
 		public Wallet findById(Integer walletid);
+		public Wallet findByUserinfo(Integer userinfoid);
 }

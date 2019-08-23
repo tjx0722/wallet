@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.woniu.dao.WalletMapper;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Wallet;
+import com.woniu.domain.WalletExample;
 import com.woniu.service.IWalletService;
 @Service
 public class WalletServiceImpl implements IWalletService {
@@ -52,6 +53,15 @@ public class WalletServiceImpl implements IWalletService {
 	public Wallet findById(Integer walletid) {
 		// TODO Auto-generated method stub
 		return walletMapper.selectByPrimaryKey(walletid);
+	}
+
+	@Override
+	public Wallet findByUserinfo(Integer userinfoid) {
+		// TODO Auto-generated method stub
+		WalletExample example=new WalletExample();
+		example.createCriteria().andUserinfoidEqualTo(userinfoid);
+		List<Wallet> list = walletMapper.selectByExample(example);
+		return list.get(0);
 	}
 
 }

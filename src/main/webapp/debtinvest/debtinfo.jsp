@@ -22,8 +22,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<b class="navbar-brand">债权详情</b>
 				</div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" id="login"><span class="glyphicon glyphicon-user"></span> 登录</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 注册</a></li>
+					<c:if test="${user==null }">
+						<li><a href="<%=basePath %>index.jsp" id="login"><span class="glyphicon glyphicon-user"></span> 登录</a></li>
+						<li><a href="<%=basePath %>index.jsp"><span class="glyphicon glyphicon-log-in"></span> 注册</a></li>
+					</c:if>
+					<c:if test="${user!=null }">
+						<li><a href="<%=basePath %>index.jsp" id="login"><span class="glyphicon glyphicon-user"></span> ${user.account}</a></li>
+						<li><a href="<%=basePath %>index.jsp"><span class="glyphicon glyphicon-th"></span> 钱包</a></li>
+					</c:if>
 				</ul>
 			</div>			
 		</nav>
@@ -108,9 +114,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"><sapn >请支付${payment }</span>  &nbsp;&nbsp;&nbsp;(手续费${realcharge}) </h4>
+                <h4 class="modal-title" id="myModalLabel">
+                <sapn >请支付￥<font class="text-info">${payment }</font> </span>  
+                &nbsp;&nbsp;&nbsp;(手续费${realcharge}) 
+              	 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;您的钱包余额：<font class="text-danger">${wallet.balance }</font>
+                </h4>
             </div>
-            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-body">请选择支付方式</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary" id="pay">确定支付</button>
