@@ -15,6 +15,8 @@ import com.woniu.service.IDebitService;
 @Service
 @Transactional
 public class DebitServiceImpl implements IDebitService {
+	@Resource
+	private LoanapplyMapper loanapplyMapper;
 	
 	@Resource
 	private LoantimeMapper  loantimeMapper;
@@ -43,5 +45,20 @@ public class DebitServiceImpl implements IDebitService {
 	public Loanrate findLoanrateByservicechargeid(int servicechargeid) {
 		// TODO Auto-generated method stub
 		return loanrateMapper.selectByPrimaryKey(servicechargeid);
+	}
+	@Override
+	public List<Loanapply> findAllLoanapply() {
+		// TODO Auto-generated method stub
+		return loanapplyMapper.selectByExampleWithBLOBs(null);
+	}
+	@Override
+	public Loanapply findLoanapplybyLoanapplyid(int loanapplyid) {
+		// TODO Auto-generated method stub
+		return loanapplyMapper.selectByPrimaryKey(loanapplyid);
+	}
+	@Override
+	public void update(Loanapply loanapply) {
+		// TODO Auto-generated method stub
+		loanapplyMapper.updateByPrimaryKey(loanapply);
 	}
 }

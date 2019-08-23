@@ -42,7 +42,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				enable:true,
 				idKey: "treeid",
 				pIdKey: "parentid",
-				
 				rootPId: ""
 			},
 			key: {
@@ -58,7 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				} else {
 					demoIframe.attr("src",treeNode.file);
 					return null;
+<<<<<<< HEAD
 				}
+=======
+				} 
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
 			}
 		}
 	};
@@ -94,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<TD width=260px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
 			<ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
 		</TD>
-		<TD width=770px align=left valign=top><IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=600px SRC="core/standardData.html"></IFRAME></TD>
+		<TD width=1170px align=left valign=top><IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=600px SRC="core/standardData.html"></IFRAME></TD>
 	</TR>
 </TABLE>
 </BODY>

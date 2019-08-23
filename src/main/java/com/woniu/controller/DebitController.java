@@ -39,18 +39,14 @@ public class DebitController {
 	
 	@RequestMapping("findAllLoantimeAndLoanrate")
 	public String findAllLoantimeAndLoanrate(ModelMap map,HttpSession session) {
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
-		if(userinfo != null) {
-			
+		if(session.getAttribute("user") != null) {
+			User user = (User) session.getAttribute("user");
+			Userinfo userinfo = user.getUserinfo();
 			List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
 			List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
-			for (Loanrate loanrate : loanrates) {
-				System.out.println(loanrate.getLoanrate());
-				loanrate.setLoanrate( (double) Math.round((loanrate.getLoanrate())*100) / 100);
-				System.out.println(loanrate.getLoanrate());
-			}
 			map.put("Loantimes", Loantimes);
 			map.put("loanrates", loanrates);
+			map.put("userinfo", userinfo);
 			return "/debit/loanapply";
 		}else {
 			return "/unauthorized";
@@ -63,11 +59,22 @@ public class DebitController {
 		session.setAttribute("userinfo", userinfo);
 		return "redirect:findAllLoantimeAndLoanrate";
 	}
+	@RequestMapping("findLoanapplybyLoanapplyid")
+	public String findLoanapplybyLoanapplyid(int loanapplyid) {
+		Loanapply loanapply = debitServiceImpl.findLoanapplybyLoanapplyid(loanapplyid);
+		if(loanapply.getChecked()) {
+			loanapply.setChecked(false);
+		}else {
+			loanapply.setChecked(true);
+		}
+		debitServiceImpl.update(loanapply);
+		return "redirect:/loandisplay/index.jsp";
+	}
 	
 	@RequestMapping("excessive")
 	public  ModelAndView excessive(Loanapply loanapply,HttpSession session) {
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
-//		Userinfo userinfo = user.getUserinfo();
+		User user = (User) session.getAttribute("user");
+		Userinfo userinfo = user.getUserinfo();
 		loanapply.setUserinfoid(userinfo.getUserinfoid());
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date=new Date();
@@ -75,15 +82,20 @@ public class DebitController {
 		loanapply.setApplytime(date);
 		loanapply.setChecked(false);
 		loanapply.setServicechargeid(1);
-		Servicecharge servicecharge = servicechargeServiceImpl.findByServicechargeid(loanapply.getServicechargeid());
+		Integer loantime = debitServiceImpl.findLoantimeByLoantimeid(loanapply.getLoantimeid()).getLoantime();
+		 DecimalFormat df = new DecimalFormat("#.00");
+		//手续费
+		Servicecharge servicecharge =servicechargeServiceImpl.findByServicechargeid(loanapply.getServicechargeid());
 		Double chargerate = servicecharge.getChargerate();
-		loanapply.setServicecharge(loanapply.getLoanamount()*chargerate);
-		String username = UserinfoServiceImpl.findById(loanapply.getUserinfoid()).getUsername();
+		 Double serviceMoney = Double.parseDouble(df.format(loanapply.getLoanamount()*chargerate));
+		 loanapply.setServicecharge(serviceMoney);
+//		String username = UserinfoServiceImpl.findById(loanapply.getUserinfoid()).getUsername();
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("/debit/verify");
 		mav.addObject("loanapply", loanapply);
-		mav.addObject("username", username);
+		mav.addObject("userinfo", userinfo);
 		mav.addObject("datetime", datetime);
+		mav.addObject("loantime", loantime);
 		return mav;
 	}
 	

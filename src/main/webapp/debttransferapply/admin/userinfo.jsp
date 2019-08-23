@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <!-- 新 Bootstrap4 核心 CSS 文件 -->
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
  
@@ -14,15 +15,14 @@
  
 <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<meta charset="utf-8">
-<title>账单信息</title>
+<title>借贷人信息</title>
 </head>
 <body>
 	<div style="width: 500px;margin: auto;text-align: center;">
-		<table class="table table-striped table-bordered table-hover ">
+	<table class="table table-striped table-bordered table-hover ">
 		    <thead>
 		      <tr>
-		        <th colspan="2">账单信息</th>
+		        <th colspan="2">借贷人信息</th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -31,29 +31,28 @@
 		        <th>数据</th>
 		      </tr>
 		      <tr>
-		        <td>贷款金额</td>
-		        <td>${invest.loandisplay.loanapply.loanamount }</td>
+		        <td>借贷人名称</td>
+		        <td>${invest.loandisplay.loanapply.userinfo.username }</td>
 		      </tr>
 		      <tr>
-		        <td>申请时间</td>
-		        <td>${invest.loandisplay.loanapply.applytime }</td>
+		        <td>籍贯</td>
+		        <td>${invest.loandisplay.loanapply.userinfo.nativeplace }</td>
 		      </tr>
 		      <tr>
-		        <td>申请原因</td>
-		        <td>${invest.loandisplay.loanapply.reason }</td>
+		        <td>工作</td>
+		        <td>${invest.loandisplay.loanapply.userinfo.userjob }</td>
 		      </tr>
 		      <tr>
-		        <td>还款方式</td>
-		        <td>分期${invest.loandisplay.loanapply.loantime.loantime }月</td>
+		        <td>学历</td>
+		        <td>${invest.loandisplay.loanapply.userinfo.degree }</td>
 		      </tr>
 		      <tr>
-		        <td>还款利率</td>
-		        <td>${invest.loandisplay.loanapply.loanrate.loanrate }%</td>
+		        <td>工资</td>
+		        <td>${invest.loandisplay.loanapply.userinfo.salary }</td>
 		      </tr>
 		    </tbody>
 		</table>
-		<input type="button" value="SALE" onclick="location.href='/debttransferapply/istransfer/${invest.investid}'">
-		<input type="button" value="返回"  onclick="location.href='/debttransferapply/investlist.jsp'">
+		<input type="button" value="返回"  onclick="location.href='/debttransferapply/admin/applylist.jsp'">
 	</div>
 </body>
 </html>

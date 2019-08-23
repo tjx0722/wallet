@@ -7,6 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Userinfo implements Serializable{
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
 	/**
 	 * 
 	 */

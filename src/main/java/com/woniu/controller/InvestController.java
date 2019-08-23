@@ -37,6 +37,18 @@ public class InvestController {
 	
 	@RequestMapping("purchase")
 	public ModelAndView purchase(Integer loandisplayid,Double investamount) {
+		ModelAndView mav=new ModelAndView("invest/paypage");
+		mav.addObject("investamount", investamount);
+		mav.addObject("loandisplayid", loandisplayid);
+		return mav;
+	}
+	
+	@RequestMapping("pay")
+	public ModelAndView pay(Integer loandisplayid,Double investamount,String password) {
+		System.out.println(loandisplayid+" "+investamount+" "+password);
+		ModelAndView mav=new ModelAndView("invest/paypage");
+		mav.addObject("investamount", investamount);
+		mav.addObject("loandisplayid", loandisplayid);
 		return null;
 	}
 

@@ -50,7 +50,7 @@
 				</tr>
 				<tr>
 					<td>贷款人姓名</td>
-					<td>${username }</td>
+					<td>${userinfo.username }</td>
 				</tr>
 				<tr>
 					<td>贷款金额</td>
@@ -62,7 +62,7 @@
 				</tr>
 				<tr>
 					<td>分期月数</td>
-					<td>${loanapply.servicecharge}</td>
+					<td>${loantime}</td>
 				</tr>
 				<tr>
 					<td>手续费</td>
