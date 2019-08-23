@@ -22,6 +22,7 @@
 	src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 </head>
 <body>
+<marquee behavior="scroll" direction="left" scrollamount="5">近期不法活动猖獗，请谨慎投资！！！</marquee>
 	<div id="app" class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">投资详细信息</h3>
@@ -93,22 +94,24 @@
 					<div class="modal-body">按下 Esc 按钮退出。</div>
 					<div class="modal-body">
 						<table
-							class="table table-striped table-bordered table-hover table-condensed">
+							class="table table-striped table-bordered table-hover">
 							<tr>
-								<th colspan="2">14期全体成员正在为您保驾护航，请确认支付信息</th>
+								<td colspan="2">
+									<div><marquee behavior="scroll" direction="left" scrollamount="5">14期全体成员正在为您保驾护航，请确认支付信息</marquee></div>
+								</td>
 							</tr>
 							<tr>
-								<th><font size="36">付款金额</font></th>
+								<th style="text-align: center"><font color="blue" size="4">付款金额</font></th>
 								<th><span class="glyphicon glyphicon-gbp"
 									style="color: red">{{investamount}}</span></th>
 							</tr>
 							<tr>
 								<th colspan="2">
-									<div  align="center"><button type="button" class="btn btn-primary">确认付款</button></div>
+									<div  align="center"><button @click="purchase()" type="button" class="btn btn-primary">确认付款</button></div>
 								</th>
 							</tr>
 						</table>
-						<div align="right"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></div>
+						<div align="right"><button style="size: 2" type="button" class="btn btn-default" data-dismiss="modal">取消</button></div>
 					</div>
 				</div>
 			</div>
@@ -146,7 +149,6 @@
 	                		loandisplayid:this.loandisplayid
 	                	},	
 	                }).then(function(res){
-	                	 this.json=res.body;
 	                },function(){
 	                    console.log('请求失败处理');
 	                });
