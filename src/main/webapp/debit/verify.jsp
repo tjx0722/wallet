@@ -23,7 +23,7 @@
 <script>
 	$(document).ready(function() {
 		$("#btn").click(function() {
-			 location.href = "/debit/test2.jsp"
+			 location.href = "verify"
 		})
 	})
 </script>
