@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <link rel="stylesheet" type="text/css"
 	href="<%=basePath%>js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"

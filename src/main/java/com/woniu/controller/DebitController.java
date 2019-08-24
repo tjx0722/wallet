@@ -42,15 +42,15 @@ public class DebitController {
 	private IUserinfoService UserinfoServiceImpl;
 	
 	@RequestMapping("findAllLoantimeAndLoanrate")
-	public String findAllLoantimeAndLoanrate(ModelMap map,HttpSession session) {
+	public String findAllLoantimeAndLoanrate(HttpSession session ,ModelMap map) {
 		if(session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			Userinfo userinfo = user.getUserinfo();
 			List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
 			List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
-			map.put("Loantimes", Loantimes);
-			map.put("loanrates", loanrates);
-			map.put("userinfo", userinfo);
+			map.put("Loantimes",Loantimes);
+			map.put("loanrates",loanrates);
+			map.put("userinfo",userinfo);
 			return "/debit/loanapply";
 		}else {
 			return "/unauthorized";
