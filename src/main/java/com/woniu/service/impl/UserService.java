@@ -35,7 +35,7 @@ public class UserService implements IUserService {
 			UserroleKey key = new UserroleKey();
 			key.setUserid(user.getUserid());
 			key.setRoleid(3);
-			userroleMapper.insert(key);
+			userroleMapper.insert(key); 
 	//	}
 		
 	}
