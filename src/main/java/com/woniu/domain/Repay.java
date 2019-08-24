@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Repay {
 	
-	private double payAmount;
+	private double payAmount; //查出每期还款金额
     public double getPayAmount() {
 		return payAmount;
 	}

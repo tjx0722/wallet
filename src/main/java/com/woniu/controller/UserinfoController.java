@@ -7,12 +7,16 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.woniu.domain.Loandisplay;
 import com.woniu.domain.Message;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.service.IUserinfoService;
 
 @Controller
@@ -81,6 +85,7 @@ public class UserinfoController {
 	public @ResponseBody Message update(Userinfo userinfo) {
 		Message msg = null;
 		try {
+			
 			userinfoServiceImpl.update(userinfo);
 			msg = new Message(true, "用户详细信息修改成功");
 		} catch (Exception e) {
@@ -89,4 +94,13 @@ public class UserinfoController {
 		}
 		return msg;
 	}
+
+	@RequestMapping("findWalletByUserinfoid/{userinfoid}")
+	public ModelAndView findWalletByUserinfoid(@PathVariable Integer userinfoid) {
+		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
+		ModelAndView mav=new ModelAndView("userinfo/wallet/list");
+		mav.addObject("wallet", wallet);
+		return mav;
+	}
+	
 }

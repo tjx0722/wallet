@@ -10,19 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.UserMapper;
 import com.woniu.dao.UserroleMapper;
+import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
 import com.woniu.domain.UserroleKey;
+import com.woniu.domain.Userinfo;
 import com.woniu.service.IUserService;
 
 @Service
 public class UserService implements IUserService {
 	@Resource 
 	private UserMapper userMapper;
-	
 	@Resource 
-	private UserroleMapper userroleMapper;
-	 
+	private UserinfoMapper userinfoMapper;
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
@@ -84,6 +84,12 @@ public class UserService implements IUserService {
 		info.setUserid(userid);
 		info.setIsdelete(false);
 		userMapper.updateByPrimaryKeySelective(info);
+	}
+
+	@Override
+	public Userinfo findUserinfoByUserid(Integer userid) {
+		// TODO Auto-generated method stub
+		return userinfoMapper.selectByPrimaryKey(userid);
 	}
 
 }

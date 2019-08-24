@@ -1,8 +1,11 @@
 package com.woniu.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Loanapply {
+	
+	private List<Repay> repays;  //根据贷款申请id,查出所有该笔贷款的还款记录
 	
 	private Userinfo userinfo;		//获取借款申请人信息
 	
@@ -12,6 +15,14 @@ public class Loanapply {
 
 	public void setUserinfo(Userinfo userinfo) {
 		this.userinfo = userinfo;
+	}
+
+	public List<Repay> getRepays() {
+		return repays;
+	}
+
+	public void setRepays(List<Repay> repays) {
+		this.repays = repays;
 	}
 
 	@Override

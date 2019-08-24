@@ -8,13 +8,17 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import com.woniu.dao.UserinfoMapper;
+import com.woniu.dao.WalletMapper;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.service.IUserinfoService;
 @Service
 public class UserinfoServiceImpl implements IUserinfoService {
 @Resource
 private UserinfoMapper userinfoMapper;
+@Resource
+private WalletMapper walletMapper;
 	@Override
 	public List findAll(PageBean pagebean) {
 		// TODO Auto-generated method stub
@@ -47,6 +51,11 @@ private UserinfoMapper userinfoMapper;
 	public Userinfo findById(Integer userinfoid) {
 		// TODO Auto-generated method stub
 		return userinfoMapper.selectByPrimaryKey(userinfoid);
+	}
+	@Override
+	public Wallet findWalletByUserinfoid(Integer userinfoid) {
+		// TODO Auto-generated method stub
+		return walletMapper.selectByPrimaryKey(userinfoid);
 	}
 
 }

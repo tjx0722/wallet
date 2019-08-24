@@ -7,15 +7,15 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 import com.woniu.domain.PageBean;
+import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.domain.User;
 import com.woniu.service.IUserService;
 
