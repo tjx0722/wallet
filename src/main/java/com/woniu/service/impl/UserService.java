@@ -23,6 +23,8 @@ public class UserService implements IUserService {
 	private UserMapper userMapper;
 	@Resource 
 	private UserinfoMapper userinfoMapper;
+	@Resource 
+	private UserroleMapper userroleMapper;
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
