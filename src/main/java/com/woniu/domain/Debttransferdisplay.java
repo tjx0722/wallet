@@ -3,8 +3,21 @@ package com.woniu.domain;
 import java.util.Date;
 
 public class Debttransferdisplay {
+	
+	private Debttransferapply debttransferapply;
+	
 	private Loanapply loanapply;
+	
 	private Invest invest;
+	
+	public Debttransferapply getDebttransferapply() {
+		return debttransferapply;
+	}
+
+	public void setDebttransferapply(Debttransferapply debttransferapply) {
+		this.debttransferapply = debttransferapply;
+	}
+
 	public Loanapply getLoanapply() {
 		return loanapply;
 	}

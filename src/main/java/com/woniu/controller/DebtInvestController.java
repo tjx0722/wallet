@@ -1,7 +1,9 @@
 package com.woniu.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.woniu.domain.Debtinvest;
 import com.woniu.domain.Debttransferdisplay;
 import com.woniu.domain.Invest;
+import com.woniu.domain.PageBean;
 import com.woniu.domain.Repay;
 import com.woniu.domain.Servicecharge;
 import com.woniu.domain.User;
@@ -101,5 +104,16 @@ public class DebtInvestController {
 		invest.setUserinfoid(userinfo.getUserinfoid());
 		investServiceImpl.update(invest);
 		return "redirect:/debtinvest/debttransferdisplay.jsp";
+	}
+	
+	@RequestMapping("admin/findAll")
+	@ResponseBody
+	public Map findAll(PageBean page) {
+		Map map=new HashMap();
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findAll(page);
+		map.put("page", page);
+		map.put("total", page.getCount());
+		map.put("rows", debtinvests);
+		return map;
 	}
 }

@@ -51,13 +51,17 @@
 										title : '贷款利率',
 										width : 100,
 										formatter:function(value,row,index){
-											return row.loanapply.loanrate.loanrate*100+"%";
+											return parseInt(row.loanapply.loanrate.loanrate*100)+"%";
 										}
 									},
 									{
 										field : 'deadtime',
 										title : '集资截至日期',
-										width : 100
+										width : 100,
+										formatter:function(value,row,index){
+											 var unixTimestamp = new Date(value);    
+					                         return unixTimestamp.toLocaleString();
+										}
 									},
 									{
 										field : 'investcount',

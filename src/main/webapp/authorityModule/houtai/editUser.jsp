@@ -10,11 +10,10 @@
 <h2>修改个人信息</h2>
 	<form action="/authorityModule/updateUser" method="post" style="margin-top:60px">
 		<table>
-		<input type="hidden" name="account" style="margin-top:10px" value="${user.userid}">
+		<input type="hidden" name="userid" style="margin-top:10px" value="${user.userid}">
 		<tr align-text="center">
 			<td>账户</td>
-			
-			<td><input type="text" name="account" style="margin-top:10px" value="${user.account}"></td>
+			<td><input type="text" name="account" readonly="readonly" style="margin-top:10px" value="${user.account}"></td>
 		</tr>
 		<tr align-text="center">
 			<td>密码：</td>

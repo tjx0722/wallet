@@ -28,29 +28,45 @@
 	  <div class="panel-body">
 	   <div>
        	<table>
-
-       	
-       		<tr>
-       			<th>银行卡表id卡</th>
-       			<th>${bankcard.bankcardid }</th>
-       		</tr>
-       		<tr>
-       			<th>银行卡号</th>
-       			<th>${bankcard.bankcardnum }</th>
-       		</tr>
-       		<tr>
-       			<th>银行名称</th>
-       			<th>${bankcard.bankcardname }</th>
-       		</tr>
-       		
        		<tr>
        			<th>钱包id</th>
-       			<th>${bankcard.walletid }</th>
+       			<th>${wallet.walletid }</th>
+       		</tr>
+       		<tr>
+       			<th>余额</th>
+       			<th>${wallet.balance }</th>
+       		</tr>
+       		<tr>
+       			<th>欠款</th>
+       			<th>${wallet.debt }</th>
        		</tr>
        		
+       		
+       		
        	</table>
-       
+       <form action="/userinfo/wallet/findBankcardByWalletid">
+              <input  type="hidden" name="walletid" value="${wallet.walletid }"/>
+             <button class="btn btn-default" type="submit" >我的钱包</button>
+       </form>
        </div>
 	  </div>
 	</div>  
 </body>
+  <script type="text/javascript">
+	window.onload=function(){
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				json:"",
+				userinfoid:${wallet.userinfoid },
+				investamount:"",
+				restcount:${wallet },
+				msg:""
+			},
+			methods:{
+			}	
+			
+		});
+	}
+</script>  
+</html>

@@ -8,7 +8,7 @@ import com.woniu.domain.PageBean;
 
 public interface IInvestService {
 
-	List<Loandisplay> findAllLoadDisplay();
+	List<Loandisplay> findAllLoadDisplay(PageBean pb);
 	List findAllInvest(PageBean pageBean, int userinfoid);
 	Invest findOneInvest(int investId);
 	Loandisplay findLoandisplayById(Integer loandisplayid);

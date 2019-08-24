@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loandisplay;
+import com.woniu.domain.PageBean;
 import com.woniu.service.IInvestService;
 
 @RestController
@@ -21,10 +22,8 @@ public class InvestController {
 	private IInvestService investServiceImpl;
 	
 	@RequestMapping("findAllLoanDisplay")
-	public List<Loandisplay> findAllLoanDisplay() {
-		List<Loandisplay> list = investServiceImpl.findAllLoadDisplay();
-		Loandisplay apply=list.get(0);
-		return investServiceImpl.findAllLoadDisplay();
+	public List<Loandisplay> findAllLoanDisplay(PageBean pb) {
+		return investServiceImpl.findAllLoadDisplay(pb);
 	}
 	
 	@RequestMapping("findLoandisplayById/{loandisplayid}")
@@ -35,8 +34,10 @@ public class InvestController {
 		return mav;
 	}
 	
-	@RequestMapping("purchase")
-	public ModelAndView purchase(Integer loandisplayid,Double investamount) {
+	@RequestMapping("purchase/{investamount}!{loandisplayid}")
+	public ModelAndView purchase(@PathVariable Integer loandisplayid,@PathVariable Double investamount) {
+		System.out.println("InvestController.purchase()");
+		System.out.println(loandisplayid+" "+investamount);
 		ModelAndView mav=new ModelAndView("invest/paypage");
 		mav.addObject("investamount", investamount);
 		mav.addObject("loandisplayid", loandisplayid);
@@ -44,12 +45,12 @@ public class InvestController {
 	}
 	
 	@RequestMapping("pay")
-	public ModelAndView pay(Integer loandisplayid,Double investamount,String password) {
-		System.out.println(loandisplayid+" "+investamount+" "+password);
+	public ModelAndView pay(Integer loandisplayid,Double investamount,String payPassword_rsainput) {
+		System.out.println(loandisplayid+" "+investamount+" "+payPassword_rsainput);
 		ModelAndView mav=new ModelAndView("invest/paypage");
 		mav.addObject("investamount", investamount);
 		mav.addObject("loandisplayid", loandisplayid);
-		return null;
+		return mav;
 	}
 
 }

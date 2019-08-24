@@ -61,15 +61,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				},
 				{field:'salary',title:'工资'},
-				{field:'ismarried',title:'婚否'},
+				{field:'ismarried',title:'婚否',formatter: function(value,row,index){
+					if (value){
+						return '已婚';
+					} else {
+						return '未婚';
+					}
+				}
+				},
 				{field:'isfochecked',title:'审核是否通过'},
 		        {field:'operate',title:'操作',width:100,formatter: function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
 		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
 					return btns;
 				}
-				}
-		    ]],
+				},
+				{
+					field : 'operate2',
+					title : '操作',
+					width : 100,
+					formatter : function(value, row, index) {
+						var btns = "<a id=\"btn\" href=\"/userinfo/findWalletByUserinfoid/"
+								+ row.userinfoid +"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">钱包</a>";
+						return btns;
+					}
+				} 
+
+	    ]],
 		    onLoadSuccess: function(index,field,value){
 				$('.easyui-linkbutton').linkbutton({   
 				});  

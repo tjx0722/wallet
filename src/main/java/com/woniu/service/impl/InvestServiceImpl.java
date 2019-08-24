@@ -1,5 +1,6 @@
 package com.woniu.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import com.woniu.domain.Invest;
 import com.woniu.domain.InvestExample;
 import com.woniu.domain.InvestExample.Criteria;
 import com.woniu.domain.Loandisplay;
+import com.woniu.domain.LoandisplayExample;
 import com.woniu.domain.PageBean;
 import com.woniu.service.IInvestService;
 
@@ -25,9 +27,13 @@ public class InvestServiceImpl implements IInvestService {
 	private InvestMapper investMapper;
 	
 	@Override
-	public List<Loandisplay> findAllLoadDisplay() {
-		
-		return loandisplayMapper.selectByExample(null);
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb) {
+		LoandisplayExample example=new LoandisplayExample();
+		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
+		criteria.andIsfinishedEqualTo(false);
+		criteria.andIsdeadEqualTo(false);
+		pb.setCount(loandisplayMapper.countByExample(null));
+		return loandisplayMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
 	@Override

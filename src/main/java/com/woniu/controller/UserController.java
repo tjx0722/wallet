@@ -7,15 +7,15 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 import com.woniu.domain.PageBean;
+import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.domain.User;
 import com.woniu.service.IUserService;
 
@@ -40,7 +40,6 @@ public class UserController {
 		System.out.println(phone+"  "+number+" "+redisNumber);
 		if(redisNumber!=null&&number!=null&&number.equals(redisNumber)) {
 			System.out.println("开始插入数据库，证明这个手机就是你的");
-			
 			service.save(user);
 			return "index";
 		}else {
@@ -81,14 +80,17 @@ public class UserController {
 	
 	@RequestMapping("updateUser")
 	public String updateUser(User user) {
+		System.out.println(user+"+++++");
 		service.update(user);
 		System.out.println("update");
-		return "redirect:/authorityModule/houtai/personal.jsp";
+		return "authorityModule/houtai/personal";
 	}
 	
 	@RequestMapping("editPage")
-	public String editPage(HttpSession session,ModelMap map) {
-		User user = (User) session.getAttribute("user");
+	public String editPage(Integer userid,HttpSession session,ModelMap map) {
+		//User user = (User) session.getAttribute("user");
+		User user = service.findByUserid(userid);
+		System.out.println(user+".....");
 		map.put("user", user);
 		return "authorityModule/houtai/editUser"; 
 	}

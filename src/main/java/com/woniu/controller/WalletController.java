@@ -7,9 +7,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.woniu.domain.Bankcard;
 import com.woniu.domain.Message;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
@@ -89,5 +93,15 @@ public class WalletController {
 			msg = new Message(false, "钱包信息修改失败"+e.getMessage());
 		}
 		return msg;
+	}
+
+	@RequestMapping("findBankcardByWalletid")
+	public String findBankcardByWalletid(ModelMap map,Integer walletid) {
+		System.out.println(walletid);
+		Bankcard bankcard=walletServiceImpl.findBankcardByWalletid(walletid);
+		System.out.println(bankcard.toString()+"--------------------");
+		map.put("bankcard",bankcard);
+		return "/userinfo/wallet/bankcard/index";
+		
 	}
 }
