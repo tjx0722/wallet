@@ -45,7 +45,6 @@ public class UserController {
 		}else {
 			return "index";
 		}
-		
 	}
 	
 	@RequestMapping("findAll")
@@ -94,4 +93,18 @@ public class UserController {
 		map.put("user", user);
 		return "authorityModule/houtai/editUser"; 
 	}
+	
+	
+	@RequestMapping("delete")
+	public String delete(Integer userid) {
+		service.delete(userid);
+		return "redirect:findAll";
+	}
+	
+	@RequestMapping("revoke")
+	public String revoke(Integer userid) {
+		service.revoke(userid);
+		return "redirect:findAll";
+	}
+	
 }
