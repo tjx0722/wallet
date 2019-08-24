@@ -51,7 +51,8 @@ public class DebitServiceImpl implements IDebitService {
 	@Override
 	public List<Loanapply> findAllLoanapply() {
 		// TODO Auto-generated method stub
-		return loanapplyMapper.selectByExampleWithBLOBs(null);
+		List<Loanapply> list = loanapplyMapper.selectByExampleWithBLOBs(null);
+		return list;
 	}
 	@Override
 	public Loanapply findLoanapplybyLoanapplyid(int loanapplyid) {
@@ -62,5 +63,10 @@ public class DebitServiceImpl implements IDebitService {
 	public void update(Loanapply loanapply) {
 		// TODO Auto-generated method stub
 		loanapplyMapper.updateByPrimaryKey(loanapply);
+	}
+	@Override
+	public void save(Loanapply loanapply) {
+		// TODO Auto-generated method stub
+		loanapplyMapper.insert(loanapply);
 	}
 }
