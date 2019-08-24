@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -55,6 +56,7 @@ $(function(){
 	        {field:'debttransferdisplay',title:'债权通过表序号',width:100,align:'center'},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
 				var btns="<a id=\"btn\" href=\"javascript:openWin("+index+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-search'\">详情</a>";
+				data=row; 
 	        	return btns;
 				
 			}
@@ -65,17 +67,28 @@ $(function(){
 			});  
 		},       
 	});  
-	data=$('#dg').datagrid('getData');
+	
+	
 	
 });
 	function openWin(index){
-		$('#win').window('open'); 		
-		var temp=data["rows"];
-		var temp1=temp[index];
-		alert(temp1);
-		/* $("#amount").text(data.rows); */
+		$('#win').window('open'); 
+		$("#amount").text(data.display.invest.investamount);
+		$("#loanrate").text(data.display.loanapply.loanrate.loanrate);
+		$("#start").text(data.display.invest.loandisplay.displaytime);
+		$("#time").text(data.display.loanapply.loantime.loantime);
+		/* $.each(data.display.loanapply.repays,function(index,obj){
+			$("#repaytb tr:not(:eq(0))").remove();
+			var tr=$("<tr></tr)");
+			var td1=$("<td></td>");
+			var td2=$("<td></td>");
+			td1.text(obj.payAmount);
+			td2.text(obj.actualrepaytime);
+			tr.append(td1);
+			tr.append(td2);
+			$("#repaytb").append(tr);
+		}); */
 	}
-
 	
 
 </script>
@@ -93,19 +106,31 @@ $(function(){
           
            	<div class="col-md-6" style="height: 100px">
            	<h4>债权总额</h4>
-           		<span id="amount"></span>
+           		<p class="text-muted text-center"><font id="amount" size="6px"></font></p> 
            	</div>
            	<div class="col-md-6" style="height: 100px">
            	<h4>利率</h4>
+           		<p class="text-muted text-center"><font id="loanrate" size="6px"></font></p> 
            	</div>
            	<div class="col-md-6" style="height: 100px">
            	<h4>借款开始时间</h4>
+           		<p class="text-muted text-center"><font id="start" size="6px"></font></p> 
            	</div>
            	<div class="col-md-6" style="height: 100px">
            	<h4>借款总期数</h4>
+           		<p class="text-muted text-center"><font id="time" size="6px"></font></p> 
            	</div>
            	<div class="col-md-12"style="height: 200px">
            	<h4>还款记录</h4>
+           		<table class="table text-center" id="repaytb">
+           			<tr>
+           				<td>还款金额</td>
+           				<td>还款时间</td>
+					</tr>
+					<div>
+					</div>
+           		</table>
+           		
            	</div>
             
         </div>  
