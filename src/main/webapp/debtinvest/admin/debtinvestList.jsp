@@ -54,8 +54,8 @@ $(function(){
             }},
 	        {field:'debttransferdisplay',title:'债权通过表序号',width:100,align:'center'},
 	        {field:'operate',title:'查询',width:100,align:'center',formatter: function(value,row,index){
-				var obj=encodeURI(JSON.stringify(row));
-				var btns='<a id="btn" href="javascript:openWin('+'\''+obj+'\')" class="easyui-linkbutton" data-options="iconCls:\'icon-search\'">详情</a>';
+				var obj="'"+encodeURI(JSON.stringify(row))+"'";
+				var btns='<a id="btn" href="javascript:openWin('+obj+')" class="easyui-linkbutton" data-options="iconCls:\'icon-search\'">详情</a>';
 	        	return btns;
 				
 			}
