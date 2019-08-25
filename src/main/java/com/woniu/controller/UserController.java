@@ -17,6 +17,7 @@ import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
 import com.woniu.domain.Wallet;
 import com.woniu.domain.User;
+import com.woniu.service.IRoleService;
 import com.woniu.service.IUserService;
 
 @Controller
@@ -25,6 +26,9 @@ public class UserController {
 
 	@Resource
 	private IUserService service;
+	
+	@Resource
+	private IRoleService roleservice;
 	
 	@Resource
 	private RedisTemplate<String, String> redisTemplate;
@@ -54,6 +58,15 @@ public class UserController {
 		map.put("page", pb);
 //		map.put("user", user);
 		return "authorityModule/houtai/userlist";
+	}
+	
+	@RequestMapping("adminfindAll")
+	public String adminfindAll(PageBean pb,ModelMap map) {
+		List list = service.findAll(pb);
+		map.put("list", list);
+		map.put("page", pb);
+//		map.put("user", user);
+		return "authorityModule/admin/userlist";
 	}
 	
 	@RequestMapping("test")
@@ -107,4 +120,18 @@ public class UserController {
 		return "redirect:findAll";
 	}
 	
+	@RequestMapping("goupdate")
+	public String goupdate(Integer userid,ModelMap map) {
+		User user = service.findByUserid(userid);
+		List roles = roleservice.findAll();
+		map.put("user",user);
+		map.put("roles",roles);
+		return "authorityModule/admin/updatePage";
+	}
+	
+	@RequestMapping("updateAuthority")
+	public String updateAuthority(Integer[] chk,User user) {
+		service.updateAuthority(user, chk);
+		return "authorityModule/admin/updatePage";
+	}
 }

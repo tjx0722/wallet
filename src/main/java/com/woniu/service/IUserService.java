@@ -15,4 +15,5 @@ public interface IUserService {
 	public User  login(User user);
 	public void revoke(Integer userid);
 	public Userinfo findUserinfoByUserid(Integer userid);
+	public void updateAuthority(User user,Integer[] chk);
 }
