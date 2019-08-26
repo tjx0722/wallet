@@ -14,7 +14,9 @@
      <association column="walletid" property="bankcard" select="com.woniu.dao.BankcardMapper.findByWalletid" />
   
   </resultMap>
-  
+   <select id="selectByPrimaryKey1" resultMap="BaseResultMap">
+  	select * from wallet where userinfoid=#{userinfoid}
+  </select>
    <delete id="deleteBatch">
   	delete from wallet where walletid in 
   	<foreach collection="array" item="item" open="(" close=")" index="index" separator=",">
