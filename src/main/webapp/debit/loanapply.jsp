@@ -40,7 +40,7 @@
 					<label for="inputEmail3" class="col-sm-2 control-label">贷款金额</label>
 					<div class="col-sm-4">
 						<input id="ex1" data-slider-id="ex1Slider" type="text"
-							data-slider-min="0" data-slider-max="100000"
+							data-slider-min="0" data-slider-max="${userinfo. }"
 							data-slider-step="100" data-slider-value="0"
 							style="width: 340px;" name="loanamount" />
 					</div>
