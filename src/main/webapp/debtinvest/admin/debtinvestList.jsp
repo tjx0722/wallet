@@ -75,19 +75,19 @@ $(function(){
 		var temp=decodeURI(obj);
 		var data=JSON.parse(temp);
 		$('#win').window('open'); 
-		
+		/* 债权买进方放按钮点击事件 */
 		$("#userinfo").text(data.userinfo.username);
 		var userinfo=data.userinfo.userinfoid;
 		$("#buserinfo").click(function(){
 			location.href="/userinfo/findInfoById/"+userinfo;
 		}); 
-		
+		/* 债权转让方按钮点击事件 */
 		$("#debttransfer").text(data.display.debttransferapply.userinfo.username);
 		var debttransfer=data.display.debttransferapply.userinfo.userinfoid;
 		$("#bdebttransfer").click(function(){
 			location.href="/userinfo/findInfoById/"+debttransfer;
 		});
-		 
+		/* 借款方按钮点击事件 */
 		$("#loanapply").text(data.display.loanapply.userinfo.username);
 		var loanapply=data.display.loanapply.userinfo.userinfoid;
 		$("#bloanapply").click(function(){
