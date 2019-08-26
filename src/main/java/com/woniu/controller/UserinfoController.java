@@ -41,11 +41,12 @@ public class UserinfoController {
 	   Map map=new HashMap();
 	   map.put("total",pageBean.getCount());
 	   map.put("rows",rows);
+	   System.out.println(rows.toString());
 	   return map;
    }
    @RequestMapping("save")
 	public @ResponseBody Message save(Userinfo userinfo) {
-	   System.out.println(1111111);
+	 
 		Message msg = null;
 	
 		try {
@@ -65,6 +66,7 @@ public class UserinfoController {
 	}
    @RequestMapping("findByIds")
 	public  List findById() {
+	   
 	   Integer userid=obj;
 	   User user = userServiceImpl.findByUserid(userid);
 
@@ -126,9 +128,13 @@ public class UserinfoController {
 
 	@RequestMapping("findWalletByUserinfoid/{userinfoid}")
 	public ModelAndView findWalletByUserinfoid(@PathVariable Integer userinfoid) {
+		
 		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
+		
+		System.out.println(wallet.toString());
 		ModelAndView mav=new ModelAndView("userinfo/wallet/list");
 		mav.addObject("wallet", wallet);
+		System.out.println(wallet.toString());
 		return mav;
 	}
 	
