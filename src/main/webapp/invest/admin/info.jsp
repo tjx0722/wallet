@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -73,7 +74,22 @@
 					</tr>
 					<tr>
 						<th>投资人列表</th>
-						<th>。。。</th>
+						<th>
+							<table class="table table-striped table-bordered table-hover table-condensed">
+								<tr>
+									<td>投资人</td>
+									<td>投资时间</td>
+									<td>投资金额</td>
+								</tr>
+								<c:forEach items="${loandisplay.invests }" var="invest" varStatus="index">
+									<tr>
+										<td>${invest.userinfo.username }</td>
+										<td><fmt:formatDate value="${invest.paytime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+										<td>${invest.investamount }</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</th>
 					</tr>
 				</table>
 			</div>

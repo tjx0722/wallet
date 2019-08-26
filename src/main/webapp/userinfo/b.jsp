@@ -30,6 +30,7 @@ sex<input type="radio" name="sex" value="0">男<input type="radio" name="sex" va
 salary <input  type="text" name="salary"  />    <br>
 ismarried <input  type="text" name="ismarried"  />      <br>
 infochecked  <input  type="text" name="infochecked"  />    <br>
+applypass  <input  type="text" name="applypass"  />    <br>
 <button type="submit">go</button>
 
 </form>
