@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>恭喜您支付成功！</h1>
+	<h1>密码错误！</h1>
 </body>
 </html>
