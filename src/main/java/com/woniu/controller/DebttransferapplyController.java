@@ -111,7 +111,7 @@ public class DebttransferapplyController {
 	@RequestMapping("/transfer")
 	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
 		
-		ModelAndView mdv=new ModelAndView("debttransferapply/info");
+		ModelAndView mdv=new ModelAndView("debttransferapply/skip");
 		investServiceImpl.transfer(investid);
 		debttransferapplyServiceImpl.add(investid,userinfoid);
 		return mdv;
