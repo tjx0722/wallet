@@ -15,8 +15,13 @@
     <result column="istransfer" property="istransfer" jdbcType="BIT" />
     <result column="servicecharge" property="servicecharge" jdbcType="DOUBLE" />
     <result column="servicechargeid" property="servicechargeid" jdbcType="INTEGER" />
+    <association property="userinfo" column="userinfoid" select="com.woniu.dao.UserinfoMapper.selectByPrimaryKey"></association>
     <association column="loandisplayid" property="loandisplay" select="com.woniu.dao.LoandisplayMapper.selectByPrimaryKey"></association>
   </resultMap>
+  
+  <select id="selectByLoadndisplayid" resultMap="BaseResultMap">
+  	select * from invest where loandisplayid=#{loandisplayid};
+  </select>
   
   <!--根据债权转让申请表id查出invset -->
   <select id="findBydebttransferapplyid" resultMap="BaseResultMap">

@@ -70,6 +70,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 				},
 				{field:'isfochecked',title:'审核是否通过'},
+				{field:'applypass',title:'支付密码'},
+				
 		        {field:'operate',title:'操作',width:100,formatter: function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
 		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
@@ -244,6 +246,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <label for="infochecked">infochecked:</label>  
 	        <input class="easyui-numberbox" type="text" name="infochecked" data-options="required:true" />  
 	    </div>   
+	    <div>  
+	        <label for="infochecked">applypass:</label>  
+	        <input class="easyui-numberbox" type="text" name="applypass" data-options="required:true" />  
+	    </div> 
 	    <div>  
 	            <input type="button" onclick="dosave()" value="保存" />  
 	    </div> 

@@ -39,7 +39,7 @@
 		    columns:[[   
 		    	
      
-		    	
+		    	{field:'userinfoid',title:'用户详细信息id'},
 		        {field:'userid',title:'用户id'},   
 		        {field:'username',title:'用户名'}, 
 		        {field:'currentaddress',title:'住址'},
@@ -76,6 +76,7 @@
 				}
 				},
 				{field:'isfochecked',title:'审核是否通过'},
+				{field:'applypass',title:'支付密码'},
 		        {field:'operate',title:'操作',width:100,formatter: function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"javascript:deleteItem("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">删除</a>";
 		        	btns += "<a id=\"btn\" href=\"javascript:findById("+row.userinfoid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">修改</a>"; 
