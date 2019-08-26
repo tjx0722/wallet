@@ -115,12 +115,12 @@ public class DebttransferapplyController {
 	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
 		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
 		if (flag) {
-			ModelAndView mdv=new ModelAndView("debttransferapply/skip");
+			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
 			debttransferapplyServiceImpl.add(investid,userinfoid);
 			return mdv;
 		}else {
-			ModelAndView mdv=new ModelAndView("debttransferapply/info");
+			ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
 			return mdv;
 		}
 	}

@@ -111,6 +111,5 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferdisplay.setIsdead(false);
 		debttransferdisplay.setDebttransferapplyid(debttransferapplyid);
 		debttransferdisplayMapper.insert(debttransferdisplay);
-		
 	}
 }
