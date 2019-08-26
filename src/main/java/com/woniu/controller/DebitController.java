@@ -40,7 +40,7 @@ public class DebitController {
 	
 	@Resource
 	private IUserinfoService UserinfoServiceImpl;
-	
+	 
 	@RequestMapping("findAllLoantimeAndLoanrate")
 	public String findAllLoantimeAndLoanrate(HttpSession session ,ModelMap map) {
 		if(session.getAttribute("user") != null) {
@@ -79,9 +79,10 @@ public class DebitController {
 	@RequestMapping("verify")
 	public String verify(HttpSession session) {
 		Loanapply loanapply = (Loanapply) session.getAttribute("loanapply");
-		Double money = loanapply.getLoanamount();
-		Userinfo userInfo=new Userinfo();
-		
+		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+		double money = loanapply.getLoanamount();
+		userinfo.setLoapplylimit(userinfo.getLoapplylimit()-money);
+		UserinfoServiceImpl.update(userinfo);
 		debitServiceImpl.save(loanapply);
 		session.removeAttribute("loanapply");
 		return "/debit/skip";

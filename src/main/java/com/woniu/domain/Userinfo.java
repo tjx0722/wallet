@@ -12,7 +12,7 @@ public class Userinfo implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private Integer applypass;
-	private Integer loapplylimit;
+	private double loapplylimit;
 	private User user;		//可以查到对应的user
     public User getUser() {
 		return user;
@@ -35,11 +35,11 @@ public class Userinfo implements Serializable{
 		this.applypass = applypass;
 	}
 
-	public Integer getLoapplylimit() {
+	public double getLoapplylimit() {
 		return loapplylimit;
 	}
 
-	public void setLoapplylimit(Integer loapplylimit) {
+	public void setLoapplylimit(double loapplylimit) {
 		this.loapplylimit = loapplylimit;
 	}
 
