@@ -75,9 +75,25 @@ $(function(){
 		var temp=decodeURI(obj);
 		var data=JSON.parse(temp);
 		$('#win').window('open'); 
+		
 		$("#userinfo").text(data.userinfo.username);
+		var userinfo=data.userinfo.userinfoid;
+		$("#buserinfo").click(function(){
+			location.href="/userinfo/findInfoById/"+userinfo;
+		}); 
+		
 		$("#debttransfer").text(data.display.debttransferapply.userinfo.username);
+		var debttransfer=data.display.debttransferapply.userinfo.userinfoid;
+		$("#bdebttransfer").click(function(){
+			location.href="/userinfo/findInfoById/"+debttransfer;
+		});
+		 
 		$("#loanapply").text(data.display.loanapply.userinfo.username);
+		var loanapply=data.display.loanapply.userinfo.userinfoid;
+		$("#bloanapply").click(function(){
+			location.href="/userinfo/findInfoById/"+loanapply;
+		}); 
+			
 		$("#amount").text(data.display.invest.investamount);
 		$("#loanrate").text(data.display.loanapply.loanrate.loanrate);
 		var temp=data.display.invest.loandisplay.displaytime;
@@ -111,17 +127,17 @@ $(function(){
         	<div class="col-md-12">
         	<h4>相关用户</h4>
         	<div class="col-md-4 text-center" style="height: 100px">
-        	<h5>债权买进用户</h5><button type="button" class="btn btn-primary btn-sm center-block" >
+        	<h5>债权买进用户</h5><button type="button" class="btn btn-primary btn-sm center-block" id="buserinfo">
  				 		<span class="glyphicon glyphicon-user" id="userinfo"></span> 
 					</button>
 			</div>
 			<div class="col-md-4 text-center" style="height: 100px">
-			<h5>债权转出用户</h5><button type="button" class="btn btn-warning btn-sm center-block" >
+			<h5>债权转出用户</h5><button type="button" class="btn btn-warning btn-sm center-block" id="bdebttransfer">
  				 		<span class="glyphicon glyphicon-user" id="debttransfer"></span> 
 					</button>
 			</div>	
 			<div class="col-md-4 text-center" style="height: 100px">
-			<h5>借款人</h5><button type="button" class="btn btn-danger btn-sm center-block" >
+			<h5>借款人</h5><button type="button" class="btn btn-danger btn-sm center-block" id="bloanapply">
  				 		<span class="glyphicon glyphicon-user" id="loanapply"></span> 
 					</button>
 			</div>

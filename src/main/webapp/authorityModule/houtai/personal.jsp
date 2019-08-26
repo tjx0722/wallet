@@ -22,7 +22,8 @@
 		<TD>电话</TD>
 		<TD>邮箱</TD>
 		<TD>修改</TD>
-		<TD style="border-top-right-radius:10px">完善个人资料</TD>
+		<TD>完善个人资料</TD>
+		<TD style="border-top-right-radius:10px">查看个人资料</TD>
 	</TR>
 	<TR align="center" height="50px" style="background-color:grey;color:white">
 		<TD>${user.userid}</TD>

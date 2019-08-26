@@ -32,7 +32,7 @@
 	<div class="panel panel-default "
 		style="background: url('back.jpg'); height: 760px; width: 1089px">
 		<div class="panel-body">
-			<h2>${userinfo.username}，欢迎您使用借款功能。请根据您的需要进行选择：</h2>
+			<h2>${userinfo.username}， 欢迎您使用借款功能。请根据您的需要进行选择：</h2>
 		</div>
 		<div style="position: relative;top:100px">
 			<form class="form-horizontal" role="form" action="excessive">
@@ -40,7 +40,7 @@
 					<label for="inputEmail3" class="col-sm-2 control-label">贷款金额</label>
 					<div class="col-sm-4">
 						<input id="ex1" data-slider-id="ex1Slider" type="text"
-							data-slider-min="0" data-slider-max="${userinfo. }"
+							data-slider-min="0" data-slider-max="${userinfo.loapplylimit }"
 							data-slider-step="100" data-slider-value="0"
 							style="width: 340px;" name="loanamount" />
 					</div>
