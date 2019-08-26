@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -102,5 +103,12 @@ public class UserinfoController {
 		mav.addObject("wallet", wallet);
 		return mav;
 	}
-	
+//	在交易历史等页面中可以跳转该controller,以便管理员查看该用户所有的信息，包括个人信息，甚至钱包，还款记录等
+//	跳转的jsp在authorityModule/admin/userAllInfo.jsp。
+	@RequestMapping("findInfoById/{userinfoid}")
+	public String findInfoById(@PathVariable Integer userinfoid,ModelMap map) {
+		Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
+		map.put("userinfo",userinfo);
+		return "/authorityModule/admin/userAllInfo";
+	}
 }
