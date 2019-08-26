@@ -11,109 +11,102 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>js/easyui/themes/icon.css">
-<script type="text/javascript" src="<%=basePath%>js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
-<script>
-	$(document).ready(function() {
-		$.ajaxSetup({
-			global : true,
-			cache : false,
-			async : false
-		});
-		/* 	$('#btn').click(function() {
-			$.messager.progress();
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="//cdn.bootcss.com/bootstrap-slider/9.4.1/css/bootstrap-slider.css"
+	rel="stylesheet">
 
-			$('#ff').form('submit', {
-				url : 'excessive',
-				onSubmit : function() {
-					var isValid = $(this).form('validate');
-					if (!isValid) {
-						$.messager.progress('close'); // 当form不合法的时候隐藏工具条\
-					}
-					return isValid; // 返回false将停止form提交 
-				},
-				success : function() {
-					$.messager.progress('close'); // 当成功提交之后隐藏进度条
-				}
-			});
-		}); */
-
-		$('#applytime').combo({
-			required : true,
-			multiple : true
-		});
-
-	})
-</script>
+<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="//cdn.bootcss.com/bootstrap-slider/9.4.1/bootstrap-slider.min.js"></script>
+<style>
+#ex1Slider .slider-selection {
+	background: red;
+}
+</style>
 </head>
 <body class="easyui-layout">
-	<div data-options="region:'north',split:true"
-		style="height: 100px; background-color: #ccffff" align="center">
-		<h1>这 里 是借 款 界 面</h1>
-		<h3>欢迎用户 ${userinfo.username }</h3>
-	</div>
-	<div data-options="region:'center'"
-		style="padding: 50px; background: #eee;">
-		<form id="ff" method="post" action="excessive">
-			<div style="height: 40px" align="center">
-				<div style="width: 30%; float: left" align="center">
-					<label for="name">贷款金额:</label>
+
+	<div class="panel panel-default "
+		style="background: url('back.jpg'); height: 760px; width: 1089px">
+		<div class="panel-body">
+			<h2>${userinfo.username}，欢迎您使用借款功能。请根据您的需要进行选择：</h2>
+		</div>
+		<div style="position: relative;top:100px">
+			<form class="form-horizontal" role="form" action="excessive">
+				<div class="form-group" style="margin: 30px">
+					<label for="inputEmail3" class="col-sm-2 control-label">贷款金额</label>
+					<div class="col-sm-4">
+						<input id="ex1" data-slider-id="ex1Slider" type="text"
+							data-slider-min="0" data-slider-max="100000"
+							data-slider-step="100" data-slider-value="0"
+							style="width: 340px;" name="loanamount" />
+					</div>
+					<span class=" col-sm-1" id="loanamount"
+						style="width: 50px; height: 20px; text-align: center; line-height: 20px">
+					</span>
 				</div>
-				<div style="width: 70%; float: left; text-align: 40px">
-					<input id="slider" class="easyui-slider" value="0"
-						name="loanamount" style="width: 300px"
-						data-options="showTip:true,max:100000,rule:[0,'|',2500,'|',5000,'|',7500,'|',10000]" />
+				<div class="form-group" style="margin: 30px">
+					<label for="inputPassword3" class="col-sm-2 control-label">选择利率</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="loanrateid">
+							<c:forEach items="${loanrates }" var="rate">
+								<option value="${rate.loanrateid}">${(rate.loanrate)*1000/10}%</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
-			</div>
-			<br>
-			<div>
-				<div style="width: 30%; float: left" align="center">
-					<label for="email">贷款利率</label>
+				<div class="form-group" style="margin: 30px">
+					<label for="inputPassword3" class="col-sm-2 control-label">分期期数</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="loantimeid">
+							<c:forEach items="${Loantimes}" var="time">
+								<option value="${time.loantimeid }">${time.loantime }个月</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
-				<div style="width: 70%; float: left" align="center">
-					<select id="cc" class="easyui-combobox" name="loanrateid"
-						style="width: 200px;">
-						<c:forEach items="${loanrates }" var="rate">
-							<option value="${rate.loanrateid}">${(rate.loanrate)*1000/10}%</option>
-						</c:forEach>
-					</select>
+				<div class="form-group" style="margin: 30px">
+					<label for="inputPassword3" class="col-sm-2 control-label">借款用途</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="reason">
+							<option value="运动健身">运动健身</option>
+							<option value="电扇购物">电商购物</option>
+							<option value="生活开销">生活开销</option>
+							<option value="学习进修">学习进修</option>
+							<option value="技能培训">技能培训</option>
+						</select>
+					</div>
 				</div>
-			</div>
-			<br>
-			<div style="text-align: center;">
-				<div style="width: 30%; float: left" align="center">
-					<label for="email">贷款时间</label>
+				<div class="form-group" style="margin: 30px">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">提交申请</button>
+					</div>
 				</div>
-				<div style="width: 70%; float: left" align="center">
-					<select id="applytime" class="easyui-combobox" name="loantimeid"
-						style="width: 200px;">
-						<c:forEach items="${Loantimes}" var="time">
-							<option value="${time.loantimeid }">${time.loantime }个月</option>
-						</c:forEach>
-					</select>
-				</div>
-			</div>
-			<div style="text-align: center;">
-				<div style="width: 30%; float: left" align="center">
-					<label for="email">申请原因</label>
-				</div>
-				<div style="width: 70%; float: left" align="center">
-					<textarea rows="10" cols="50" name="reason"></textarea>
-				</div>
-			</div>
-			<div style="width: 100%; float: left" align="right">
-				<button id="btn"  class="easyui-linkbutton"
-					data-options="iconCls:'icon-add'">提交</button>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 </html>
+<script>
+	$('#ex1').slider(
+			{
+				formatter : function(value) {
+					$("#loanamount").html(
+							"<font size='10' face='楷体'>￥" + value + "</font>");
+					$("input[ name='']").val(value);
+					return '当前金额： ' + value;
+				}
+			}).on('slide', function(slideEvt) {
+		//当滚动时触发
+		//console.info(slideEvt);
+		//获取当前滚动的值，可能有重复
+		// console.info(slideEvt.value);
+	}).on('change', function(e) {
+		//当值发生改变的时候触发
+		//console.info(e);
+	});
+</script>
 

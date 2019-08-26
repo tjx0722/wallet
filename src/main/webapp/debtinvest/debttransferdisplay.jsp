@@ -72,6 +72,6 @@ $(function(){
 <body>
 <div id="tb">
 </div>
-<table id="dg"></table>  
+<table id="dg" height=750px"></table>  
 </body>
 </html>

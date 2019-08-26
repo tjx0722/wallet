@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.UserMapper;
+import com.woniu.dao.UserroleMapper;
 import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
+import com.woniu.domain.UserroleKey;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.UserroleExample;
 import com.woniu.service.IUserService;
 
 @Service
@@ -21,17 +24,24 @@ public class UserService implements IUserService {
 	private UserMapper userMapper;
 	@Resource 
 	private UserinfoMapper userinfoMapper;
+	@Resource 
+	private UserroleMapper userroleMapper;
 	@Override
 	public void save(User user) {
 		// TODO Auto-generated method stub
 		userMapper.insertSelective(user);
+		
+	//	int[] arr = {6,7,8,9,13,14};
+	//	for (int i : arr) {
+			UserroleKey key = new UserroleKey();
+			key.setUserid(user.getUserid());
+			key.setRoleid(3);
+			userroleMapper.insert(key); 
+	//	}
+		
 	}
 
-	@Override
-	public void delete(Integer userid) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public void update(User user) {
@@ -61,9 +71,53 @@ public class UserService implements IUserService {
 	}
 
 	@Override
+	public void delete(Integer userid) {
+		// TODO Auto-generated method stub
+		User info = new User();
+		info.setUserid(userid);
+		info.setIsdelete(true);
+		userMapper.updateByPrimaryKeySelective(info);
+	}
+
+	@Override
+	public void revoke(Integer userid) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		User info = new User();
+		info.setUserid(userid);
+		info.setIsdelete(false);
+		userMapper.updateByPrimaryKeySelective(info);
+	}
+
+	@Override
 	public Userinfo findUserinfoByUserid(Integer userid) {
 		// TODO Auto-generated method stub
 		return userinfoMapper.selectByPrimaryKey(userid);
 	}
+
+
+
+	@Override
+	public void updateAuthority(User user, Integer[] chk) {
+		// TODO Auto-generated method stub
+		// 修改User
+		System.out.println(user);
+				userMapper.updateByPrimaryKeySelective(user);
+				
+				//删除对应用户的所有角色
+				UserroleExample example = new UserroleExample();
+				example.createCriteria().andUseridEqualTo(user.getUserid());
+				userroleMapper.deleteByExample(example);
+				
+				// 插入userinfoRole
+				if (chk != null)
+					for (Integer roleid : chk) {
+						UserroleKey key = new UserroleKey();
+						key.setUserid(user.getUserid());
+						key.setRoleid(roleid);
+						userroleMapper.insert(key);
+					}
+			}
+	
 
 }

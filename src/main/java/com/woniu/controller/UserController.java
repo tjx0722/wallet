@@ -21,7 +21,7 @@ import com.woniu.domain.Wallet;
 import com.woniu.domain.User;
 import com.woniu.service.IUserService;
 import com.woniu.service.IUserinfoService;
-
+import com.woniu.service.IRoleService;
 @Controller
 @RequestMapping("/authorityModule")
 public class UserController {
@@ -34,6 +34,10 @@ public class UserController {
 	@Resource
 	private RedisTemplate<String, String> redisTemplate;
 	
+	@Resource
+	private IRoleService roleservice;
+	@Resource
+	private RedisTemplate<String, String> redisTemplate;
 	@RequestMapping("save")
 	public String save(User user,String phone,String number) {
 		
@@ -61,7 +65,14 @@ public class UserController {
 //		map.put("user", user);
 		return "authorityModule/houtai/userlist";
 	}
-	
+	@RequestMapping("adminfindAll")
+	public String adminfindAll(PageBean pb,ModelMap map) {
+		List list = service.findAll(pb);
+		map.put("list", list);
+		map.put("page", pb);
+//		map.put("user", user);
+		return "authorityModule/admin/userlist";
+	}
 	@RequestMapping("test")
 	public String test(PageBean pb,ModelMap map) {
 		List list = service.findAll(pb);
@@ -107,5 +118,28 @@ public class UserController {
 		map.put("userinfo",userinfo);
 		return null;
 		
+	}
+	@RequestMapping("delete")
+	public String delete(Integer userid) {
+		service.delete(userid);
+		return "redirect:findAll";
+	}
+	@RequestMapping("revoke")
+	public String revoke(Integer userid) {
+		service.revoke(userid);
+		return "redirect:findAll";
+	}
+	@RequestMapping("goupdate")
+	public String goupdate(Integer userid,ModelMap map) {
+		User user = service.findByUserid(userid);
+		List roles = roleservice.findAll();
+		map.put("user",user);
+		map.put("roles",roles);
+		return "authorityModule/admin/updatePage";
+	}
+	@RequestMapping("updateAuthority")
+	public String updateAuthority(Integer[] chk,User user) {
+		service.updateAuthority(user, chk);
+		return "authorityModule/admin/updatePage";
 	}
 }

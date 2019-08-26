@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import com.woniu.dao.DebtinvestMapper;
 import com.woniu.dao.DebttransferdisplayMapper;
 import com.woniu.domain.Debtinvest;
 import com.woniu.domain.Debttransferdisplay;
+import com.woniu.domain.PageBean;
 import com.woniu.service.IDebtInvestService;
 @Service
 @Transactional
@@ -28,9 +30,10 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 		return list;
 	}
 	@Override
-	public List<Debttransferdisplay> findAll() {
+	public List<Debtinvest> findAll(PageBean page) {
 		// TODO Auto-generated method stub
-		List<Debttransferdisplay> list = debttransferdisplayMapper.selectByExample(null);
+		List<Debtinvest> list = debtinvestMapper.selectByExample(null,new RowBounds(page.getOffset(),page.getLimit()));
+		page.setCount(list.size());
 		return list;
 	}
 	@Override

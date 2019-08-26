@@ -21,7 +21,7 @@
     <result column="salary" property="salary" jdbcType="INTEGER" />
     <result column="ismarried" property="ismarried" jdbcType="BIT" />
     <result column="infochecked" property="infochecked" jdbcType="BIT" />
-    <association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
+    <association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association> 
   </resultMap>
   <select id="findByUid" resultMap="BaseResultMap">
   	SELECT * FROM userinfo WHERE userid=#{userid}

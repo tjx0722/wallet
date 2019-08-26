@@ -13,5 +13,7 @@ public interface IUserService {
 	public User findByUserid(Integer userid);
 	public List findAll(PageBean pb);
 	public User  login(User user);
+	public void revoke(Integer userid);
 	public Userinfo findUserinfoByUserid(Integer userid);
+	public void updateAuthority(User user,Integer[] chk);
 }

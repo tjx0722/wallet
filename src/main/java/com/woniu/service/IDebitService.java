@@ -7,6 +7,7 @@ import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 
 public interface IDebitService {
+	void save(Loanapply loanapply);
 	void update(Loanapply loanapply);
 	List<Loanapply> findAllLoanapply();
 	List<Loantime> findAllLoantime();

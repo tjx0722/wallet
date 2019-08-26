@@ -27,6 +27,8 @@
 	<TD>密码</TD>
 	<TD>电话</TD>
 	<TD>邮箱</TD>
+	<TD>状态</TD>
+	<TD>操作</TD>
 </TR>
 <c:forEach items="${list}" var="user">
 <TR align="center">
@@ -35,6 +37,10 @@
 	<TD>${user.password}</TD>
 	<TD>${user.phone}</TD>
 	<TD>${user.email}</TD>
+	<TD>${user.isdelete?'已删除':'正常'}</TD>
+	<TD>
+		<a href="${!user.isdelete?'delete':'revoke'}?userid=${user.userid}">${!user.isdelete?'删除':'恢复'}</a> 
+	</TD>
 </TR>
 </c:forEach>
 </TABLE>
