@@ -22,6 +22,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		color:#333; font-size:12px;
 		font-family:dotum, Verdana, Arial, Helvetica, AppleGothic, sans-serif;
 	}
+	span {
+	
+		color:black;
+	}
 	#testIframe {margin-left: 10px;}
   </style>
 <script type="text/javascript" src="<%=basePath%>js/jquery-1.4.4.min.js"></script>
@@ -30,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <!--
 	var zTree;
 	var demoIframe;
-
+  
 	var setting = {
 		view: {
 			dblClickExpand: false,
@@ -91,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <TABLE border=0 height=600px align=left>
 	<TR>
 		<TD width=260px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
-			<ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+			<ul id="tree" class="ztree" style="width:260px; overflow:auto"></ul>
 		</TD>
 		<TD width=1170px align=left valign=top><IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=600px SRC="core/standardData.html"></IFRAME></TD>
 	</TR>

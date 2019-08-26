@@ -126,10 +126,19 @@ public class UserinfoController {
 
 	@RequestMapping("findWalletByUserinfoid/{userinfoid}")
 	public ModelAndView findWalletByUserinfoid(@PathVariable Integer userinfoid) {
-		System.out.println(userinfoid);
 		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
 		ModelAndView mav=new ModelAndView("userinfo/wallet/list");
 		mav.addObject("wallet", wallet);
 		return mav;
+	}
+
+//	在交易历史等页面中可以跳转该controller,以便管理员查看该用户所有的信息，包括个人信息，甚至钱包，还款记录等
+//	跳转的jsp在authorityModule/admin/userAllInfo.jsp。
+	@RequestMapping("findInfoById/{userinfoid}")
+	public ModelAndView findInfoById(@PathVariable Integer userinfoid) {
+		Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
+		ModelAndView view= new ModelAndView("authorityModule/admin/userAllInfo");
+		view.addObject(userinfo);
+		return view;
 	}
 }
