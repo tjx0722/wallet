@@ -126,10 +126,10 @@ public class UserinfoController {
 
 	@RequestMapping("findWalletByUserinfoid/{userinfoid}")
 	public ModelAndView findWalletByUserinfoid(@PathVariable Integer userinfoid) {
+		System.out.println(userinfoid);
 		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
 		ModelAndView mav=new ModelAndView("userinfo/wallet/list");
 		mav.addObject("wallet", wallet);
 		return mav;
 	}
-	
 }

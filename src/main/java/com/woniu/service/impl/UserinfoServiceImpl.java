@@ -55,7 +55,8 @@ private WalletMapper walletMapper;
 	@Override
 	public Wallet findWalletByUserinfoid(Integer userinfoid) {
 		// TODO Auto-generated method stub
-		return walletMapper.selectByPrimaryKey(userinfoid);
+		Wallet selectByPrimaryKey = walletMapper.selectByPrimaryKey(userinfoid);
+		System.out.println(selectByPrimaryKey.toString());
+		return selectByPrimaryKey;
 	}
-
 }
