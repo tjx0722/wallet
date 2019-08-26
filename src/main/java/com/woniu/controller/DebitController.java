@@ -40,7 +40,7 @@ public class DebitController {
 	
 	@Resource
 	private IUserinfoService UserinfoServiceImpl;
-	
+	 
 	@RequestMapping("findAllLoantimeAndLoanrate")
 	public String findAllLoantimeAndLoanrate(HttpSession session ,ModelMap map) {
 		if(session.getAttribute("user") != null) {
