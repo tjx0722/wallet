@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 		      </tr>
 		      <tr>
 		        <td>申请时间</td>
-		        <td>${invest.loandisplay.loanapply.applytime }</td>
+		        <td><fmt:formatDate value="${invest.loandisplay.loanapply.applytime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 		      </tr>
 		      <tr>
 		        <td>申请原因</td>

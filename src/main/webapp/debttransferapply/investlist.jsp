@@ -35,7 +35,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					return btns;
 				 }},   
 		        {field:'investamount',title:'投资金额',width:100},   
-		        {field:'paytime',title:'付款时间',width:100},
+		        {field:'paytime',title:'付款时间',width:100,formatter:function(value,row,index){
+					var date=new Date(value);
+					return date.toLocaleString();
+			    }},
 		        {field:'loandisplayid',title:'具体账单',width:100,formatter:function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneInvest/"+row.loandisplayid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;
