@@ -32,11 +32,11 @@
 						{
 							url : '/invest/findAllLoanDisplay',
 							fitColumns : true,
+							striped : true,
+							pagination : true,
+							title : '可投资列表',
 							toolbar : '#tb',
 							pageSize : 20,
-							striped : true,
-							title : '可投资列表',
-							pagination : true,
 							columns : [ [
 									{
 										field : 'loanamount',
