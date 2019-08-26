@@ -52,7 +52,7 @@ public class DebttransferapplyController {
 		 * User user=(User) session.getAttribute("user"); int
 		 * userinfoid=user.getUserinfo().getUserinfoid();
 		 */
-		int userinfoid=1;
+		int userinfoid=3;
 		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
@@ -94,18 +94,26 @@ public class DebttransferapplyController {
 		 * User user=(User) session.getAttribute("user"); int
 		 * userinfoid=user.getUserinfo().getUserinfoid();
 		 */
-		int userinfoid=1;
+		int userinfoid=3;
 		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
 		mdv.addObject("apply", debttransferapply);
 		return mdv;
 	}
 	
-	@RequestMapping("/transfer/{investid},{userinfoid}")
-	public ModelAndView transfer(@PathVariable Integer investid,@PathVariable Integer userinfoid) {
-		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/investlist.jsp");
+	@RequestMapping("/pay/{investId},{userinfoid}")
+	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid) {
+		ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
+		mdv.addObject("investid", investId);
+		mdv.addObject("userinfoid", userinfoid);
+		return mdv;
+	}
+	
+	@RequestMapping("/transfer")
+	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
+		
+		ModelAndView mdv=new ModelAndView("debttransferapply/skip");
 		investServiceImpl.transfer(investid);
 		debttransferapplyServiceImpl.add(investid,userinfoid);
 		return mdv;
 	}
-	
 }

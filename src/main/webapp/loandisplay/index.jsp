@@ -174,7 +174,9 @@
 </script>
 </head>
 <body>
+     <div  style=" height: 760px;width: 1089px;">
 	<table id="dg"></table>
+	</div>
 	<%--${list }
 	<div id="tb">
 		<form action="">

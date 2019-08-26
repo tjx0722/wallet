@@ -11,11 +11,38 @@ public class Userinfo implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
-
+	private Integer applypass;
+	private Integer loapplylimit;
 	private User user;		//可以查到对应的user
     public User getUser() {
 		return user;
 	}
+    
+	@Override
+	public String toString() {
+		return "Userinfo [applypass=" + applypass + ", loapplylimit=" + loapplylimit + ", user=" + user
+				+ ", userinfoid=" + userinfoid + ", userid=" + userid + ", username=" + username + ", currentaddress="
+				+ currentaddress + ", nativeplace=" + nativeplace + ", usericon=" + usericon + ", nickname=" + nickname
+				+ ", userjob=" + userjob + ", degree=" + degree + ", birthday=" + birthday + ", sex=" + sex
+				+ ", salary=" + salary + ", ismarried=" + ismarried + ", infochecked=" + infochecked + "]";
+	}
+
+	public Integer getApplypass() {
+		return applypass;
+	}
+
+	public void setApplypass(Integer applypass) {
+		this.applypass = applypass;
+	}
+
+	public Integer getLoapplylimit() {
+		return loapplylimit;
+	}
+
+	public void setLoapplylimit(Integer loapplylimit) {
+		this.loapplylimit = loapplylimit;
+	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -13,25 +13,29 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.woniu.domain.Bankcard;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
 import com.woniu.domain.Wallet;
 import com.woniu.domain.User;
-import com.woniu.service.IRoleService;
 import com.woniu.service.IUserService;
-
+import com.woniu.service.IUserinfoService;
+import com.woniu.service.IRoleService;
 @Controller
 @RequestMapping("/authorityModule")
 public class UserController {
 
 	@Resource
 	private IUserService service;
-	
 	@Resource
-	private IRoleService roleservice;
+	private IUserinfoService userinfoServiceImpl;
 	
 	@Resource
 	private RedisTemplate<String, String> redisTemplate;
+	
+	@Resource
+	private IRoleService roleservice;
 	
 	@RequestMapping("save")
 	public String save(User user,String phone,String number) {
@@ -49,6 +53,7 @@ public class UserController {
 		}else {
 			return "index";
 		}
+		
 	}
 	
 	@RequestMapping("findAll")
@@ -59,7 +64,6 @@ public class UserController {
 //		map.put("user", user);
 		return "authorityModule/houtai/userlist";
 	}
-	
 	@RequestMapping("adminfindAll")
 	public String adminfindAll(PageBean pb,ModelMap map) {
 		List list = service.findAll(pb);
@@ -68,7 +72,6 @@ public class UserController {
 //		map.put("user", user);
 		return "authorityModule/admin/userlist";
 	}
-	
 	@RequestMapping("test")
 	public String test(PageBean pb,ModelMap map) {
 		List list = service.findAll(pb);
@@ -106,20 +109,25 @@ public class UserController {
 		map.put("user", user);
 		return "authorityModule/houtai/editUser"; 
 	}
-	
-	
+	@RequestMapping("findUserinfoByUserid")
+	public String findUserinfoByUserid(ModelMap map,Integer userid) {
+		System.out.println(userid);
+		Userinfo userinfo=service.findUserinfoByUserid(userid);
+		System.out.println(userinfo.toString());
+		map.put("userinfo",userinfo);
+		return null;
+		
+	}
 	@RequestMapping("delete")
 	public String delete(Integer userid) {
 		service.delete(userid);
 		return "redirect:findAll";
 	}
-	
 	@RequestMapping("revoke")
 	public String revoke(Integer userid) {
 		service.revoke(userid);
 		return "redirect:findAll";
 	}
-	
 	@RequestMapping("goupdate")
 	public String goupdate(Integer userid,ModelMap map) {
 		User user = service.findByUserid(userid);
@@ -128,7 +136,6 @@ public class UserController {
 		map.put("roles",roles);
 		return "authorityModule/admin/updatePage";
 	}
-	
 	@RequestMapping("updateAuthority")
 	public String updateAuthority(Integer[] chk,User user) {
 		service.updateAuthority(user, chk);

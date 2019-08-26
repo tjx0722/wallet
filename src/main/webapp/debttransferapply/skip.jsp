@@ -25,11 +25,11 @@
 			SysSecond = SysSecond - 1;
 			var second = Math.floor(SysSecond % 60); // 计算秒     
 
-			$("#remainTime").html("<h1><font face='楷体'>感谢您的使用<br><br>" + second + "秒后为您返回首页<font></h1>");
+			$("#remainTime").html("<h1><font color="blank" face='楷体'>感谢您的使用<br><br>" + second + "秒后为您返回首页<font></h1>");
 
 			if (second === 0) {
 				window.clearInterval(InterValObj);
-				window.location.href = "/debit/skip2.jsp";
+				window.location.href = "/debttransferapply/investlist.jsp";
 			}
 		}
 	}

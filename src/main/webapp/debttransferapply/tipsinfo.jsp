@@ -56,36 +56,39 @@
 		<button type="button" class="btn btn-primary" onclick="location.href='/debttransferapply/investlist.jsp'">取消</button>
 	</div>
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title text-center" id="myModalLabel">请支付手续费</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					</div>
-					<div class="modal-body">按下 Esc 按钮退出。</div>
-					<div class="modal-body">
-						<table
-							class="table table-striped table-bordered table-hover table-condensed">
-							<tr>
-								<th colspan="2">14期全体成员正在为您保驾护航，请确认支付信息</th>
-							</tr>
-							<tr>
-								<th><font size="4">付款金额</font></th>
-								<th><span class="glyphicon glyphicon-gbp"
-									style="color: red">${apply.servicecharge }</span></th>
-							</tr>
-							<tr>
-								<th colspan="2">
-									<div  align="center"><button type="button" onclick="location.href='/debttransferapply/transfer/${apply.investid},${apply.userinfoid}'" class="btn btn-primary">确认付款</button></div>
-								</th>
-							</tr>
-						</table>
-						<div align="right"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></div>
-					</div>
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title text-center" id="myModalLabel">请支付手续费</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+				<div class="modal-body">按下 Esc 按钮退出。</div>
+				<div class="modal-body">
+					<table
+						class="table table-striped table-bordered table-hover table-condensed">
+						<tr>
+							<th colspan="2">14期全体成员正在为您保驾护航，请确认支付信息</th>
+						</tr>
+						<tr>
+							<th><font size="4">付款金额</font></th>
+							<th><span class="glyphicon glyphicon-gbp"
+								style="color: red">${apply.servicecharge }</span></th>
+						</tr>
+						<tr>
+							<th>
+								<div  align="center"><button  onclick="location.href='/debttransferapply/pay/${apply.investid},${apply.userinfoid}'" type="button" class="btn btn-primary">使用Wallet付款</button></div>
+							</th>
+							<th>
+								<div  align="center"><button type="button" class="btn btn-info">使用支付宝付款</button></div>
+							</th>
+						</tr>
+					</table>
+					<div align="right"><button type="button" class="btn btn-default" data-dismiss="modal">关闭</button></div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 <script type="text/javascript">
 </script>

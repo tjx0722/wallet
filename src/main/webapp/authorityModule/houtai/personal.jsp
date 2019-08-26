@@ -31,7 +31,8 @@
 		<TD>${user.phone}</TD>
 		<TD>${user.email}</TD>
 		<TD><button onclick="location.href='/authorityModule/editPage?userid=${user.userid}'">修改</button></TD>
-		<TD><button onclick="location.href=''">完善资料</button></TD>
+		<TD><button onclick="location.href='/userinfo/b.jsp?userid=${user.userid}'">完善资料</button></TD>
+	<TD><button onclick="location.href='/userinfo/skip?userid=${user.userid}'">查看个人资料</button></TD>
 	</TR>
 </TABLE>
 

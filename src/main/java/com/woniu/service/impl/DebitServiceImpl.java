@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import com.woniu.dao.LoantimeMapper;
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
+import com.woniu.domain.PageBean;
 import com.woniu.service.IDebitService;
 @Service
 @Transactional
@@ -49,9 +51,12 @@ public class DebitServiceImpl implements IDebitService {
 		return loanrateMapper.selectByPrimaryKey(servicechargeid);
 	}
 	@Override
-	public List<Loanapply> findAllLoanapply() {
+	public List<Loanapply> findAllLoanapply(PageBean pageBean) {
 		// TODO Auto-generated method stub
-		List<Loanapply> list = loanapplyMapper.selectByExampleWithBLOBs(null);
+		
+		List<Loanapply> list = loanapplyMapper.selectByExampleWithBLOBs(null,new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
+		int count = loanapplyMapper.countByExample(null);
+		pageBean.setCount(count);
 		return list;
 	}
 	@Override
