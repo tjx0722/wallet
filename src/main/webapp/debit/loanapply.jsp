@@ -30,61 +30,63 @@
 <body class="easyui-layout">
 
 	<div class="panel panel-default "
-		style="background: url('back.jpg'); height: 960px">
-		<div class="panel-heading" style="background-color: #99D9D9">
-		
+		style="background: url('back.jpg'); height: 760px; width: 1089px">
+		<div class="panel-body">
+			<h2>${userinfo.username}，欢迎您使用借款功能。请根据您的需要进行选择：</h2>
 		</div>
-		<div class="panel-body">${userinfo.username}，欢迎您使用借款功能。     请根据您的需要进行选择：</div>
-		<form class="form-horizontal" role="form" action="excessive">
-			<div class="form-group">
-				<label for="inputEmail3" class="col-sm-2 control-label">贷款金额</label>
-				<div class="col-sm-4">
-					<input id="ex1" data-slider-id="ex1Slider" type	="text"
-						data-slider-min="0" data-slider-max="100000"
-						data-slider-step="100" data-slider-value="0" style="width: 500px;" name="loanamount" />
+		<div style="position: relative;top:100px">
+			<form class="form-horizontal" role="form" action="excessive">
+				<div class="form-group" style="margin: 30px">
+					<label for="inputEmail3" class="col-sm-2 control-label">贷款金额</label>
+					<div class="col-sm-4">
+						<input id="ex1" data-slider-id="ex1Slider" type="text"
+							data-slider-min="0" data-slider-max="100000"
+							data-slider-step="100" data-slider-value="0"
+							style="width: 340px;" name="loanamount" />
+					</div>
+					<span class=" col-sm-1" id="loanamount"
+						style="width: 50px; height: 20px; text-align: center; line-height: 20px">
+					</span>
 				</div>
-				<span class=" col-sm-1" id="loanamount"
-					style="width: 50px; height: 20px; text-align: center; line-height: 20px">
-				</span>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword3" class="col-sm-2 control-label">分期期数</label>
-				<div class="col-sm-4">
-					<select  class="form-control" name="loanrateid">
-						<c:forEach items="${loanrates }" var="rate">
-							<option value="${rate.loanrateid}">${(rate.loanrate)*1000/10}%</option>
-						</c:forEach>
-					</select>
+				<div class="form-group" style="margin: 30px">
+					<label for="inputPassword3" class="col-sm-2 control-label">选择利率</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="loanrateid">
+							<c:forEach items="${loanrates }" var="rate">
+								<option value="${rate.loanrateid}">${(rate.loanrate)*1000/10}%</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword3" class="col-sm-2 control-label">选择利率</label>
-				<div class="col-sm-4">
-					<select  class="form-control" name="loantimeid">
-						<c:forEach items="${Loantimes}" var="time">
-							<option value="${time.loantimeid }">${time.loantime }个月</option>
-						</c:forEach>
-					</select>
+				<div class="form-group" style="margin: 30px">
+					<label for="inputPassword3" class="col-sm-2 control-label">分期期数</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="loantimeid">
+							<c:forEach items="${Loantimes}" var="time">
+								<option value="${time.loantimeid }">${time.loantime }个月</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword3" class="col-sm-2 control-label">借款用途</label>
-				<div class="col-sm-4">
-					<select  class="form-control" name="reason">
+				<div class="form-group" style="margin: 30px">
+					<label for="inputPassword3" class="col-sm-2 control-label">借款用途</label>
+					<div class="col-sm-4">
+						<select class="form-control" name="reason">
 							<option value="运动健身">运动健身</option>
 							<option value="电扇购物">电商购物</option>
 							<option value="生活开销">生活开销</option>
 							<option value="学习进修">学习进修</option>
 							<option value="技能培训">技能培训</option>
-					</select>
+						</select>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default">提交申请</button>
+				<div class="form-group" style="margin: 30px">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">提交申请</button>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

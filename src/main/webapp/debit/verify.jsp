@@ -52,14 +52,14 @@ ul, li {
 </style>
 </head>
 <body class="easyui-layout">
-	<div class="panel panel-default">
+	<div class="panel panel-default"  style="background: url('back.jpg'); height: 760px;width: 1089px">
 		<div class="panel-heading">
 			<h3 class="panel-title">订单确认</h3>
 		</div>
 		<div class="panel-body">
 		请确认您的订单
 	</div>
-			<table class="table table-striped">
+			<table class="table ">
 				<thead>
 					<tr>
 						<th width="100">数据类型</th>
