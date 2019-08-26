@@ -23,13 +23,11 @@
     <result column="infochecked" jdbcType="BIT" property="infochecked" />
     <result column="applypass" jdbcType="INTEGER" property="applypass" />
     <result column="loapplyLimit" jdbcType="INTEGER" property="loapplylimit" />
-
- 
-  
-
   	<association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
   </resultMap>
-
+  <select id="findById" resultMap="BaseResultMap">
+  	SELECT * FROM userinfo WHERE userinfoid=#{userinfoid}
+  </select>
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbggenerated

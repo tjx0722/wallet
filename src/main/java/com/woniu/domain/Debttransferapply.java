@@ -5,7 +5,8 @@ import java.util.Date;
 public class Debttransferapply {
 	
 	private Userinfo userinfo;
-    public Userinfo getUserinfo() {
+	
+	public Userinfo getUserinfo() {
 		return userinfo;
 	}
 
@@ -236,4 +237,12 @@ public class Debttransferapply {
     public void setServicechargeid(Integer servicechargeid) {
         this.servicechargeid = servicechargeid;
     }
+
+	@Override
+	public String toString() {
+		return "Debttransferapply [userinfo=" + userinfo + ", debttransferapplyid=" + debttransferapplyid
+				+ ", userinfoid=" + userinfoid + ", investid=" + investid + ", applytime=" + applytime + ", checked="
+				+ checked + ", servicecharge=" + servicecharge + ", servicechargeid=" + servicechargeid + "]";
+	}
+    
 }
