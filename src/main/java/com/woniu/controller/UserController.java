@@ -36,8 +36,7 @@ public class UserController {
 	
 	@Resource
 	private IRoleService roleservice;
-	@Resource
-	private RedisTemplate<String, String> redisTemplate;
+	
 	@RequestMapping("save")
 	public String save(User user,String phone,String number) {
 		
