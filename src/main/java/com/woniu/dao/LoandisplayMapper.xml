@@ -15,8 +15,14 @@
     <result column="loanapplyid" property="loanapplyid" jdbcType="INTEGER" />
     <association column="loandisplayid" property="investcount" select="com.woniu.dao.InvestMapper.countByLoandisplayid" /><!-- 查看已投资的总额 -->
     <association property="loanapply" column="loanapplyid" select="com.woniu.dao.LoanapplyMapper.selectByPrimaryKey"  />
-    <collection property="invests" column="loanapplyid" select="com.woniu.dao.InvestMapper.selectByLoadndisplayid"></collection>
   </resultMap>
+  
+  <resultMap type="com.woniu.domain.Loandisplay" id="BaseResultMapWithinvest" extends="BaseResultMap">
+  	<collection property="invests" column="loandisplayid" select="com.woniu.dao.InvestMapper.selectByLoadndisplayid"></collection> 
+  </resultMap>
+  <select id="findInvestBydisplay" resultMap="BaseResultMapWithinvest">
+  	select * from loandisplay where loandisplayid=#{id}
+  </select>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated

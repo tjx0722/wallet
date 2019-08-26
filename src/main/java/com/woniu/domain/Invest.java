@@ -104,12 +104,12 @@ public class Invest {
         this.investid = investid;
     }
 
-    @JsonBackReference
+//    @JsonBackReference
     public Loandisplay getLoandisplay() {
 		return loandisplay;
 	}
 
-    @JsonBackReference
+//    @JsonBackReference
 	public void setLoandisplay(Loandisplay loandisplay) {
 		this.loandisplay = loandisplay;
 	}
