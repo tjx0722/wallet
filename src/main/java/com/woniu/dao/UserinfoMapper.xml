@@ -24,6 +24,7 @@
     <result column="applypass" jdbcType="INTEGER" property="applypass" />
     <result column="loapplyLimit" jdbcType="INTEGER" property="loapplylimit" />
   </resultMap>
+  
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbggenerated
