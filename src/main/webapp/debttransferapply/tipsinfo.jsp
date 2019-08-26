@@ -76,8 +76,11 @@
 									style="color: red">${apply.servicecharge }</span></th>
 							</tr>
 							<tr>
-								<th colspan="2">
-									<div  align="center"><button type="button" onclick="location.href='/debttransferapply/transfer/${apply.investid},${apply.userinfoid}'" class="btn btn-primary">确认付款</button></div>
+								<th>
+									<div  align="center"><button  onclick="location.href='/debttransferapply/pay/${apply.investid},${apply.userinfoid}'" type="button" class="btn btn-primary">使用Wallet付款</button></div>
+								</th>
+								<th>
+									<div  align="center"><button type="button" class="btn btn-info">使用支付宝付款</button></div>
 								</th>
 							</tr>
 						</table>

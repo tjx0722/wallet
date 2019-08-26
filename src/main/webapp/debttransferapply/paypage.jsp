@@ -130,7 +130,7 @@
 	</div> --%>
 <div style="margin:0 auto;width:500px;">
 <br><br><br>
-<form action="" method="post" name="payPassword" id="form_paypsw">
+<form action="/debttransferapply/transfer" method="post" id="form_paypsw">
 <div id="payPassword_container" class="alieditContainer clearfix well well-lg" data-busy="0">
 	<label for="i_payPassword" class="i-block">支付密码：</label>
 	<div class="i-block" data-error="i_error">
@@ -148,9 +148,11 @@
 		</div>
 		<span>请输入6位支付密码( 数字！)</span>
 	</div>
+	<input type="hidden" value="${userinfoid }" name="userinfoid">
+	<input type="hidden" value="${investid }" name="investid">
 </div>
 <div class="col-md-10 col-md-offset-5">
-	<button type="button" class="btn btn-info">确认密码</button>
+	<button class="btn btn-info">确认支付</button>
 </div>
 </form>
 </div>

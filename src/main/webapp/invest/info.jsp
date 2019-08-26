@@ -107,8 +107,11 @@
 									style="color: red">{{investamount}}</span></th>
 							</tr>
 							<tr>
-								<th colspan="2">
-									<div  align="center"><button @click="purchase()" type="button" class="btn btn-primary">确认付款</button></div>
+								<th>
+									<div  align="center"><button @click="purchase()" type="button" class="btn btn-primary">使用Wallet付款</button></div>
+								</th>
+								<th>
+									<div  align="center"><button @click="purchase()" type="button" class="btn btn-info">使用支付宝付款</button></div>
 								</th>
 							</tr>
 						</table>
