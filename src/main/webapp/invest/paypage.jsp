@@ -56,7 +56,7 @@
         outline: none;
         position: relative;
         padding: 8px 0;
-        height: 15px;
+        height: 30px;
         border: 1px solid #cccccc;
         border-radius: 2px;
   }

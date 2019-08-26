@@ -12,6 +12,9 @@
     <result column="bankcardname" property="bankcardname" jdbcType="VARCHAR" />
     <result column="walletid" property="walletid" jdbcType="INTEGER" />
   </resultMap>
+  <select id="findByWalletid" resultMap="BaseResultMap">
+  SELECT * FROM bankcard WHERE walletid=#{walletid}
+  </select>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated

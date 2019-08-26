@@ -72,4 +72,12 @@ public class InvestServiceImpl implements IInvestService {
 		pageBean.setCount((int)investMapper.countByExample(example));
 		return investMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
+	
+	//admin
+
+	@Override
+	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb) {
+		pb.setCount(loandisplayMapper.countByExample(null));
+		return loandisplayMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
 }

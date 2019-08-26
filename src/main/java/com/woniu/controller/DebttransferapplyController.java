@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
+import com.woniu.service.IUserinfoService;
 import com.woniu.service.impl.InvestServiceImpl;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
@@ -28,6 +29,8 @@ public class DebttransferapplyController {
 	private IDebttransferapplyService debttransferapplyServiceImpl;
 	@Resource
 	private IInvestService investServiceImpl;
+	@Resource
+	private IUserinfoService userinfoServiceImpl;
 	
 	@RequestMapping("/admin/findAll")
 	public Map findAll(PageBean pageBean) {
@@ -48,11 +51,11 @@ public class DebttransferapplyController {
 	@RequestMapping("/findAllInvest")
 	public Map findAllInvest(PageBean pageBean,HttpSession session) {
 		Map map=new HashMap();
-		/*
-		 * User user=(User) session.getAttribute("user"); int
-		 * userinfoid=user.getUserinfo().getUserinfoid();
-		 */
-		int userinfoid=3;
+		
+		User user=(User) session.getAttribute("user"); 
+		int userinfoid=user.getUserinfo().getUserinfoid();
+		 
+		/* int userinfoid=3; */
 		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
@@ -90,11 +93,11 @@ public class DebttransferapplyController {
 	@RequestMapping("/istransfer/{investId}")
 	public ModelAndView istransfer(@PathVariable int investId,HttpSession session) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/tipsinfo");
-		/*
-		 * User user=(User) session.getAttribute("user"); int
-		 * userinfoid=user.getUserinfo().getUserinfoid();
-		 */
-		int userinfoid=3;
+		
+		  User user=(User) session.getAttribute("user"); 
+		  int userinfoid=user.getUserinfo().getUserinfoid();
+		 
+		/* int userinfoid=3; */
 		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
 		mdv.addObject("apply", debttransferapply);
 		return mdv;
@@ -110,9 +113,15 @@ public class DebttransferapplyController {
 	
 	@RequestMapping("/transfer")
 	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
-		ModelAndView mdv=new ModelAndView("debttransferapply/info");
-		investServiceImpl.transfer(investid);
-		debttransferapplyServiceImpl.add(investid,userinfoid);
-		return mdv;
+		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
+		if (flag) {
+			ModelAndView mdv=new ModelAndView("debttransferapply/skip");
+			investServiceImpl.transfer(investid);
+			debttransferapplyServiceImpl.add(investid,userinfoid);
+			return mdv;
+		}else {
+			ModelAndView mdv=new ModelAndView("debttransferapply/info");
+			return mdv;
+		}
 	}
 }
