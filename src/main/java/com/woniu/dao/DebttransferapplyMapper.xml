@@ -14,7 +14,7 @@
     <result column="checked" property="checked" jdbcType="BIT" />
     <result column="servicecharge" property="servicecharge" jdbcType="DOUBLE" />
     <result column="servicechargeid" property="servicechargeid" jdbcType="INTEGER" />
-    <association property="userinfo" column="userinfoid" select="com.woniu.dao.UserinfoMapper.selectByPrimaryKey"></association>
+    <association property="userinfo" column="userinfoid" select="com.woniu.dao.UserinfoMapper.findById"></association> 
   </resultMap>
   <sql id="Example_Where_Clause" >
     <!--
