@@ -96,5 +96,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<TD width=1170px align=left valign=top><IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=600px SRC="core/standardData.html"></IFRAME></TD>
 	</TR>
 </TABLE>
+
 </BODY>
 </HTML>

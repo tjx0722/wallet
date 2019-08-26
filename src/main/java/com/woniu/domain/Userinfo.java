@@ -5,17 +5,17 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class Userinfo implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
 
 	private User user;		//可以查到对应的user
-	
     public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}

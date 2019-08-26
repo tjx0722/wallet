@@ -13,11 +13,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.woniu.domain.Bankcard;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
 import com.woniu.domain.Wallet;
 import com.woniu.domain.User;
 import com.woniu.service.IUserService;
+import com.woniu.service.IUserinfoService;
 
 @Controller
 @RequestMapping("/authorityModule")
@@ -25,6 +28,8 @@ public class UserController {
 
 	@Resource
 	private IUserService service;
+	@Resource
+	private IUserinfoService userinfoServiceImpl;
 	
 	@Resource
 	private RedisTemplate<String, String> redisTemplate;
@@ -93,5 +98,14 @@ public class UserController {
 		System.out.println(user+".....");
 		map.put("user", user);
 		return "authorityModule/houtai/editUser"; 
+	}
+	@RequestMapping("findUserinfoByUserid")
+	public String findUserinfoByUserid(ModelMap map,Integer userid) {
+		System.out.println(userid);
+		Userinfo userinfo=service.findUserinfoByUserid(userid);
+		System.out.println(userinfo.toString());
+		map.put("userinfo",userinfo);
+		return null;
+		
 	}
 }

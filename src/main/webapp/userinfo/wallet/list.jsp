@@ -44,9 +44,9 @@
        		
        		
        	</table>
-       <form action="/userinfo/wallet/findBankcardByWalletid">
+       <form action="/userinfo/wallet/bankcard/skip">
               <input  type="hidden" name="walletid" value="${wallet.walletid }"/>
-             <button class="btn btn-default" type="submit" >我的钱包</button>
+             <button class="btn btn-default" type="submit" >我的银行卡</button>
        </form>
        </div>
 	  </div>

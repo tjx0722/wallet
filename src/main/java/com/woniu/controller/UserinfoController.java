@@ -1,5 +1,6 @@
 package com.woniu.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,21 +8,30 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.Message;
 import com.woniu.domain.PageBean;
+import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
 import com.woniu.domain.Wallet;
+import com.woniu.service.IUserService;
 import com.woniu.service.IUserinfoService;
+import com.woniu.service.impl.UserinfoServiceImpl;
 
-@Controller
+@RestController
 @RequestMapping("userinfo")
 public class UserinfoController {
+	private Integer obj;
+	@Resource
+	private IUserService userServiceImpl;
+	
    @Resource
    private IUserinfoService userinfoServiceImpl;
    
@@ -35,6 +45,7 @@ public class UserinfoController {
    }
    @RequestMapping("save")
 	public @ResponseBody Message save(Userinfo userinfo) {
+	   System.out.println(1111111);
 		Message msg = null;
 	
 		try {
@@ -49,8 +60,26 @@ public class UserinfoController {
 	}
    @RequestMapping("findById")
 	public @ResponseBody Userinfo findById(Integer userinfoid) {
-	   Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
-	return userinfo;
+		Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
+		return userinfo;
+	}
+   @RequestMapping("findByIds")
+	public  List findById() {
+	   Integer userid=obj;
+	   User user = userServiceImpl.findByUserid(userid);
+
+	   Userinfo userinfo = user.getUserinfo();
+	   System.out.println(userinfo);
+	   List<Userinfo> list= new ArrayList<Userinfo>();
+	   list.add(userinfo);
+ 	return list;
+	}
+   @RequestMapping("skip")
+	public  ModelAndView skip(Integer userid) {
+	   obj=userid;
+	   System.out.println(obj+"!!");
+	   ModelAndView mav=new ModelAndView("/userinfo/d");
+	return mav;
 	}
 	@RequestMapping("delete")
 	public @ResponseBody Message delete(Integer userinfoid) {

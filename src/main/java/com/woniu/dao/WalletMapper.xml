@@ -11,7 +11,10 @@
     <result column="balance" property="balance" jdbcType="DOUBLE" />
     <result column="debt" property="debt" jdbcType="DOUBLE" />
     <result column="userinfoid" property="userinfoid" jdbcType="INTEGER" />
+     <association column="walletid" property="bankcard" select="com.woniu.dao.BankcardMapper.findByWalletid" />
+  
   </resultMap>
+  
    <delete id="deleteBatch">
   	delete from wallet where walletid in 
   	<foreach collection="array" item="item" open="(" close=")" index="index" separator=",">
