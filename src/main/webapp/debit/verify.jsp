@@ -93,7 +93,7 @@ ul, li {
 					</tr>
 				</tbody>
 			</table>
-			<div align="right">
+			<div align="right" style="position: relative;right: 300px">
 				<button class="btn btn-primary btn-lg" data-toggle="modal"
 					data-target="#myModal">我已确认</button>
 			</div>
