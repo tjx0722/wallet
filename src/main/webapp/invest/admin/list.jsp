@@ -30,13 +30,13 @@
 		$('#dg')
 				.datagrid(
 						{
-							url : '/invest/findAllLoanDisplay',
+							url : '/invest/admin/findAllLoanDisplay',
 							fitColumns : true,
-							striped : true,
-							pagination : true,
-							title : '可投资列表',
 							toolbar : '#tb',
 							pageSize : 20,
+							striped : true,
+							title : '可投资监管列表',
+							pagination : true,
 							columns : [ [
 									{
 										field : 'loanamount',
@@ -47,11 +47,12 @@
 										}
 									},
 									{
-										field : 'loanrate',
-										title : '贷款利率',
+										field : 'displaytime',
+										title : '审核通过日期',
 										width : 100,
 										formatter:function(value,row,index){
-											return parseInt(row.loanapply.loanrate.loanrate*100)+"%";
+											var unixTimestamp = new Date(value);    
+					                        return unixTimestamp.toLocaleString();
 										}
 									},
 									{
@@ -61,6 +62,23 @@
 										formatter:function(value,row,index){
 											 var unixTimestamp = new Date(value);    
 					                         return unixTimestamp.toLocaleString();
+										}
+									},
+									{
+										field : 'isfinished',
+										title : '是否完成集资',
+										width : 100,
+										formatter:function(value,row,index){
+											 var unixTimestamp = new Date(value);    
+					                         return unixTimestamp.toLocaleString();
+										}
+									},
+									{
+										field : 'loanrate',
+										title : '贷款利率',
+										width : 100,
+										formatter:function(value,row,index){
+											return parseInt(row.loanapply.loanrate.loanrate*100)+"%";
 										}
 									},
 									{
@@ -84,8 +102,8 @@
 										title : '操作',
 										width : 100,
 										formatter : function(value, row, index) {
-											var btns = "<a id=\"btn\" href=\"/invest/findLoandisplayById/"
-													+ row.loandisplayid +"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">买买买</a>";
+											var btns = "<a id=\"btn\" href=\"/invest/admin/findLoandisplayById/"
+													+ row.loandisplayid +"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详细信息</a>";
 											return btns;
 										}
 									} ] ],

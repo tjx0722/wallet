@@ -14,4 +14,5 @@ public interface IInvestService {
 	Loandisplay findLoandisplayById(Integer loandisplayid);
 	void transfer(int investId);
 	void update(Invest invest);
+	List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb);
 }

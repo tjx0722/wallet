@@ -45,9 +45,23 @@ public class InvestController {
 	@RequestMapping("pay")
 	public ModelAndView pay(Integer loandisplayid,Double investamount,String payPassword_rsainput) {
 		System.out.println(loandisplayid+" "+investamount+" "+payPassword_rsainput);
-		ModelAndView mav=new ModelAndView("invest/paiedpage");
+		ModelAndView mav=new ModelAndView("invest/back");
 		mav.addObject("investamount", investamount);
 		mav.addObject("loandisplayid", loandisplayid);
+		return mav;
+	}
+	
+	//admin
+	@RequestMapping("admin/findAllLoanDisplay")
+	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb) {
+		return investServiceImpl.findAllLoanDisplayByadmin(pb);
+	}
+	
+	@RequestMapping("admin/findLoandisplayById/{loandisplayid}")
+	public ModelAndView findLoandisplayByAdmin(@PathVariable Integer loandisplayid) {
+		Loandisplay loandisplay=investServiceImpl.findLoandisplayById(loandisplayid);
+		ModelAndView mav=new ModelAndView("invest/admin/info");
+		mav.addObject("loandisplay", loandisplay);
 		return mav;
 	}
 

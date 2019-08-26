@@ -1,12 +1,22 @@
 package com.woniu.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Loandisplay {
 	private Loanapply loanapply;		//查看所依据的借贷申请信息
 	private Double investcount;			//查看已投资的总额
+	private List<Invest> invests;		//可以找到关联的投资
 	
-    public Double getInvestcount() {
+    public List<Invest> getInvests() {
+		return invests;
+	}
+
+	public void setInvests(List<Invest> invests) {
+		this.invests = invests;
+	}
+
+	public Double getInvestcount() {
 		return investcount;
 	}
 

@@ -46,6 +46,7 @@ public class DebitController {
 		if(session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			Userinfo userinfo = user.getUserinfo();
+			System.out.println(userinfo.toString());
 			List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
 			List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
 			map.put("Loantimes",Loantimes);
@@ -78,6 +79,9 @@ public class DebitController {
 	@RequestMapping("verify")
 	public String verify(HttpSession session) {
 		Loanapply loanapply = (Loanapply) session.getAttribute("loanapply");
+		Double money = loanapply.getLoanamount();
+		Userinfo userInfo=new Userinfo();
+		
 		debitServiceImpl.save(loanapply);
 		session.removeAttribute("loanapply");
 		return "/debit/skip";

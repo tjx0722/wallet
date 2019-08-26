@@ -55,7 +55,18 @@ private WalletMapper walletMapper;
 	@Override
 	public Wallet findWalletByUserinfoid(Integer userinfoid) {
 		// TODO Auto-generated method stub
-		return walletMapper.selectByPrimaryKey(userinfoid);
+		return walletMapper.selectByPrimaryKey1(userinfoid);
 	}
 
+	@Override
+	public boolean findPwdByUid(Integer userinfoid, Integer payPassword_rsainput) {
+		// TODO Auto-generated method stub
+		Userinfo userinfo=userinfoMapper.selectByPrimaryKey(userinfoid);
+		int pwd=userinfo.getApplypass();
+		if (pwd==payPassword_rsainput) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
