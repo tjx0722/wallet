@@ -36,6 +36,21 @@ public class InvestServiceImpl implements IInvestService {
 	}
 
 	@Override
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order) {
+		LoandisplayExample example=new LoandisplayExample();
+		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
+		criteria.andIsfinishedEqualTo(false);
+		criteria.andIsdeadEqualTo(false);
+		pb.setCount(loandisplayMapper.countByExample(example));
+		switch(sort) {
+			case "deadtime":
+				example.setOrderByClause("deadtime "+order.toUpperCase());
+				break;
+		}
+		return loandisplayMapper.selectByExample(example, new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+
+	@Override
 	public Invest findOneInvest(int investId) {
 		// TODO Auto-generated method stub
 		return investMapper.selectByPrimaryKey(investId);
