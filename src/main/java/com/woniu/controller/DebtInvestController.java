@@ -52,8 +52,13 @@ public class DebtInvestController {
 	
 	@RequestMapping("findUndead")
 	@ResponseBody
-	public List findUndead() {
-		return debtInvestServiceImpl.findUndead();
+	public Map findUndead(PageBean page) {
+		Map map=new HashMap();
+		List<Debttransferdisplay> list = debtInvestServiceImpl.findUndead(page);
+		map.put("page", page);
+		map.put("total", page.getCount());
+		map.put("rows", list);
+		return map;
 		
 	}
 	@RequestMapping("findById")
@@ -108,9 +113,9 @@ public class DebtInvestController {
 	
 	@RequestMapping("admin/findAll")
 	@ResponseBody
-	public Map findAll(PageBean page) {
+	public Map findAll(PageBean page,Userinfo userinfo,Debtinvest debtinvest) {
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findAll(page);
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findAll(page,userinfo,debtinvest);
 		map.put("page", page);
 		map.put("total", page.getCount());
 		map.put("rows", debtinvests);
