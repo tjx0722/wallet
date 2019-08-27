@@ -1,14 +1,13 @@
 package com.woniu.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.IUserinfoService;
-import com.woniu.service.impl.InvestServiceImpl;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
@@ -99,6 +97,7 @@ public class DebttransferapplyController {
 		 
 		/* int userinfoid=3; */
 		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
+		System.out.println(debttransferapply.getUserinfo());
 		mdv.addObject("apply", debttransferapply);
 		return mdv;
 	}
@@ -115,12 +114,12 @@ public class DebttransferapplyController {
 	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
 		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
 		if (flag) {
-			ModelAndView mdv=new ModelAndView("debttransferapply/skip");
+			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
 			debttransferapplyServiceImpl.add(investid,userinfoid);
 			return mdv;
 		}else {
-			ModelAndView mdv=new ModelAndView("debttransferapply/info");
+			ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
 			return mdv;
 		}
 	}

@@ -223,4 +223,12 @@ public class Loandisplay {
     public void setLoanapplyid(Integer loanapplyid) {
         this.loanapplyid = loanapplyid;
     }
+
+	@Override
+	public String toString() {
+		return "Loandisplay [loanapply=" + loanapply + ", investcount=" + investcount + ", invests=" + invests
+				+ ", loandisplayid=" + loandisplayid + ", displaytime=" + displaytime + ", deadtime=" + deadtime
+				+ ", isfinished=" + isfinished + ", isdead=" + isdead + ", loanapplyid=" + loanapplyid + "]";
+	}
+    
 }

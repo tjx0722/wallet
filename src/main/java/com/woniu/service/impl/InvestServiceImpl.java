@@ -1,6 +1,5 @@
 package com.woniu.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -45,7 +44,7 @@ public class InvestServiceImpl implements IInvestService {
 	
 	@Override
 	public Loandisplay findLoandisplayById(Integer loandisplayid) {
-		return loandisplayMapper.selectByPrimaryKey(loandisplayid);
+		return loandisplayMapper.findInvestBydisplay(loandisplayid);
 	}
 
 	@Override
