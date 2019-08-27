@@ -21,7 +21,7 @@
     <result column="salary" jdbcType="INTEGER" property="salary" />
     <result column="ismarried" jdbcType="BIT" property="ismarried" />
     <result column="infochecked" jdbcType="BIT" property="infochecked" />
-    <result column="applypass" jdbcType="INTEGER" property="applypass" />
+    <result column="applypass" jdbcType="VARCHAR" property="applypass" />
     <result column="loapplyLimit" jdbcType="INTEGER" property="loapplylimit" />
   	<association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
   </resultMap>
@@ -171,7 +171,7 @@
       #{currentaddress,jdbcType=VARCHAR}, #{nativeplace,jdbcType=VARCHAR}, #{usericon,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{userjob,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{sex,jdbcType=BIT}, #{salary,jdbcType=INTEGER}, #{ismarried,jdbcType=BIT}, 
-      #{infochecked,jdbcType=BIT}, #{applypass,jdbcType=INTEGER}, #{loapplylimit,jdbcType=INTEGER}
+      #{infochecked,jdbcType=BIT}, #{applypass,jdbcType=VARCHAR}, #{loapplylimit,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.woniu.domain.Userinfo">
@@ -275,7 +275,7 @@
         #{infochecked,jdbcType=BIT},
       </if>
       <if test="applypass != null">
-        #{applypass,jdbcType=INTEGER},
+        #{applypass,jdbcType=VARCHAR},
       </if>
       <if test="loapplylimit != null">
         #{loapplylimit,jdbcType=INTEGER},
@@ -344,7 +344,7 @@
         infochecked = #{record.infochecked,jdbcType=BIT},
       </if>
       <if test="record.applypass != null">
-        applypass = #{record.applypass,jdbcType=INTEGER},
+        applypass = #{record.applypass,jdbcType=VARCHAR},
       </if>
       <if test="record.loapplylimit != null">
         loapplyLimit = #{record.loapplylimit,jdbcType=INTEGER},
@@ -375,7 +375,7 @@
       salary = #{record.salary,jdbcType=INTEGER},
       ismarried = #{record.ismarried,jdbcType=BIT},
       infochecked = #{record.infochecked,jdbcType=BIT},
-      applypass = #{record.applypass,jdbcType=INTEGER},
+      applypass = #{record.applypass,jdbcType=VARCHAR},
       loapplyLimit = #{record.loapplylimit,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -429,7 +429,7 @@
         infochecked = #{infochecked,jdbcType=BIT},
       </if>
       <if test="applypass != null">
-        applypass = #{applypass,jdbcType=INTEGER},
+        applypass = #{applypass,jdbcType=VARCHAR},
       </if>
       <if test="loapplylimit != null">
         loapplyLimit = #{loapplylimit,jdbcType=INTEGER},
@@ -457,7 +457,7 @@
       salary = #{salary,jdbcType=INTEGER},
       ismarried = #{ismarried,jdbcType=BIT},
       infochecked = #{infochecked,jdbcType=BIT},
-      applypass = #{applypass,jdbcType=INTEGER},
+      applypass = #{applypass,jdbcType=VARCHAR},
       loapplyLimit = #{loapplylimit,jdbcType=INTEGER}
     where userinfoid = #{userinfoid,jdbcType=INTEGER}
   </update>
