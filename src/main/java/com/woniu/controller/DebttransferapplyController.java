@@ -101,27 +101,46 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/pay/{investId},{userinfoid}")
-	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid) {
-		ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
-		mdv.addObject("investid", investId);
-		mdv.addObject("userinfoid", userinfoid);
-		return mdv;
+	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid,HttpSession session) {
+		int count=0;
+		if (session.getAttribute("count")==null) {
+			session.setAttribute("count", 0);
+		}else {
+			count=(int) session.getAttribute("count");
+		}
+		if (count<3) {
+			ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
+			mdv.addObject("investid", investId);
+			mdv.addObject("userinfoid", userinfoid);
+			return mdv;
+		}else {
+			ModelAndView mdv=new ModelAndView("debttransferapply/info");
+			return mdv;
+		}
 	}
 	
 	@RequestMapping("/transfer")
-	public ModelAndView transfer(String payPassword_rsainput,Integer investid,Integer userinfoid) {
-		int pwd=Integer.parseInt(payPassword_rsainput);
-		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,pwd);
+	public ModelAndView transfer(HttpSession session,String payPassword_rsainput,Integer investid,Integer userinfoid) {
+		int count=(int) session.getAttribute("count");
+		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
 		if (flag) {
+			session.setAttribute("count", 0);
 			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
 			debttransferapplyServiceImpl.add(investid,userinfoid);
 			return mdv;
 		}else {
-			ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
-			mdv.addObject("investid", investid);
-			mdv.addObject("userinfoid", userinfoid);
-			return mdv;
+			count++;
+			session.setAttribute("count", count);
+			if (count<3) {
+				ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
+				mdv.addObject("investid", investid);
+				mdv.addObject("userinfoid", userinfoid);
+				return mdv;
+			}else {
+				ModelAndView mdv=new ModelAndView("debttransferapply/info");
+				return mdv;
+			}
 		}
 	}
 }
