@@ -120,7 +120,7 @@ $(function(){
 <body>
 <div id="tb">
 </div>
-<div id="win" class="easyui-window" title="交易详情" style="width:800px;height:600px"  
+<div id="win" class="easyui-window" title="交易详情" style="width:800px;height:600px;top:80px;"  
         data-options="iconCls:'icon-man',modal:true,closed:true">  
     <div class="easyui-layout" data-options="fit:true">  
         <div data-options="region:'north',split:true" style="height:150px">
