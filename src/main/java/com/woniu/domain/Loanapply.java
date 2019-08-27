@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Loanapply {
 	
+	private List<Repay> allRepays;  //根据贷款申请id,查出所有该笔贷款已还与未还款记录
+	
 	private List<Repay> repays;  //根据贷款申请id,查出所有该笔贷款的还款记录
 	
 	private Userinfo userinfo;		//获取借款申请人信息
@@ -15,6 +17,14 @@ public class Loanapply {
 
 	public void setUserinfo(Userinfo userinfo) {
 		this.userinfo = userinfo;
+	}
+
+	public List<Repay> getAllRepays() {
+		return allRepays;
+	}
+
+	public void setAllRepays(List<Repay> allRepays) {
+		this.allRepays = allRepays;
 	}
 
 	public List<Repay> getRepays() {

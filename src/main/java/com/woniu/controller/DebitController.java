@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.woniu.dao.DebttransferapplyMapper;
+import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
@@ -24,6 +26,7 @@ import com.woniu.domain.Servicecharge;
 import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
 import com.woniu.service.IDebitService;
+import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IServicechargeService;
 import com.woniu.service.IUserService;
 import com.woniu.service.IUserinfoService;
@@ -46,7 +49,6 @@ public class DebitController {
 		if(session.getAttribute("user") != null) {
 			User user = (User) session.getAttribute("user");
 			Userinfo userinfo = user.getUserinfo();
-			System.out.println(userinfo.toString());
 			List<Loantime> Loantimes = debitServiceImpl.findAllLoantime();
 			List<Loanrate> loanrates = debitServiceImpl.findAllLoanrate();
 			map.put("Loantimes",Loantimes);
@@ -58,13 +60,9 @@ public class DebitController {
 		}
 		
 	}
-	@RequestMapping("test1")
-	public String test1(User u,HttpSession session) {
-		Integer userid = u.getUserid();
-		User user = UserServiceImpl.findByUserid(userid);
-		session.setAttribute("user", user);
-		return "redirect:findAllLoantimeAndLoanrate";
-	}
+	
+	
+	
 	@RequestMapping("findLoanapplybyLoanapplyid")
 	public String findLoanapplybyLoanapplyid(int loanapplyid) {
 		Loanapply loanapply = debitServiceImpl.findLoanapplybyLoanapplyid(loanapplyid);
@@ -79,7 +77,8 @@ public class DebitController {
 	@RequestMapping("verify")
 	public String verify(HttpSession session) {
 		Loanapply loanapply = (Loanapply) session.getAttribute("loanapply");
-		Userinfo userinfo = (Userinfo) session.getAttribute("userinfo");
+		User user = (User) session.getAttribute("user");
+		Userinfo userinfo = user.getUserinfo();
 		double money = loanapply.getLoanamount();
 		userinfo.setLoapplylimit(userinfo.getLoapplylimit()-money);
 		UserinfoServiceImpl.update(userinfo);
@@ -92,7 +91,6 @@ public class DebitController {
 	public  ModelAndView excessive(Loanapply loanapply,HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		Userinfo userinfo = user.getUserinfo();
-		System.out.println(userinfo.toString());
 		loanapply.setUserinfoid(userinfo.getUserinfoid());
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date=new Date();

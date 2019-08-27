@@ -21,6 +21,9 @@
   <select id="findByloanapply" resultMap="BaseResultMap">
   	select * from repay where loanapplyid=#{id} and isfinished=1;
   </select>
+  <select id="findAllRepayByloanapply" resultMap="BaseResultMap">
+  	select * from repay where loanapplyid=#{id};
+  </select>
   
   <sql id="Example_Where_Clause" >
     <!--
