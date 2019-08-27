@@ -1,5 +1,6 @@
 package com.woniu.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.woniu.domain.Invest;
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.PageBean;
@@ -40,32 +42,54 @@ public class InvestController {
 	}
 	
 	@RequestMapping("purchase/{investamount}!{loandisplayid}")
-	public ModelAndView purchase(@PathVariable Integer loandisplayid,@PathVariable Double investamount) {
+	public ModelAndView purchase(@PathVariable Integer loandisplayid,@PathVariable Double investamount,HttpSession session) {
+		Integer rest=(Integer) session.getAttribute("rest");
+		if(rest!=null&&rest==0) {
+			ModelAndView mav=new ModelAndView("invest/payfailed");
+			mav.addObject("msg", "您的账户已被锁定，24小时内不能支付");
+			return mav;
+		}
 		ModelAndView mav=new ModelAndView("invest/paypage");
 		mav.addObject("investamount", investamount);
 		mav.addObject("loandisplayid", loandisplayid);
+		
 		return mav;
 	}
 	
 	@RequestMapping("pay")
 	public ModelAndView pay(Integer loandisplayid,Double investamount,String payPassword_rsainput,HttpSession session) {
-		System.out.println(loandisplayid+" "+investamount+" "+payPassword_rsainput);
 		User user=(User) session.getAttribute("user");
 		String applypass = user.getUserinfo().getApplypass();
 		if(applypass.equals(payPassword_rsainput)) {
+			session.removeAttribute("rest");
 			ModelAndView mav=new ModelAndView("invest/back");
-			mav.addObject("investamount", investamount);
-			mav.addObject("loandisplayid", loandisplayid);
+			Invest invest=new Invest();
+			invest.setUserinfoid(user.getUserinfo().getUserinfoid());
+			invest.setInvestamount(investamount);
+			invest.setPaytime(new Date());
+			invest.setLoandisplayid(loandisplayid);
+			invest.setIstransfer(false);
+			invest.setServicecharge(investamount*0.005);
+			invest.setServicechargeid(4);
+			investServiceImpl.insert(invest);
 			return mav;
 		}else {
 			ModelAndView mav=new ModelAndView("invest/payfailed");
-			mav.addObject("msg", "支付密码错误");
+			mav.addObject("investamount", investamount);
+			mav.addObject("loandisplayid", loandisplayid);
 			Integer rest = (Integer) session.getAttribute("rest");
 			if(rest==null) {
 				rest=2;
+				session.setAttribute("rest", rest);
 			}else {
-				
+				if(rest>0) {
+					rest--;
+					session.setAttribute("rest", rest);
+				}else {
+					session.removeAttribute("rest");
+				}
 			}
+			mav.addObject("msg", "支付密码错误，您还有   "+rest+"次机会");
 			return mav;
 		}
 		

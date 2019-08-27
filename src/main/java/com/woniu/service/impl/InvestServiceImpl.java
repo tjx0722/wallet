@@ -34,6 +34,11 @@ public class InvestServiceImpl implements IInvestService {
 		pb.setCount(loandisplayMapper.countByExample(null));
 		return loandisplayMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
+	
+	@Override
+	public void insert(Invest invest) {
+		investMapper.insert(invest);
+	}
 
 	@Override
 	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order) {
@@ -95,4 +100,5 @@ public class InvestServiceImpl implements IInvestService {
 		pb.setCount(loandisplayMapper.countByExample(null));
 		return loandisplayMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
+
 }

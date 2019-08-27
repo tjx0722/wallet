@@ -2,30 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+ path + "/";
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="<%=basePath%>js/easyui/themes/icon.css">
-<script type="text/javascript" src="<%=basePath%>js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript"
-	src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=basePath%>js/easyui/themes/icon.css">
+<script type="text/javascript" src="<%=basePath%>js/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
-	$.ajaxSetup({
-		global : true,
-		cache : false,
-		async : false
-	});
-
 	$(function() {
 		$('#dg')
 				.datagrid(

@@ -20,12 +20,6 @@
 <script type="text/javascript"
 	src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script>
-	$.ajaxSetup({
-		global : true,
-		cache : false,
-		async : false
-	});
-
 	$(function() {
 		$('#dg')
 				.datagrid(
