@@ -52,10 +52,23 @@ public class InvestController {
 		System.out.println(loandisplayid+" "+investamount+" "+payPassword_rsainput);
 		User user=(User) session.getAttribute("user");
 		String applypass = user.getUserinfo().getApplypass();
-		ModelAndView mav=new ModelAndView("invest/back");
-		mav.addObject("investamount", investamount);
-		mav.addObject("loandisplayid", loandisplayid);
-		return mav;
+		if(applypass.equals(payPassword_rsainput)) {
+			ModelAndView mav=new ModelAndView("invest/back");
+			mav.addObject("investamount", investamount);
+			mav.addObject("loandisplayid", loandisplayid);
+			return mav;
+		}else {
+			ModelAndView mav=new ModelAndView("invest/payfailed");
+			mav.addObject("msg", "支付密码错误");
+			Integer rest = (Integer) session.getAttribute("rest");
+			if(rest==null) {
+				rest=2;
+			}else {
+				
+			}
+			return mav;
+		}
+		
 	}
 	
 	//admin
