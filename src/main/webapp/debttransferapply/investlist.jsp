@@ -28,17 +28,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    striped:true,
 		    pagination:true,
 		    title:'可转让账单',
+		    remoteSort:false,
 		    columns:[[   
 		    	{field:'investid',checkbox:'checkbox',title:'编号',width:100},   
 		        {field:'userinfoid',title:'借贷人',width:100,formatter:function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneUser/"+row.loandisplayid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;
 				 }},   
-		        {field:'investamount',title:'投资金额',width:100},   
+		        {field:'investamount',title:'投资金额',width:100,sortable:true,
+				    sorter:function(a,b){
+			        	return (a>b?1:-1);
+			    	}
+				},   
 		        {field:'paytime',title:'付款时间',width:100,formatter:function(value,row,index){
 					var date=new Date(value);
 					return date.toLocaleString();
-			    }},
+			    },sortable:true,
+				    sorter:function(a,b){
+			        	return (a>b?1:-1);
+			    	}
+			    },
 		        {field:'loandisplayid',title:'具体账单',width:100,formatter:function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneInvest/"+row.loandisplayid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;

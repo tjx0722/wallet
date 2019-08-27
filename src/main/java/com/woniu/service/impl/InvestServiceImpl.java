@@ -80,6 +80,7 @@ public class InvestServiceImpl implements IInvestService {
 	public List findAllInvest(PageBean pageBean, int userinfoid) {
 		// TODO Auto-generated method stub
 		InvestExample example=new InvestExample();
+		example.setOrderByClause("investid DESC");
 		Criteria criteria=example.createCriteria();
 		/* criteria.andIstransferEqualTo(false); */
 		criteria.andUserinfoidEqualTo(userinfoid);
