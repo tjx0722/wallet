@@ -23,10 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	$(function(){
 		$('#dg').datagrid({   
-		    url:'findAll', 
+		    url:'findAll',
 		    fitColumns:true,
 		    striped:true,
 		    pagination:true,
+		    remoteSort:false,
 		    title:'待审核债权转让申请',
 		    columns:[[   
 		    	{field:'debttransferapplyid',checkbox:'checkbox',title:'编号',width:100},   
@@ -35,14 +36,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					return btns;
 				 }}, 
 				{field:'investid',title:'投资表',width:100,formatter:function(value,row,index){
-			        	var btns = "<a id=\"btn\" href=\"/debttransferapply/admin/findOneInvest/"+row.investid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
-						return btns;
+			        var btns = "<a id=\"btn\" href=\"/debttransferapply/admin/findOneInvest/"+row.investid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
+					return btns;
 				}},    
 		        {field:'applytime',title:'转让申请时间',width:100,formatter:function(value,row,index){
 					var date=new Date(value);
 					return date.toLocaleString();
-			    }},  
-		        {field:'servicecharge',title:'手续费',width:100},
+			    },sortable:true,
+				    sorter:function(a,b){
+				        return (a>b?1:-1);
+				    }
+			    },  
+		        {field:'servicecharge',title:'手续费',width:100,sortable:true,
+			        sorter:function(a,b){
+				        return (a>b?1:-1);
+				    }
+			    },
 		        {field:'servicechargeid',title:'手续费类型',width:100},
 				{field:'operate',title:'是否通过',width:100,formatter: function(value,row,index){ 
 		        	var btns = "<a id=\"btn\" href=\"javascript:ischeck("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">通过审核</a>"; 

@@ -52,11 +52,9 @@ public class DebttransferapplyController {
 		
 		User user=(User) session.getAttribute("user"); 
 		int userinfoid=user.getUserinfo().getUserinfoid();
-		 
-		/* int userinfoid=3; */
 		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
-		map.put("total", pageBean.getCount());
-		map.put("rows", rows);
+		/* int userinfoid=3; */
+		map.put("total", pageBean.getCount()); map.put("rows", rows);
 		return map;
 	}
 	
@@ -81,10 +79,10 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
-	@RequestMapping("/admin/findOneUser/{investId}")
-	public ModelAndView findOneUseradmin(@PathVariable int investId) {
+	@RequestMapping("/admin/findOneUser/{userinfoid}")
+	public ModelAndView findOneUseradmin(@PathVariable int userinfoid) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/admin/userinfo");
-		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		mdv.addObject("userinfo",userinfoServiceImpl.findById(userinfoid));
 		return mdv;
 	}
 	
@@ -111,8 +109,9 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/transfer")
-	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
-		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
+	public ModelAndView transfer(String payPassword_rsainput,Integer investid,Integer userinfoid) {
+		int pwd=Integer.parseInt(payPassword_rsainput);
+		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,pwd);
 		if (flag) {
 			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
@@ -120,6 +119,8 @@ public class DebttransferapplyController {
 			return mdv;
 		}else {
 			ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
+			mdv.addObject("investid", investid);
+			mdv.addObject("userinfoid", userinfoid);
 			return mdv;
 		}
 	}
