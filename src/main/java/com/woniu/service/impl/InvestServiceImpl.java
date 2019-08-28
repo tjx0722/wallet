@@ -101,10 +101,13 @@ public class InvestServiceImpl implements IInvestService {
 			loandisplay.setIsfinished(true);
 			loandisplayMapper.updateByPrimaryKey(loandisplay);
 			
+			//获取利率
+			double loanrate = loandisplay.getLoanapply().getLoanrate().getLoanrate();
+			
 			//根据期数生成多个偿还表
 			int loanapplyid=loandisplay.getLoanapplyid();
 			int userinfoid = loandisplay.getLoanapply().getUserinfoid();
-			double restamount=loanamount*1.0/loantime;
+			double restamount=loanamount*(1.0+loanrate)/loantime;
 			restamount = (double) Math.round(restamount * 100) / 100;
 			Repay repay = new Repay();
 			for (int i = 1; i <= loantime; i++) {
