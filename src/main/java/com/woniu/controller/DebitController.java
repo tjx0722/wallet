@@ -104,7 +104,7 @@ public class DebitController {
 		User user = (User) session.getAttribute("user");
 		Userinfo userinfo = user.getUserinfo();
 		double money = loanapply.getLoanamount();
-		userinfo.setLoapplylimit(userinfo.getLoapplylimit() - money);
+		userinfo.setLoapplylimit((int)(userinfo.getLoapplylimit()-money));
 		UserinfoServiceImpl.update(userinfo);
 		debitServiceImpl.save(loanapply);
 		session.removeAttribute("loanapply");

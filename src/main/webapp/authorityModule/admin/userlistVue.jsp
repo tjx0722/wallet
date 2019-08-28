@@ -7,18 +7,19 @@
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
-</head>
+</head> 
 <body>
 <div id="app">
 <TABLE border="1" width="100%">
 <TR align="center">
-	<TD>用户id</TD>
+	<TD>用户id</TD> 
 	<TD>账户</TD>
 	<TD>密码</TD>
 	<TD>电话</TD>
 	<TD>邮箱</TD>
 	<TD>状态</TD>
 	<TD>操作</TD>
+	<TD>修改权限</TD>
 </TR>
 <TR align="center" v-for="user in json.list">
 	<TD>{{user.userid}}</TD>
@@ -31,7 +32,10 @@
 		<%-- <a href="${!user.isdelete?'/authorityModule/delete':'/authorityModule/revoke'}?userid=${user.userid}">{{!user.isdelete?'删除':'恢复'}}</a>  --%>
 		<button  @click="!user.isdelete?deleted(user.userid):revoke(user.userid)">{{!user.isdelete?'删除':'恢复'}}</button>
 	</TD>
-	
+	<TD>
+		<%-- <a href="goupdate?userid=${user.userid}">update</a>  --%>
+		<button  @click="goupdate(user.userid)">update</button>
+	</TD>
 </TR>
 </TABLE>
 <TABLE border="1" width="100%">
@@ -138,7 +142,10 @@
 	                },function(){
 	                    console.log('请求失败处理');
 	                });
-	            }
+	            },
+	            goupdate:function(userid){
+	            	location.href="/authorityModule/goupdate/"+userid;
+		        }
 	        }
 	    });
 	}

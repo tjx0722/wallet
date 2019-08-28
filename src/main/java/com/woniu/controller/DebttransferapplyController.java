@@ -19,6 +19,7 @@ import com.woniu.service.IUserinfoService;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
+import com.woniu.domain.Userinfo;
 
 @RestController
 @RequestMapping("/debttransferapply")
@@ -43,6 +44,13 @@ public class DebttransferapplyController {
 	public ModelAndView check(@PathVariable int debttransferapplyid) {
 		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");
 		debttransferapplyServiceImpl.check(debttransferapplyid);
+		return mdv;
+	}
+	
+	@RequestMapping("/admin/pass/{debttransferapplyid}")
+	public ModelAndView pass(@PathVariable int debttransferapplyid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");
+		debttransferapplyServiceImpl.pass(debttransferapplyid);
 		return mdv;
 	}
 	
@@ -101,14 +109,9 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/pay/{investId},{userinfoid}")
-	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid,HttpSession session) {
-		int count=0;
-		if (session.getAttribute("count")==null) {
-			session.setAttribute("count", 0);
-		}else {
-			count=(int) session.getAttribute("count");
-		}
-		if (count<3) {
+	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid) {
+		int count=userinfoServiceImpl.findById(userinfoid).getChance();
+		if (count>0) {
 			ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
 			mdv.addObject("investid", investId);
 			mdv.addObject("userinfoid", userinfoid);
@@ -120,20 +123,24 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/transfer")
-	public ModelAndView transfer(HttpSession session,String payPassword_rsainput,Integer investid,Integer userinfoid) {
-		int count=(int) session.getAttribute("count");
+	public ModelAndView transfer(String payPassword_rsainput,Integer investid,Integer userinfoid) {
+		Userinfo userinfo=userinfoServiceImpl.findById(userinfoid);
+		int count=userinfo.getChance();
 		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
 		if (flag) {
-			session.setAttribute("count", 0);
+			userinfo.setChance(3);
+			userinfoServiceImpl.update(userinfo);
 			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
 			debttransferapplyServiceImpl.add(investid,userinfoid);
-			return mdv;
+			return mdv; 
 		}else {
-			count++;
-			session.setAttribute("count", count);
-			if (count<3) {
+			count--;
+			userinfo.setChance(count);
+			userinfoServiceImpl.update(userinfo);
+			if (count>0) {
 				ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
+				mdv.addObject("count", count);
 				mdv.addObject("investid", investid);
 				mdv.addObject("userinfoid", userinfoid);
 				return mdv;

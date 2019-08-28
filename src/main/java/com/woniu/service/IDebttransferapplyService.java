@@ -13,4 +13,6 @@ public interface IDebttransferapplyService {
 	List findAll(PageBean pageBean);
 
 	void check(int debttransferapplyid);
+
+	void pass(int debttransferapplyid);
 }

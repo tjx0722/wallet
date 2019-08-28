@@ -78,6 +78,18 @@
 										}
 									} ,
 									{
+										field : 'restcount',
+										title : '剩余可投资金额',
+										width : 100,
+										sortable :true,
+										sorter:function (a,b) {
+						                   return (a<b?1:-1);
+						                },
+										formatter:function(value,row,index){
+											return row.loanapply.loanamount-row.investcount;
+										}
+									} ,
+									{
 										field : 'loantime',
 										title : '还款期限（/月）',
 										width : 100,

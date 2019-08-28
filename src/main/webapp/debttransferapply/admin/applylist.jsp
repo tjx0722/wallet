@@ -55,6 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        {field:'servicechargeid',title:'手续费类型',width:100},
 				{field:'operate',title:'是否通过',width:100,formatter: function(value,row,index){ 
 		        	var btns = "<a id=\"btn\" href=\"javascript:ischeck("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">通过审核</a>"; 
+					btns+="<a id=\"btn\" href=\"javascript:ispass("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">拦截审核</a>"; 
 					return btns;
 				}}
 		    ]],
@@ -69,6 +70,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    if (r){   
 			    location.href="/debttransferapply/admin/check/"+debttransferapplyid;
 			    alert("审核通过");
+		    }
+		});
+	};
+	function ispass(debttransferapplyid){
+		$.messager.confirm('Confirm','确认拦截该申请?',function(r){   
+		    if (r){   
+			    location.href="/debttransferapply/admin/pass/"+debttransferapplyid;
+			    alert("拦截成功");
 		    }
 		});
 	};

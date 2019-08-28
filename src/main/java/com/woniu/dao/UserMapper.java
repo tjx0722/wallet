@@ -1,6 +1,7 @@
 package com.woniu.dao;
 
 import com.woniu.domain.User;
+
 import com.woniu.domain.UserExample;
 import com.woniu.domain.Userinfo;
 
