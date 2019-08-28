@@ -33,6 +33,16 @@ public class InvestController {
 		return investServiceImpl.findAllLoadDisplay(pb);
 	}
 	
+	@RequestMapping("findInvested")
+	public List<Invest> findInvested(HttpSession session,PageBean pb,String sort,String order) {
+		User user=(User) session.getAttribute("user");
+		Integer userinfoid = user.getUserinfo().getUserinfoid();
+		if(sort!=null&&order!=null) {
+			return investServiceImpl.findAllLoadDisplay(userinfoid,pb,sort,order);
+		}
+		return investServiceImpl.findInvested(userinfoid,pb);
+	}
+	
 	@RequestMapping("findLoandisplayById/{loandisplayid}")
 	public ModelAndView findLoandisplayById(@PathVariable Integer loandisplayid) {
 		Loandisplay loandisplay=investServiceImpl.findLoandisplayById(loandisplayid);
