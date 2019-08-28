@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 </head>
 <body>
-<form method="post" action="updateAuthority">
+<form method="post" action="/authorityModule/updateAuthority">
 	<input type="hidden" name="userid" value="${user.userid}"><br>
 	<input type="text" name="account" value="${user.account }"><br>
 	<c:forEach items="${roles}" var="role">

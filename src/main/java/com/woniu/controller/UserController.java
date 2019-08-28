@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -135,8 +136,9 @@ public class UserController {
 		service.revoke(userid);
 		return "redirect:houtai/userlistVue.jsp";
 	}
-	@RequestMapping("goupdate")
-	public String goupdate(Integer userid,ModelMap map) {
+	@RequestMapping("goupdate/{userid}")
+	public String goupdate(@PathVariable Integer userid,ModelMap map) {
+//		ModelAndView mav = new ModelAndView("authorityModule/admin/updatePage");
 		User user = service.findByUserid(userid);
 		List roles = roleservice.findAll();
 		map.put("user",user);
