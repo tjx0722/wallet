@@ -95,23 +95,6 @@
 <body>
 	<table id="dg"></table>
 	<div id="tb">
-		<form action="">
-			排序：
-			<select id="cc" class="easyui-combobox" v-model="ordername" name="ordername" style="width:200px;">  
-			    <option value="loanamount">按贷款金额</option>  
-			    <option value="loanrate">按贷款利率</option>  
-			    <option value="deadtime">按集资截至日期</option>  
-			    <option value="investcount">按已投资金额</option>
-			    <option value="loantime">按还款期限 </option>  
-			</select>
-			<select id="cc" class="easyui-combobox" v-model="order" name="order" style="width:200px;">  
-			    <option value="des">从大到小</option>  
-			    <option value="asc">从小到大</option>  
-			</select>
-			大于<input type="text">
-			小于<input type="text">
-			<div class="easyui-linkbutton"  data-options="iconCls:'icon-remove'">筛选</div>
-		</form> 
 	</div>
 
 </body>
