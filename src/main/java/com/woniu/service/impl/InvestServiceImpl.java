@@ -41,7 +41,50 @@ public class InvestServiceImpl implements IInvestService {
 		pb.setCount(loandisplayMapper.countByExample(example));
 		return loandisplayMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
-	
+
+	@Override
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order) {
+		LoandisplayExample example=new LoandisplayExample();
+		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
+		criteria.andIsfinishedEqualTo(false);
+		criteria.andIsdeadEqualTo(false);
+		pb.setCount(loandisplayMapper.countByExample(example));
+		switch(sort) {
+			case "deadtime":
+				example.setOrderByClause("deadtime "+order.toUpperCase());
+				break;
+		}
+		return loandisplayMapper.selectByExample(example, new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+
+	@Override
+	public List<Invest> findInvested(Integer userinfoid, PageBean pb) {
+		InvestExample example = new InvestExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUserinfoidEqualTo(userinfoid);
+		criteria.andIstransferEqualTo(false);
+		pb.setCount(investMapper.countByExample(example));
+		return investMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+
+	@Override
+	public List<Invest> findAllLoadDisplay(Integer userinfoid, PageBean pb, String sort, String order) {
+		InvestExample example = new InvestExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUserinfoidEqualTo(userinfoid);
+		criteria.andIstransferEqualTo(false);
+		pb.setCount(investMapper.countByExample(example));
+		switch(sort) {
+			case "paytime":
+				example.setOrderByClause("deadtime "+order.toUpperCase());
+				break;
+			case "investamount":
+				example.setOrderByClause("investamount "+order.toUpperCase());
+				break;
+		}
+		return investMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+
 	@Override
 	public void insert(Invest invest) {
 		investMapper.insert(invest);
@@ -58,10 +101,13 @@ public class InvestServiceImpl implements IInvestService {
 			loandisplay.setIsfinished(true);
 			loandisplayMapper.updateByPrimaryKey(loandisplay);
 			
+			//获取利率
+			double loanrate = loandisplay.getLoanapply().getLoanrate().getLoanrate();
+			
 			//根据期数生成多个偿还表
 			int loanapplyid=loandisplay.getLoanapplyid();
 			int userinfoid = loandisplay.getLoanapply().getUserinfoid();
-			double restamount=loanamount*1.0/loantime;
+			double restamount=loanamount*(1.0+loanrate)/loantime;
 			restamount = (double) Math.round(restamount * 100) / 100;
 			Repay repay = new Repay();
 			for (int i = 1; i <= loantime; i++) {
@@ -80,21 +126,6 @@ public class InvestServiceImpl implements IInvestService {
 				repayMapper.insert(repay);
 			}
 		}
-	}
-
-	@Override
-	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order) {
-		LoandisplayExample example=new LoandisplayExample();
-		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
-		criteria.andIsfinishedEqualTo(false);
-		criteria.andIsdeadEqualTo(false);
-		pb.setCount(loandisplayMapper.countByExample(example));
-		switch(sort) {
-			case "deadtime":
-				example.setOrderByClause("deadtime "+order.toUpperCase());
-				break;
-		}
-		return loandisplayMapper.selectByExample(example, new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
 	@Override
