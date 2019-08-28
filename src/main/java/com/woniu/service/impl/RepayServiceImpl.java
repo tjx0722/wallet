@@ -1,6 +1,5 @@
 package com.woniu.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,8 +20,7 @@ public class RepayServiceImpl implements IRepayService {
 	public List<Repay> findByUser(Integer userinfoid) {
 		// TODO Auto-generated method stub
 		RepayExample example=new RepayExample();
-		example.createCriteria().andUserinfoidEqualTo(userinfoid);	
-		example.createCriteria().andIsfinishedEqualTo(true);
+		example.createCriteria().andUserinfoidEqualTo(userinfoid).andIsfinishedEqualTo(true);	
 		return repayMapper.selectByExample(example);
 	}
 

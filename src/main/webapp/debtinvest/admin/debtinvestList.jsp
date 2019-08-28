@@ -106,7 +106,7 @@ $(function(){
 			var tr=$("<tr></tr)");
 			var td1=$("<td></td>");
 			var td2=$("<td></td>");
-			td1.text(obj.payAmount);
+			td1.text(obj.restamount);
 			td2.text(new Date(obj.actualrepaytime).toLocaleString());
 			tr.append(td1);
 			tr.append(td2);
