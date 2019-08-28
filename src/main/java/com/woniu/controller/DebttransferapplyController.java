@@ -46,6 +46,13 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
+	@RequestMapping("/admin/pass/{debttransferapplyid}")
+	public ModelAndView pass(@PathVariable int debttransferapplyid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");
+		debttransferapplyServiceImpl.pass(debttransferapplyid);
+		return mdv;
+	}
+	
 	@RequestMapping("/findAllInvest")
 	public Map findAllInvest(PageBean pageBean,HttpSession session) {
 		Map map=new HashMap();

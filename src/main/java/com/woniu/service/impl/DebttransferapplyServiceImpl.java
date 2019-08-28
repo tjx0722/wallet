@@ -45,6 +45,7 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		example.setOrderByClause("debttransferapplyid DESC");
 		Criteria criteria=example.createCriteria();
 		criteria.andCheckedEqualTo(false);
+		criteria.andIspassEqualTo(false);
 		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
 		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
@@ -117,5 +118,13 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferdisplay.setIsdead(false);
 		debttransferdisplay.setDebttransferapplyid(debttransferapplyid);
 		debttransferdisplayMapper.insert(debttransferdisplay);
+	}
+
+	@Override
+	public void pass(int debttransferapplyid) {
+		// TODO Auto-generated method stub
+		Debttransferapply debttransferapply=debttransferapplyMapper.selectByPrimaryKey(debttransferapplyid);
+		debttransferapply.setIspass(true);
+		debttransferapplyMapper.updateByPrimaryKeySelective(debttransferapply);
 	}
 }
