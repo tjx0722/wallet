@@ -1,5 +1,7 @@
 package com.woniu.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,12 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoandisplayMapper;
+import com.woniu.dao.RepayMapper;
 import com.woniu.domain.Invest;
 import com.woniu.domain.InvestExample;
 import com.woniu.domain.InvestExample.Criteria;
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.LoandisplayExample;
+import com.woniu.domain.Loantime;
 import com.woniu.domain.PageBean;
+import com.woniu.domain.Repay;
 import com.woniu.service.IInvestService;
 
 @Service
@@ -24,6 +29,8 @@ public class InvestServiceImpl implements IInvestService {
 	private LoandisplayMapper loandisplayMapper;
 	@Resource
 	private InvestMapper investMapper;
+	@Resource
+	private RepayMapper repayMapper;
 	
 	@Override
 	public List<Loandisplay> findAllLoadDisplay(PageBean pb) {
@@ -31,13 +38,48 @@ public class InvestServiceImpl implements IInvestService {
 		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
 		criteria.andIsfinishedEqualTo(false);
 		criteria.andIsdeadEqualTo(false);
-		pb.setCount(loandisplayMapper.countByExample(null));
+		pb.setCount(loandisplayMapper.countByExample(example));
 		return loandisplayMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 	
 	@Override
 	public void insert(Invest invest) {
 		investMapper.insert(invest);
+		Integer loandisplayid = invest.getLoandisplayid();
+		Loandisplay loandisplay = loandisplayMapper.selectByPrimaryKey(loandisplayid);
+		//先获取期数
+		int loantime = loandisplay.getLoanapply().getLoantime().getLoantime();
+		double investcount = loandisplay.getInvestcount();
+		double loanamount = loandisplay.getLoanapply().getLoanamount();
+		
+		//判断是否募集够资金
+		if(investcount==loanamount) {
+			//设置loandisplay为已完成
+			loandisplay.setIsfinished(true);
+			loandisplayMapper.updateByPrimaryKey(loandisplay);
+			
+			//根据期数生成多个偿还表
+			int loanapplyid=loandisplay.getLoanapplyid();
+			int userinfoid = loandisplay.getLoanapply().getUserinfoid();
+			double restamount=loanamount*1.0/loantime;
+			restamount = (double) Math.round(restamount * 100) / 100;
+			Repay repay = new Repay();
+			for (int i = 1; i <= loantime; i++) {
+				repay.setLoanapplyid(loanapplyid);
+				repay.setUserinfoid(userinfoid);
+				repay.setRestamount(restamount);
+				repay.setIsfinished(false);
+				
+				//设置以后每隔一月的还款期
+				Calendar c = Calendar.getInstance();  
+		        c.setTime(new Date());   //设置时间
+		        c.add(Calendar.MONTH, i); //月份加1,Calendar.DATE(天),Calendar.HOUR(小时)  
+		        Date date = c.getTime(); //结果  
+				repay.setRepaytime(date);
+				repay.setIsovertime(false);
+				repayMapper.insert(repay);
+			}
+		}
 	}
 
 	@Override
