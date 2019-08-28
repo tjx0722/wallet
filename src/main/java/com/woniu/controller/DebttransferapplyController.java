@@ -135,7 +135,7 @@ public class DebttransferapplyController {
 			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
 			debttransferapplyServiceImpl.add(investid,userinfoid);
-			return mdv;
+			return mdv; 
 		}else {
 			count++;
 			session.setAttribute("count", count);
