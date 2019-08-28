@@ -8,7 +8,7 @@
     <sqlMapGenerator targetPackage="com.woniu.dao" targetProject="wallet" ></sqlMapGenerator>
     <javaClientGenerator targetPackage="com.woniu.dao" targetProject="wallet" type="XMLMAPPER" />
     
-    <table schema="" tableName="debttransferapply" ></table>
+    <table schema="" tableName="userinfo" ></table>
  
     
   </context>
