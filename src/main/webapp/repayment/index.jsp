@@ -50,7 +50,10 @@
 						<td>${loanapply.loanamount }</td>
 						<td>${loanapply.reason }</td>
 						<td>${loanapply.checked==false?'审核中':'已通过'}</td>
-						<td><span onclick="fun1(${loanapply.loanapplyid})"
+						<td><span id="sy" data-container="body" data-toggle="popover"
+							data-trigger="click" data-placement="top"
+							data-content='客官莫急,该笔交易还在审核中'
+							onclick="fun2(${loanapply.checked},${loanapply.loanapplyid})"
 							class="glyphicon glyphicon-eye-open"></span></td>
 					</tr>
 				</c:forEach>
@@ -58,7 +61,6 @@
 			</tbody>
 		</table>
 	</div>
-
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -69,16 +71,16 @@
 					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-						<table class="table table-hover" id="modeltable">
-							<thead>
-								<tr>
-									<th>数据类型</th>
-									<th>订单详情</th>
-								</tr>
-							</thead>
-							<tbody id="tbody">
-							</tbody>
-						</table>
+					<table class="table table-hover" id="modeltable">
+						<thead>
+							<tr>
+								<th>数据类型</th>
+								<th>订单详情</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+						</tbody>
+					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -91,6 +93,10 @@
 </body>
 </html>
 <script>
+$(function (){
+    $("[data-toggle='popover']").popover();
+});
+
 
 
 var s='${json }';
@@ -115,7 +121,11 @@ Date.prototype.toLocaleString = function() {
         addZero(this.getHours()) + ":" + addZero(this.getMinutes()) + ":" + addZero(this.getSeconds());
 };
 
-
+function fun2(obj1,obj2){
+	 if(obj1==true ){
+		 $('#sy').popover('destroy');
+		fun1(obj2);
+	 }};
 function fun1(obj){
 	
 	var length=getJsonLength(json);
@@ -127,16 +137,19 @@ function fun1(obj){
 	};
 	var test =j.allRepays;
 	var length2=getJsonLength(test);
-	var count=0;
+	var hasrestamount=0;
 	var count2=0;
+	var restamount=0;
 	var count3=new Date().getTime()+30* 1000*60*60*24;
 	var count5=new Date().getTime();
 	 for (var i = 0; i < length2; i++) {
 		 if(test[i].isfinished==true){
 			var a=test[i].restamount;
 			count2++;
-			count=count+a;
+			hasrestamount=hasrestamount+a;
 			}else{
+				var b=test[i].restamount;
+				restamount=restamount+b;
 				if(test[i].repaytime<count3){
 					count3=test[i].repaytime;
 				}
@@ -198,10 +211,19 @@ function fun1(obj){
 		    oTbody.appendChild(oTr6);
 		    var oTd61 = document.createElement('td');
 		    var oTd62 = document.createElement('td');
-		    oTd61.innerHTML = "剩余待还钱数";
-		    oTd62.innerHTML = count;
+		    oTd61.innerHTML = "已还钱数";
+		    oTd62.innerHTML = parseInt(hasrestamount);
 		    oTr6.appendChild(oTd61);
 		    oTr6.appendChild(oTd62);
+		    
+		    var oTr10 = document.createElement('tr');
+		    oTbody.appendChild(oTr10);
+		    var oTd101 = document.createElement('td');
+		    var oTd102 = document.createElement('td');
+		    oTd101.innerHTML = "剩余待还钱数";
+		    oTd102.innerHTML = parseInt(restamount);
+		    oTr10.appendChild(oTd101);
+		    oTr10.appendChild(oTd102);
 
 		    var oTr7 = document.createElement('tr');
 		    oTbody.appendChild(oTr7);
