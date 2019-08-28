@@ -12,7 +12,7 @@
 <div id="app">
 <TABLE border="1" width="100%">
 <TR align="center">
-	<TD>用户id</TD>
+	<TD>用户id</TD> 
 	<TD>账户</TD>
 	<TD>密码</TD>
 	<TD>电话</TD>
