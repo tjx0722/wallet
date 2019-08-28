@@ -58,7 +58,7 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferapply.setApplytime(new Date());
 		debttransferapply.setUserinfoid(userinfoid);
 		debttransferapply.setChecked(false);
-		
+		debttransferapply.setIspass(false);
 		double investamount=investMapper.selectByPrimaryKey(investId).getInvestamount();
 		List<Servicecharge> list=servicechargeMapper.selectByExample(null);
 		double servicecharge=0;

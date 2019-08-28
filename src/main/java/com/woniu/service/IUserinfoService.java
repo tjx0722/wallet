@@ -18,5 +18,4 @@ public interface IUserinfoService {
 	public Userinfo findById(Integer userinfoid);
 	public Wallet findWalletByUserinfoid(Integer userinfoid);
 	boolean findPwdByUid(Integer userinfoid, String payPassword_rsainput);
-	
 }

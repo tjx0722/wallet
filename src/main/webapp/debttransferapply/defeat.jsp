@@ -39,7 +39,7 @@
 	<div class="panel panel-default"style="height: 760px;width: 1089px" align="center">
 		<div class="panel-heading" style="background-color: #9CD9DA">
 		 <h2>密码错误！</h2>
-		 <h2>您已连续输错密码${count }次，您还有${3-count }次机会</h2>
+		 <h2>您已连续输错密码${3-count }次，今日您还有${count }次机会</h2>
 		</div>
 		<div class="panel-body">
 				<div id="remainTime"

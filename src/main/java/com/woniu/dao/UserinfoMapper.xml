@@ -476,4 +476,13 @@
       chance = #{chance,jdbcType=INTEGER}
     where userinfoid = #{userinfoid,jdbcType=INTEGER}
   </update>
+  <select id="findByUid" resultMap="BaseResultMap">
+  	SELECT * FROM userinfo WHERE userid=#{userid}
+  </select>
+  <delete id="deleteBatch">
+  	delete from userinfo where userinfoid in 
+  	<foreach close=")" collection="array" index="index" item="item" open="(" separator=",">
+  		#{item}
+  	</foreach>
+  </delete>
 </mapper>
