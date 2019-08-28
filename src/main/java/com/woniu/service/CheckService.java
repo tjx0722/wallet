@@ -38,6 +38,7 @@ public class CheckService {
 				debttransferdisplayMapper.updateByPrimaryKey(d);
 			}
 		}
+		
 	}
 	
 	@Scheduled(cron="0 0 5/23 * * ? ")
