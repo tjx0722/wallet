@@ -36,7 +36,26 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 		return list;
 	}
 	@Override
-	public List<Debtinvest> findAll(PageBean page,Userinfo userinfo,Debtinvest debtinvest) {
+	public List<Debtinvest> findAll(PageBean page) {
+		// TODO Auto-generated method stub
+		List<Debtinvest> list = debtinvestMapper.selectByExample(null,new RowBounds(page.getOffset(),page.getLimit()));
+		page.setCount(list.size());
+		return list;
+	}
+	@Override
+	public Debttransferdisplay findById(Integer debttransferdisplay) {
+		// TODO Auto-generated method stub
+		
+		return debttransferdisplayMapper.findById(debttransferdisplay);
+	}
+	@Override
+	public void save(Debtinvest debtinvest) {
+		// TODO Auto-generated method stub
+		debtinvestMapper.insertSelective(debtinvest);
+	}
+//	根据买进用户查询
+	@Override
+	public List<Debtinvest> findByUserinfo(PageBean page, Userinfo userinfo) {
 		// TODO Auto-generated method stub
 		DebtinvestExample example=null;
 		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
@@ -54,16 +73,42 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 		page.setCount(list.size());
 		return list;
 	}
+//	通过债权转让用户查询
 	@Override
-	public Debttransferdisplay findById(Integer debttransferdisplay) {
+	public List<Debtinvest> findByDebttransfer(PageBean page, Userinfo userinfo) {
 		// TODO Auto-generated method stub
+		Userinfo user=null;
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			UserinfoExample userinfoexample=new UserinfoExample();
+			userinfoexample.createCriteria().andUsernameEqualTo(userinfo.getUsername());
+			List<Userinfo> users=userinfoMapper.selectByExample(userinfoexample);
+			if(users.size()!=0) {
+				user=users.get(0);
+			}
+			debtinvests=debtinvestMapper.findByDebttransfer(user.getUserid());
+		}
+		page.setCount(debtinvests.size());
+		return debtinvests;
+	}
+//	通过借款人查询
+	@Override
+	public List<Debtinvest> findByLoanapply(PageBean page, Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		Userinfo user=null;
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			UserinfoExample userinfoexample=new UserinfoExample();
+			userinfoexample.createCriteria().andUsernameEqualTo(userinfo.getUsername());
+			List<Userinfo> users=userinfoMapper.selectByExample(userinfoexample);
+			if(users.size()!=0) {
+				user=users.get(0);
+			}
+			debtinvests=debtinvestMapper.findByLoanapply(user.getUserid());
+		}
+		page.setCount(debtinvests.size());
+		return debtinvests;
 		
-		return debttransferdisplayMapper.findById(debttransferdisplay);
 	}
-	@Override
-	public void save(Debtinvest debtinvest) {
-		// TODO Auto-generated method stub
-		debtinvestMapper.insertSelective(debtinvest);
-	}
-
+	
 }

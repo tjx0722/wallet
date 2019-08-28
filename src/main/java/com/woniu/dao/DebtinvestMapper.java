@@ -8,6 +8,10 @@ import org.apache.ibatis.session.RowBounds;
 
 public interface DebtinvestMapper {
 	
+	List<Debtinvest> findByLoanapply(Integer userinfoid);
+	
+	List<Debtinvest> findByDebttransfer(Integer userinfoid);
+	
 	List<Debtinvest> selectByExample(DebtinvestExample example,RowBounds rowBounds);
 	
     /**

@@ -36,7 +36,7 @@ $(function(){
                 return row.display.debttransferapply.userinfo.username;
             }},   
 	        {field:'investamount',title:'总支付金额',width:100,align:'center'},  
-	        {field:'paytime',title:'支付时间',width:100,align:'center',formatter: function (value) {
+	        {field:'paytime',title:'支付时间',width:200,align:'center',formatter: function (value) {
                 var dateMat = new Date(value);
                 return  dateMat.toLocaleString();
             }},
@@ -95,7 +95,7 @@ $(function(){
 		}); 
 			
 		$("#amount").text(data.display.invest.investamount);
-		$("#loanrate").text(data.display.loanapply.loanrate.loanrate);
+		$("#loanrate").text(data.display.loanapply.loanrate.loanrate+"%");
 		var temp=data.display.invest.loandisplay.displaytime;
 		var dateMat = new Date(temp);
 		var time=dateMat.toLocaleString();
@@ -117,8 +117,57 @@ $(function(){
     function qq(value,name){   
         if(name=="username"){
         	$('#dg').datagrid({
+            	url:'findByUserinfo',
         		queryParams: {
         			"username": value
+        		}
+        	});
+        }else if(name=="debttransfer"){
+        	$('#dg').datagrid({
+            	url:"findByDebttransfer",
+        		queryParams: {
+        			"username": value
+        		}
+        	});
+        }else if(name=="loanapply"){
+        	$('#dg').datagrid({
+            	url:"findByLoanapply",
+        		queryParams: {
+        			"username": value
+        		}
+        	});
+        }
+    }
+    function select(){
+		var begin=$("#begin").datebox("getValue"); 
+		var end=$("#end").datebox("getValue"); 
+		var value=$("#ss").searchbox("getValue");
+		var name=$("#ss").searchbox("getName");
+		if(name=="username"){
+        	$('#dg').datagrid({
+            	url:'findByUserinfo',
+        		queryParams: {
+        			"username": value,
+        			"begin":new Date(begin),
+        			"end":new Date(end)
+        		}
+        	});
+        }else if(name=="debttransfer"){
+        	$('#dg').datagrid({
+            	url:"findByDebttransfer",
+        		queryParams: {
+        			"username": value,
+        			"begin":begin,
+        			"end":end
+        		}
+        	});
+        }else if(name=="loanapply"){
+        	$('#dg').datagrid({
+            	url:"findByLoanapply",
+        		queryParams: {
+        			"username": value,
+        			"begin":begin,
+        			"end":end
         		}
         	});
         }
@@ -132,9 +181,15 @@ $(function(){
 <input id="ss" class="easyui-searchbox" style="width:300px"  
         data-options="searcher:qq,prompt:'请输入用户名',menu:'#mm'"></input>  
            
-<div id="mm" style="width:120px">  
-    <div data-options="name:'username',iconCls:'icon-ok'">按照买进用户查询</div>  
-</div>  
+<div id="mm" style="width:180px">  
+    <div data-options="name:'username',iconCls:'icon-ok'" >按照买进用户查询</div>  
+     <div data-options="name:'debttransfer',iconCls:'icon-ok'" >按照债权转出用户查询</div>  
+     <div data-options="name:'loanapply',iconCls:'icon-ok'" >按照借款人查询</div>  
+    
+</div> 
+开始日期<input id="begin" type="text" class="easyui-datebox" ></input>  
+截止日期<input id="end" type="text" class="easyui-datebox" ></input>  
+<a id="btn" href="javascript:select()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">筛选</a>  
 
 </div>
 <div id="win" class="easyui-window" title="交易详情" style="width:800px;height:600px;top:80px;"  

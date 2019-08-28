@@ -18,6 +18,23 @@
     <association property="userinfo" column="userinfoid" select="com.woniu.dao.UserinfoMapper.selectByPrimaryKey"></association>
  	<association property="display" column="debttransferdisplay" select="com.woniu.dao.DebttransferdisplayMapper.selectByPrimaryKey"></association>
   </resultMap>
+  <!--根据债权转出用户查出所有债权交易历史  -->
+  <select id="findByDebttransfer" resultMap="BaseResultMap">
+  		select * from debtinvest  where debttransferdisplay in 
+  		(select debttransferdisplay 
+  		from debttransferdisplay a,debttransferapply b 
+  		where a.debttransferapplyid=b.debttransferapplyid and b.userinfoid=#{id})
+  </select>
+
+ <!--根据借款人查出所有债权交易历史  -->
+  <select id="findByLoanapply" resultMap="BaseResultMap">
+  		select * from debtinvest  where debttransferdisplay in 
+  		(select debttransferdisplay from debttransferdisplay e,debttransferapply f 
+  		where e.debttransferapplyid=f.debttransferapplyid and f.investid in(
+select investid from invest c  where c.loandisplayid in
+(select b.loandisplayid from loanapply a, loandisplay b where a.loanapplyid=b.loanapplyid and a.userinfoid=#{id})))
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated
