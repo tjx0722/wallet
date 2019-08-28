@@ -25,27 +25,26 @@
 			SysSecond = SysSecond - 1;
 			var second = Math.floor(SysSecond % 60); // 计算秒     
 
-			$("#remainTime").html("<h1><font color='black' face='楷体'>恭喜您购买成功,wallet团队竭诚为您服务<br><br>感谢您的使用<br><br>" + second + "秒后为您返回<a href='/invest/list.jsp'>首页</a><font></h1>");
+			$("#remainTime").html("<h1><font color='black' face='楷体'>请于明天再行操作<font></h1>");
 
 			if (second === 0) {
 				window.clearInterval(InterValObj);
-				window.location.href = "/invest/list.jsp";
+				window.location.href = "/debttransferapply/investlist.jsp";
 			}
 		}
 	}
 </script>
 </head>
-
 <body>
-	<div class="panel panel-default"style="background: url('back.jpg'); height: 760px;width: 1089px" align="center">
+	<div class="panel panel-default"style="height: 760px;width: 1089px" align="center">
 		<div class="panel-heading" style="background-color: #9CD9DA">
-		 <h2>申 请 成 功</h2>
+		 <h2>您已连续输错密码三次！</h2>
 		</div>
 		<div class="panel-body">
 				<div id="remainTime"
 					style="font-size: 20px; font-weight: 800; color: white; position: relative;top:200px"></div>
 			</div>
 	</div>
-	<div id="remainSeconds" style="display: none">5</div>
+	<div id="remainSeconds" style="display: none">2</div>
 </body>
 </html>

@@ -1,12 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Document</title>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	var SysSecond;
+	var InterValObj;
+
+	$(document).ready(function() {
+		SysSecond = parseInt($("#remainSeconds").html()); //这里获取倒计时的起始时间
+		InterValObj = window.setInterval(SetRemainTime, 1000); //间隔函数，1秒执行
+	});
+
+	//将时间减去1秒，计算天、时、分、秒
+	function SetRemainTime() {
+		if (SysSecond > 0) {
+			SysSecond = SysSecond - 1;
+			var second = Math.floor(SysSecond % 60); // 计算秒     
+
+			$("#remainTime").html("<h1><font color='black' face='楷体'>请确认密码后重新输入<font></h1>");
+
+			if (second === 0) {
+				window.clearInterval(InterValObj);
+				window.location.href = "/debttransferapply/pay/"+${investid}+","+${userinfoid};
+			}
+		}
+	}
+</script>
 </head>
 <body>
-	<h1>密码错误！</h1>
+	<div class="panel panel-default"style="height: 760px;width: 1089px" align="center">
+		<div class="panel-heading" style="background-color: #9CD9DA">
+		 <h2>密码错误！</h2>
+		 <h2>您已连续输错密码${count }次，您还有${3-count }次机会</h2>
+		</div>
+		<div class="panel-body">
+				<div id="remainTime"
+					style="font-size: 20px; font-weight: 800; color: white; position: relative;top:200px"></div>
+			</div>
+	</div>
+	<div id="remainSeconds" style="display: none">2</div>
 </body>
 </html>

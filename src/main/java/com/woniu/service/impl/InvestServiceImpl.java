@@ -34,6 +34,26 @@ public class InvestServiceImpl implements IInvestService {
 		pb.setCount(loandisplayMapper.countByExample(null));
 		return loandisplayMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
+	
+	@Override
+	public void insert(Invest invest) {
+		investMapper.insert(invest);
+	}
+
+	@Override
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order) {
+		LoandisplayExample example=new LoandisplayExample();
+		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
+		criteria.andIsfinishedEqualTo(false);
+		criteria.andIsdeadEqualTo(false);
+		pb.setCount(loandisplayMapper.countByExample(example));
+		switch(sort) {
+			case "deadtime":
+				example.setOrderByClause("deadtime "+order.toUpperCase());
+				break;
+		}
+		return loandisplayMapper.selectByExample(example, new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
 
 	@Override
 	public Invest findOneInvest(int investId) {
@@ -65,6 +85,7 @@ public class InvestServiceImpl implements IInvestService {
 	public List findAllInvest(PageBean pageBean, int userinfoid) {
 		// TODO Auto-generated method stub
 		InvestExample example=new InvestExample();
+		example.setOrderByClause("investid DESC");
 		Criteria criteria=example.createCriteria();
 		/* criteria.andIstransferEqualTo(false); */
 		criteria.andUserinfoidEqualTo(userinfoid);
@@ -79,4 +100,5 @@ public class InvestServiceImpl implements IInvestService {
 		pb.setCount(loandisplayMapper.countByExample(null));
 		return loandisplayMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
+
 }

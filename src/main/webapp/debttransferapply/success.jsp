@@ -25,7 +25,7 @@
 			SysSecond = SysSecond - 1;
 			var second = Math.floor(SysSecond % 60); // 计算秒     
 
-			$("#remainTime").html("<h1><font color='black' face='楷体'>感谢您的使用<br><br>" + second + "秒后为您返回首页<font></h1>");
+			$("#remainTime").html("<h1><font color='black' face='楷体'>感谢您的使用<br><br>" + second + "秒后为您返回<a href='/debttransferapply/investlist.jsp'>首页</a><font></h1>");
 
 			if (second === 0) {
 				window.clearInterval(InterValObj);
@@ -47,5 +47,6 @@
 			</div>
 	</div>
 	<div id="remainSeconds" style="display: none">5</div>
+	
 </body>
 </html>

@@ -11,7 +11,7 @@ public class Userinfo implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
-	private Integer applypass;
+	private String applypass;
 	private double loapplylimit;
 	private User user;		//可以查到对应的user
     public User getUser() {
@@ -27,11 +27,11 @@ public class Userinfo implements Serializable{
 				+ ", salary=" + salary + ", ismarried=" + ismarried + ", infochecked=" + infochecked + "]";
 	}
 
-	public Integer getApplypass() {
+	public String getApplypass() {
 		return applypass;
 	}
 
-	public void setApplypass(Integer applypass) {
+	public void setApplypass(String applypass) {
 		this.applypass = applypass;
 	}
 

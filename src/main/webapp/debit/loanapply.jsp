@@ -96,17 +96,12 @@
 				formatter : function(value) {
 					$("#loanamount").html(
 							"<font size='10' face='楷体'>￥" + value + "</font>");
-					$("input[ name='']").val(value);
 					return '当前金额： ' + value;
 				}
 			}).on('slide', function(slideEvt) {
 		//当滚动时触发
-		//console.info(slideEvt);
-		//获取当前滚动的值，可能有重复
-		// console.info(slideEvt.value);
 	}).on('change', function(e) {
 		//当值发生改变的时候触发
-		//console.info(e);
 	});
 </script>
 

@@ -52,11 +52,9 @@ public class DebttransferapplyController {
 		
 		User user=(User) session.getAttribute("user"); 
 		int userinfoid=user.getUserinfo().getUserinfoid();
-		 
-		/* int userinfoid=3; */
 		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
-		map.put("total", pageBean.getCount());
-		map.put("rows", rows);
+		/* int userinfoid=3; */
+		map.put("total", pageBean.getCount()); map.put("rows", rows);
 		return map;
 	}
 	
@@ -81,10 +79,10 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
-	@RequestMapping("/admin/findOneUser/{investId}")
-	public ModelAndView findOneUseradmin(@PathVariable int investId) {
+	@RequestMapping("/admin/findOneUser/{userinfoid}")
+	public ModelAndView findOneUseradmin(@PathVariable int userinfoid) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/admin/userinfo");
-		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		mdv.addObject("userinfo",userinfoServiceImpl.findById(userinfoid));
 		return mdv;
 	}
 	
@@ -103,24 +101,46 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/pay/{investId},{userinfoid}")
-	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid) {
-		ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
-		mdv.addObject("investid", investId);
-		mdv.addObject("userinfoid", userinfoid);
-		return mdv;
+	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid,HttpSession session) {
+		int count=0;
+		if (session.getAttribute("count")==null) {
+			session.setAttribute("count", 0);
+		}else {
+			count=(int) session.getAttribute("count");
+		}
+		if (count<3) {
+			ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
+			mdv.addObject("investid", investId);
+			mdv.addObject("userinfoid", userinfoid);
+			return mdv;
+		}else {
+			ModelAndView mdv=new ModelAndView("debttransferapply/info");
+			return mdv;
+		}
 	}
 	
 	@RequestMapping("/transfer")
-	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
+	public ModelAndView transfer(HttpSession session,String payPassword_rsainput,Integer investid,Integer userinfoid) {
+		int count=(int) session.getAttribute("count");
 		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
 		if (flag) {
+			session.setAttribute("count", 0);
 			ModelAndView mdv=new ModelAndView("debttransferapply/success");
 			investServiceImpl.transfer(investid);
 			debttransferapplyServiceImpl.add(investid,userinfoid);
 			return mdv;
 		}else {
-			ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
-			return mdv;
+			count++;
+			session.setAttribute("count", count);
+			if (count<3) {
+				ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
+				mdv.addObject("investid", investid);
+				mdv.addObject("userinfoid", userinfoid);
+				return mdv;
+			}else {
+				ModelAndView mdv=new ModelAndView("debttransferapply/info");
+				return mdv;
+			}
 		}
 	}
 }

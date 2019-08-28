@@ -42,6 +42,7 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 	public List findAll(PageBean pageBean) {
 		// TODO Auto-generated method stub
 		DebttransferapplyExample example=new DebttransferapplyExample();
+		example.setOrderByClause("debttransferapplyid DESC");
 		Criteria criteria=example.createCriteria();
 		criteria.andCheckedEqualTo(false);
 		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));

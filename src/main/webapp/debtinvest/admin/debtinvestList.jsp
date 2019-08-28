@@ -114,11 +114,28 @@ $(function(){
 		}); 
 	}
 	
-
+    function qq(value,name){   
+        if(name=="username"){
+        	$('#dg').datagrid({
+        		queryParams: {
+        			"username": value
+        		}
+        	});
+        }
+    }   
 </script>
 </head>
 <body>
 <div id="tb">
+
+  
+<input id="ss" class="easyui-searchbox" style="width:300px"  
+        data-options="searcher:qq,prompt:'请输入用户名',menu:'#mm'"></input>  
+           
+<div id="mm" style="width:120px">  
+    <div data-options="name:'username',iconCls:'icon-ok'">按照买进用户查询</div>  
+</div>  
+
 </div>
 <div id="win" class="easyui-window" title="交易详情" style="width:800px;height:600px;top:80px;"  
         data-options="iconCls:'icon-man',modal:true,closed:true">  
