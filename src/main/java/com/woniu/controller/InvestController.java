@@ -92,7 +92,6 @@ public class InvestController {
 			mav.addObject("msg", "支付密码错误，您还有   "+rest+"次机会");
 			return mav;
 		}
-		
 	}
 	
 	//admin
