@@ -77,8 +77,10 @@
 			<div class="input-group">
 				<span class="input-group-addon">投资金额</span> <input
 					name="investamount" v-model="investamount" type="text"
-					class="form-control" size="10" 
+					class="form-control"
 					placeholder="剩余可投资金额：${loandisplay.loanapply.loanamount-loandisplay.investcount }元,请输入投资金额">
+				<button class="btn btn-info btn-lg" id="allin" @click="allin()" 
+					data-target="#myModal">购买剩余所有</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<button class="btn btn-primary btn-lg" data-toggle="modal"
 					data-target="#myModal">确认购买</button>
 			</div>
@@ -143,8 +145,15 @@
 				}
 			},
 			methods:{
+				allin:function(){
+					this.investamount=this.restcount;
+				},
 				purchase:function(){
-					location.href="/invest/purchase/"+this.investamount+"!"+this.loandisplayid;
+					if(this.investamount<=0){
+						alert("请输入正确的投资金额");
+					}else{
+						location.href="/invest/purchase/"+this.investamount+"!"+this.loandisplayid;
+					}
 				}
 			}
 		});
