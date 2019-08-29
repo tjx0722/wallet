@@ -25,7 +25,7 @@
 			SysSecond = SysSecond - 1;
 			var second = Math.floor(SysSecond % 60); // 计算秒     
 			var back ="";
-			if(${rest==0}){
+			if(${chance==0}){
 				back = "/invest/list.jsp";
 			}else{
 				back = "/invest/purchase/${investamount}!${loandisplayid}";

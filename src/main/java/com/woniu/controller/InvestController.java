@@ -17,13 +17,17 @@ import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
+import com.woniu.domain.Userinfo;
 import com.woniu.service.IInvestService;
+import com.woniu.service.IUserinfoService;
 
 @RestController
 @RequestMapping("/invest/")
 public class InvestController {
 	@Resource
 	private IInvestService investServiceImpl;
+	@Resource
+	private IUserinfoService userinfoServiceImpl;
 	
 	@RequestMapping("findAllLoanDisplay")
 	public List<Loandisplay> findAllLoanDisplay(PageBean pb,String sort,String order) {
@@ -31,6 +35,16 @@ public class InvestController {
 			return investServiceImpl.findAllLoadDisplay(pb,sort,order);
 		}
 		return investServiceImpl.findAllLoadDisplay(pb);
+	}
+	
+	@RequestMapping("findInvested")
+	public List<Invest> findInvested(HttpSession session,PageBean pb,String sort,String order) {
+		User user=(User) session.getAttribute("user");
+		Integer userinfoid = user.getUserinfo().getUserinfoid();
+		if(sort!=null&&order!=null) {
+			return investServiceImpl.findAllLoadDisplay(userinfoid,pb,sort,order);
+		}
+		return investServiceImpl.findInvested(userinfoid,pb);
 	}
 	
 	@RequestMapping("findLoandisplayById/{loandisplayid}")
@@ -43,10 +57,13 @@ public class InvestController {
 	
 	@RequestMapping("purchase/{investamount}!{loandisplayid}")
 	public ModelAndView purchase(@PathVariable Integer loandisplayid,@PathVariable Double investamount,HttpSession session) {
-		Integer rest=(Integer) session.getAttribute("rest");
-		if(rest!=null&&rest==0) {
+		User user = (User) session.getAttribute("user");
+		Userinfo userinfo = userinfoServiceImpl.findById(user.getUserinfo().getUserinfoid());
+		Integer chance = userinfo.getChance();
+		if(chance==0) {
 			ModelAndView mav=new ModelAndView("invest/payfailed");
 			mav.addObject("msg", "您的账户已被锁定，24小时内不能支付");
+			mav.addObject("chance", chance);
 			return mav;
 		}
 		ModelAndView mav=new ModelAndView("invest/paypage");
@@ -58,10 +75,14 @@ public class InvestController {
 	
 	@RequestMapping("pay")
 	public ModelAndView pay(Integer loandisplayid,Double investamount,String payPassword_rsainput,HttpSession session) {
-		User user=(User) session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
+		Userinfo userinfo = userinfoServiceImpl.findById(user.getUserinfo().getUserinfoid());
+		Integer chance = userinfo.getChance();
 		String applypass = user.getUserinfo().getApplypass();
 		if(applypass.equals(payPassword_rsainput)) {
-			session.removeAttribute("rest");
+			//输入密码正确之后，重置密码输错机会为3，入库。
+			userinfo.setChance(3);
+			userinfoServiceImpl.update(userinfo);
 			ModelAndView mav=new ModelAndView("invest/back");
 			Invest invest=new Invest();
 			invest.setUserinfoid(user.getUserinfo().getUserinfoid());
@@ -74,22 +95,22 @@ public class InvestController {
 			investServiceImpl.insert(invest);
 			return mav;
 		}else {
+			//输错密码之后，机会减一，入库。
+			chance--;
+			userinfo.setChance(chance);
+			userinfoServiceImpl.update(userinfo);
+			
+			if(chance==0) {
+				ModelAndView mav=new ModelAndView("invest/payfailed");
+				mav.addObject("chance", chance);
+				mav.addObject("msg", "您的账户已被锁定，24小时内不能支付");
+				return mav;
+			}
 			ModelAndView mav=new ModelAndView("invest/payfailed");
+			mav.addObject("chance", chance);
 			mav.addObject("investamount", investamount);
 			mav.addObject("loandisplayid", loandisplayid);
-			Integer rest = (Integer) session.getAttribute("rest");
-			if(rest==null) {
-				rest=2;
-				session.setAttribute("rest", rest);
-			}else {
-				if(rest>0) {
-					rest--;
-					session.setAttribute("rest", rest);
-				}else {
-					session.removeAttribute("rest");
-				}
-			}
-			mav.addObject("msg", "支付密码错误，您还有   "+rest+"次机会");
+			mav.addObject("msg", "支付密码错误，您还有   "+chance+"次机会");
 			return mav;
 		}
 	}

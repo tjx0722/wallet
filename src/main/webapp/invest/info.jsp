@@ -113,7 +113,7 @@
 									<div  align="center"><button @click="purchase()" type="button" class="btn btn-primary">使用Wallet付款</button></div>
 								</th>
 								<th>
-									<div  align="center"><button @click="purchase()" type="button" class="btn btn-info">使用支付宝付款</button></div>
+									<div  align="center"><button @click="alipay()" type="button" class="btn btn-info">使用其他方式付款</button></div>
 								</th>
 							</tr>
 						</table>
@@ -153,6 +153,13 @@
 						alert("请输入正确的投资金额");
 					}else{
 						location.href="/invest/purchase/"+this.investamount+"!"+this.loandisplayid;
+					}
+				},
+				alipay:function(){
+					if(this.investamount<=0){
+						alert("请输入正确的投资金额");
+					}else{
+						location.href="/invest/alipay.jsp";
 					}
 				}
 			}

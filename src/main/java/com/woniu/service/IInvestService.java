@@ -17,4 +17,6 @@ public interface IInvestService {
 	void update(Invest invest);
 	List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb);
 	List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order);
+	List<Invest> findInvested(Integer userinfoid, PageBean pb);
+	List<Invest> findAllLoadDisplay(Integer userinfoid, PageBean pb, String sort, String order);
 }

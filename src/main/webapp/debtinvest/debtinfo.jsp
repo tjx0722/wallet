@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<c:forEach items="${repays }" var="repay">
 				
 				<tr>
-					<td><font class="text-danger"  >${repay.payAmount }</td>
+					<td><font class="text-danger"  >${repay.restamount }</td>
 					<td>
 						<font class="text-danger"  >
 							<f:formatDate value="${repay.actualrepaytime }" pattern="yyyy年MM月dd日" />

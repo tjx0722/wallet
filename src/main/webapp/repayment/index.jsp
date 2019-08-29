@@ -19,8 +19,8 @@
 		<div class="panel-body">
 			<ul class="nav nav-pills">
 				<li><img alt="" src="logo.jpg"></li>
-				<li style="float: right" id="ball"><a onclick="fun2()">还款</a></li>
-				<li style="float: right"><a href="#">Messages</a></li>
+				<li style="float: right"><a href="#">个人</a></li>
+				<li style="float: right" id="ball"><a onclick="fun2()">还款界面</a></li>
 				<li style="float: right" id="" class="active"><a onclick="fun1()">历史交易</a></li>
 			</ul>
 		</div>
