@@ -23,6 +23,7 @@ public class User implements Serializable{
     private String email;
 
     private Userinfo userinfo;
+    
     @JsonBackReference
     public Userinfo getUserinfo() {
 		return userinfo;

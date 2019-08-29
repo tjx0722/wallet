@@ -25,27 +25,27 @@
 			SysSecond = SysSecond - 1;
 			var second = Math.floor(SysSecond % 60); // 计算秒     
 
-			$("#remainTime").html("<h1><font color='black' face='楷体'>感谢您的使用<br><br>" + second + "秒后为您返回首页<font></h1>");
+			$("#remainTime").html("<h1><font color='black' face='楷体'>请确认密码后重新输入<font></h1>");
 
 			if (second === 0) {
 				window.clearInterval(InterValObj);
-				window.location.href = "/debttransferapply/investlist.jsp";
+				window.location.href = "/debttransferapply/pay/"+${investid}+","+${userinfoid};
 			}
 		}
 	}
 </script>
 </head>
-
 <body>
 	<div class="panel panel-default"style="height: 760px;width: 1089px" align="center">
 		<div class="panel-heading" style="background-color: #9CD9DA">
-		 <h2>申 请 成 功</h2>
+		 <h2>密码错误！</h2>
+		 <h2>您已连续输错密码${3-count }次，今日您还有${count }次机会</h2>
 		</div>
 		<div class="panel-body">
 				<div id="remainTime"
 					style="font-size: 20px; font-weight: 800; color: white; position: relative;top:200px"></div>
 			</div>
 	</div>
-	<div id="remainSeconds" style="display: none">5</div>
+	<div id="remainSeconds" style="display: none">2</div>
 </body>
 </html>

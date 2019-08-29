@@ -10,7 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -119,17 +122,23 @@ public class UserController {
 		
 	}
 	@RequestMapping("delete")
-	public String delete(Integer userid) {
+	public @ResponseBody Map delete(Integer userid,PageBean pb) {
 		service.delete(userid);
-		return "redirect:findAll";
+		Map map = new HashMap();
+		List list = service.findAll(pb);
+		map.put("list", list);
+		map.put("page", pb);
+//		map.put("user", user);
+		return map;
 	}
 	@RequestMapping("revoke")
 	public String revoke(Integer userid) {
 		service.revoke(userid);
-		return "redirect:findAll";
+		return "redirect:houtai/userlistVue.jsp";
 	}
-	@RequestMapping("goupdate")
-	public String goupdate(Integer userid,ModelMap map) {
+	@RequestMapping("goupdate/{userid}")
+	public String goupdate(@PathVariable Integer userid,ModelMap map) {
+//		ModelAndView mav = new ModelAndView("authorityModule/admin/updatePage");
 		User user = service.findByUserid(userid);
 		List roles = roleservice.findAll();
 		map.put("user",user);
@@ -141,4 +150,15 @@ public class UserController {
 		service.updateAuthority(user, chk);
 		return "authorityModule/admin/updatePage";
 	}
+	
+	@RequestMapping("findJson")
+	public @ResponseBody Map findJson(PageBean pb) {
+		Map map = new HashMap();
+		List list = service.findAll(pb);
+		map.put("list", list);
+		map.put("page", pb);
+//		map.put("user", user);
+		return map;
+	}
+	
 }

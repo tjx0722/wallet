@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration >
-	<classPathEntry location="D:\apache-maven-3.6.1\Repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar"/>
+	<classPathEntry location="D:\repository\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar"/>
   <context id="context1" >
     <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.111.31.86:3306/prj3?characterEncoding=utf-8" userId="prj3" password="#@$*()#$" />
     <javaModelGenerator targetPackage="com.woniu.domain" targetProject="wallet" ></javaModelGenerator>

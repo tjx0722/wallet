@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +32,8 @@
 		        <th>数据</th>
 		      </tr>
 		      <tr>
-		        <td>用户详情id</td>
-		        <td>${apply.userinfoid }</td>
+		        <td>用户名称</td>
+		        <td>${apply.userinfo.username }</td>
 		      </tr>
 		      <tr>
 		        <td>投资表id</td>
@@ -40,7 +41,7 @@
 		      </tr>
 		      <tr>
 		        <td>转让申请时间</td>
-		        <td>${apply.applytime }</td>
+		        <td><fmt:formatDate value="${apply.applytime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 		      </tr>
 		      <tr>
 		        <td>手续费类型</td>

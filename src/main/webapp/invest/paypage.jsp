@@ -109,25 +109,6 @@
 </style>
 </head>
 <body>
-<%-- 	<div id="app" class="panel panel-default">
-	  <div class="panel-heading">
-	    <h3 class="panel-title"></h3>
-	  </div>
-	  <div class="panel-body">
-	   <div  class="col-md-10 col-md-offset-1" >
-       	<table class="table table-striped table-bordered table-hover">
-       		<tr>
-       			<th>请确认支付信息后输入支付密码</th>
-       			<th>${loandisplay.loanapply.userinfo.username }</th>
-       		</tr>
-       		<tr>
-       			<th>付款金额</th>
-       			<th>${investamount }</th>
-       		</tr>
-       	</table>
-       </div>
-	  </div>
-	</div> --%>
 <div style="margin:0 auto;width:500px;">
 <br><br><br>
 <form action="/invest/pay" method="post" id="form_paypsw">
@@ -135,6 +116,8 @@
 	<label for="i_payPassword" class="i-block">支付密码：</label>
 	<div class="i-block" data-error="i_error">
 		<div class="i-block six-password">
+			<input type="hidden" name="investamount" value="${investamount }">
+			<input type="hidden" name="loandisplayid" value="${loandisplayid }">
 			<input class="i-text sixDigitPassword" id="payPassword_rsainput" type="password" autocomplete="off" required="required" value="" name="payPassword_rsainput" data-role="sixDigitPassword" tabindex="" maxlength="6" minlength="6" aria-required="true">
 			<div tabindex="0" class="sixDigitPassword-box" style="width: 180px;">
 				<i style="width: 29px; border-color: transparent;" class=""><b style="visibility: hidden;"></b></i>

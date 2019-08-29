@@ -15,12 +15,14 @@ import com.woniu.dao.DebttransferapplyMapper;
 import com.woniu.dao.DebttransferdisplayMapper;
 import com.woniu.dao.InvestMapper;
 import com.woniu.dao.ServicechargeMapper;
+import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.DebttransferapplyExample;
 import com.woniu.domain.DebttransferapplyExample.Criteria;
 import com.woniu.domain.Debttransferdisplay;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Servicecharge;
+import com.woniu.domain.Userinfo;
 import com.woniu.service.IDebttransferapplyService;
 
 @Service
@@ -34,12 +36,16 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 	private InvestMapper investMapper;
 	@Resource
 	private DebttransferdisplayMapper debttransferdisplayMapper;
+	@Resource
+	private UserinfoMapper userinfoMapper;
 	@Override
 	public List findAll(PageBean pageBean) {
 		// TODO Auto-generated method stub
 		DebttransferapplyExample example=new DebttransferapplyExample();
+		example.setOrderByClause("debttransferapplyid DESC");
 		Criteria criteria=example.createCriteria();
 		criteria.andCheckedEqualTo(false);
+		criteria.andIspassEqualTo(false);
 		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
 		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
@@ -52,7 +58,7 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferapply.setApplytime(new Date());
 		debttransferapply.setUserinfoid(userinfoid);
 		debttransferapply.setChecked(false);
-		
+		debttransferapply.setIspass(false);
 		double investamount=investMapper.selectByPrimaryKey(investId).getInvestamount();
 		List<Servicecharge> list=servicechargeMapper.selectByExample(null);
 		double servicecharge=0;
@@ -78,7 +84,8 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferapply.setChecked(false);
 		
 		double investamount=investMapper.selectByPrimaryKey(investId).getInvestamount();
-		
+		Userinfo userinfo=userinfoMapper.selectByPrimaryKey(userinfoid);
+		debttransferapply.setUserinfo(userinfo);
 		List<Servicecharge> list=servicechargeMapper.selectByExample(null);
 		double servicecharge=0;
 		int servicechargeid=0;
@@ -111,6 +118,13 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		debttransferdisplay.setIsdead(false);
 		debttransferdisplay.setDebttransferapplyid(debttransferapplyid);
 		debttransferdisplayMapper.insert(debttransferdisplay);
-		
+	}
+
+	@Override
+	public void pass(int debttransferapplyid) {
+		// TODO Auto-generated method stub
+		Debttransferapply debttransferapply=debttransferapplyMapper.selectByPrimaryKey(debttransferapplyid);
+		debttransferapply.setIspass(true);
+		debttransferapplyMapper.updateByPrimaryKeySelective(debttransferapply);
 	}
 }

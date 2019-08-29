@@ -4,6 +4,14 @@ import java.util.Date;
 
 public class Repay {
 	
+	@Override
+	public String toString() {
+		return "Repay [payAmount=" + payAmount + ", repayid=" + repayid + ", loanapplyid=" + loanapplyid
+				+ ", userinfoid=" + userinfoid + ", restamount=" + restamount + ", isfinished=" + isfinished
+				+ ", repaytime=" + repaytime + ", actualrepaytime=" + actualrepaytime + ", isovertime=" + isovertime
+				+ "]";
+	}
+
 	private double payAmount; //查出每期还款金额
     public double getPayAmount() {
 		return payAmount;

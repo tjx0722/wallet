@@ -71,11 +71,11 @@ private WalletMapper walletMapper;
 	}
 
 	@Override
-	public boolean findPwdByUid(Integer userinfoid, Integer payPassword_rsainput) {
+	public boolean findPwdByUid(Integer userinfoid, String payPassword_rsainput) {
 		// TODO Auto-generated method stub
 		Userinfo userinfo=userinfoMapper.selectByPrimaryKey(userinfoid);
-		int pwd=userinfo.getApplypass();
-		if (pwd==payPassword_rsainput) {
+		String pwd=userinfo.getApplypass();
+		if (pwd.equals(payPassword_rsainput)) {
 			return true;
 		}else {
 			return false;

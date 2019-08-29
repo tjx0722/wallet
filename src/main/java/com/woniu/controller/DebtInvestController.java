@@ -52,8 +52,13 @@ public class DebtInvestController {
 	
 	@RequestMapping("findUndead")
 	@ResponseBody
-	public List findUndead() {
-		return debtInvestServiceImpl.findUndead();
+	public Map findUndead(PageBean page) {
+		Map map=new HashMap();
+		List<Debttransferdisplay> list = debtInvestServiceImpl.findUndead(page);
+		map.put("page", page);
+		map.put("total", page.getCount());
+		map.put("rows", list);
+		return map;
 		
 	}
 	@RequestMapping("findById")
@@ -116,4 +121,45 @@ public class DebtInvestController {
 		map.put("rows", debtinvests);
 		return map;
 	}
+//	按照买进用户查询
+	@RequestMapping("admin/findByUserinfo")
+	@ResponseBody
+	public Map findByUserinfo(PageBean page,Userinfo userinfo,Date begin,Date end) {
+		System.out.println(">>>>>>>>>>>>>"+begin);
+		System.out.println(">>>>>>>>>>>>"+end);
+		Map map=new HashMap();
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo);
+		map.put("page", page);
+		map.put("total", page.getCount());
+		map.put("rows", debtinvests);
+		return map;
+	}
+	
+	
+	
+//	通过债权转让用户查询
+	@RequestMapping("admin/findByDebttransfer")
+	@ResponseBody
+	public Map  findByDebttransfer(PageBean page,Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		Map map=new HashMap();
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo);
+		map.put("page", page);
+		map.put("total", page.getCount());
+		map.put("rows", debtinvests);
+		return map;
+	}
+//	通过借款人查询
+	@RequestMapping("admin/findByLoanapply")
+	@ResponseBody
+	public Map  findByLoanapply(PageBean page,Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		Map map=new HashMap();
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo);
+		map.put("page", page);
+		map.put("total", page.getCount());
+		map.put("rows", debtinvests);
+		return map;
+	}
+	
 }

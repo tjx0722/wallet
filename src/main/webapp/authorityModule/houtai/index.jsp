@@ -96,8 +96,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<TR>
 		<TD width=260px align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
 			<ul id="tree" class="ztree" style="width:260px; overflow:auto"></ul>
+<<<<<<< HEAD
 		</TD>
 		<TD width=1170px height=1000px align=left valign=top><IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=1200px SRC="core/standardData.html"></IFRAME></TD>
+=======
+		</TD> 
+		<TD width=1170px align=left valign=top><IFRAME ID="testIframe" Name="testIframe" FRAMEBORDER=0 SCROLLING=AUTO width=100%  height=600px SRC="core/standardData.html"></IFRAME></TD>
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
 	</TR>
 </TABLE>
 

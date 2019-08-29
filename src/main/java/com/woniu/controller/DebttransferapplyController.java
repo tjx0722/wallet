@@ -1,14 +1,13 @@
 package com.woniu.controller;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,10 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.IUserinfoService;
-import com.woniu.service.impl.InvestServiceImpl;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
+import com.woniu.domain.Userinfo;
 
 @RestController
 @RequestMapping("/debttransferapply")
@@ -48,17 +47,22 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
+	@RequestMapping("/admin/pass/{debttransferapplyid}")
+	public ModelAndView pass(@PathVariable int debttransferapplyid) {
+		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");
+		debttransferapplyServiceImpl.pass(debttransferapplyid);
+		return mdv;
+	}
+	
 	@RequestMapping("/findAllInvest")
 	public Map findAllInvest(PageBean pageBean,HttpSession session) {
 		Map map=new HashMap();
 		
 		User user=(User) session.getAttribute("user"); 
 		int userinfoid=user.getUserinfo().getUserinfoid();
-		 
-		/* int userinfoid=3; */
 		List rows=investServiceImpl.findAllInvest(pageBean,userinfoid) ;
-		map.put("total", pageBean.getCount());
-		map.put("rows", rows);
+		/* int userinfoid=3; */
+		map.put("total", pageBean.getCount()); map.put("rows", rows);
 		return map;
 	}
 	
@@ -83,10 +87,10 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
-	@RequestMapping("/admin/findOneUser/{investId}")
-	public ModelAndView findOneUseradmin(@PathVariable int investId) {
+	@RequestMapping("/admin/findOneUser/{userinfoid}")
+	public ModelAndView findOneUseradmin(@PathVariable int userinfoid) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/admin/userinfo");
-		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		mdv.addObject("userinfo",userinfoServiceImpl.findById(userinfoid));
 		return mdv;
 	}
 	
@@ -99,29 +103,51 @@ public class DebttransferapplyController {
 		 
 		/* int userinfoid=3; */
 		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
+		System.out.println(debttransferapply.getUserinfo());
 		mdv.addObject("apply", debttransferapply);
 		return mdv;
 	}
 	
 	@RequestMapping("/pay/{investId},{userinfoid}")
 	public ModelAndView pay(@PathVariable int investId,@PathVariable int userinfoid) {
-		ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
-		mdv.addObject("investid", investId);
-		mdv.addObject("userinfoid", userinfoid);
-		return mdv;
-	}
-	
-	@RequestMapping("/transfer")
-	public ModelAndView transfer(Integer payPassword_rsainput,Integer investid,Integer userinfoid) {
-		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
-		if (flag) {
-			ModelAndView mdv=new ModelAndView("debttransferapply/skip");
-			investServiceImpl.transfer(investid);
-			debttransferapplyServiceImpl.add(investid,userinfoid);
+		int count=userinfoServiceImpl.findById(userinfoid).getChance();
+		if (count>0) {
+			ModelAndView mdv=new ModelAndView("debttransferapply/paypage");
+			mdv.addObject("investid", investId);
+			mdv.addObject("userinfoid", userinfoid);
 			return mdv;
 		}else {
 			ModelAndView mdv=new ModelAndView("debttransferapply/info");
 			return mdv;
+		}
+	}
+	
+	@RequestMapping("/transfer")
+	public ModelAndView transfer(String payPassword_rsainput,Integer investid,Integer userinfoid) {
+		Userinfo userinfo=userinfoServiceImpl.findById(userinfoid);
+		int count=userinfo.getChance();
+		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
+		if (flag) {
+			userinfo.setChance(3);
+			userinfoServiceImpl.update(userinfo);
+			ModelAndView mdv=new ModelAndView("debttransferapply/success");
+			investServiceImpl.transfer(investid);
+			debttransferapplyServiceImpl.add(investid,userinfoid);
+			return mdv; 
+		}else {
+			count--;
+			userinfo.setChance(count);
+			userinfoServiceImpl.update(userinfo);
+			if (count>0) {
+				ModelAndView mdv=new ModelAndView("debttransferapply/defeat");
+				mdv.addObject("count", count);
+				mdv.addObject("investid", investid);
+				mdv.addObject("userinfoid", userinfoid);
+				return mdv;
+			}else {
+				ModelAndView mdv=new ModelAndView("debttransferapply/info");
+				return mdv;
+			}
 		}
 	}
 }

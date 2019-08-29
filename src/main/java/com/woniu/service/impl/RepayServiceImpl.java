@@ -20,9 +20,14 @@ public class RepayServiceImpl implements IRepayService {
 	public List<Repay> findByUser(Integer userinfoid) {
 		// TODO Auto-generated method stub
 		RepayExample example=new RepayExample();
-		example.createCriteria().andUserinfoidEqualTo(userinfoid);	
-		example.createCriteria().andIsfinishedEqualTo(true);
+		example.createCriteria().andUserinfoidEqualTo(userinfoid).andIsfinishedEqualTo(true);	
 		return repayMapper.selectByExample(example);
+	}
+
+	@Override
+	public void save(Repay repay) {
+		// TODO Auto-generated method stub
+		repayMapper.insert(repay);
 	}
 
 }

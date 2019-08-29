@@ -10,9 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.dao.DebtinvestMapper;
 import com.woniu.dao.DebttransferdisplayMapper;
+import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.Debtinvest;
+import com.woniu.domain.DebtinvestExample;
 import com.woniu.domain.Debttransferdisplay;
 import com.woniu.domain.PageBean;
+import com.woniu.domain.Userinfo;
+import com.woniu.domain.UserinfoExample;
 import com.woniu.service.IDebtInvestService;
 @Service
 @Transactional
@@ -21,12 +25,14 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 	private DebttransferdisplayMapper debttransferdisplayMapper;
 	@Resource
 	private DebtinvestMapper debtinvestMapper;
+	@Resource
+	private UserinfoMapper userinfoMapper;
 	
 	@Override
-	public List<Debttransferdisplay> findUndead() {
+	public List<Debttransferdisplay> findUndead(PageBean page) {
 		// TODO Auto-generated method stub
-		List<Debttransferdisplay> list = debttransferdisplayMapper.findUndead();
-		
+		List<Debttransferdisplay> list = debttransferdisplayMapper.findUndead(new RowBounds(page.getOffset(),page.getLimit()));
+		page.setCount(list.size());
 		return list;
 	}
 	@Override
@@ -47,5 +53,62 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 		// TODO Auto-generated method stub
 		debtinvestMapper.insertSelective(debtinvest);
 	}
-
+//	根据买进用户查询
+	@Override
+	public List<Debtinvest> findByUserinfo(PageBean page, Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		DebtinvestExample example=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			UserinfoExample userinfoexample=new UserinfoExample();
+			userinfoexample.createCriteria().andUsernameEqualTo(userinfo.getUsername());
+			List<Userinfo> users=userinfoMapper.selectByExample(userinfoexample);
+			if(users.size()!=0) {
+				Userinfo user=users.get(0);
+				example=new DebtinvestExample();
+				example.createCriteria().andUserinfoidEqualTo(user.getUserinfoid());
+			}
+		}
+		
+		List<Debtinvest> list = debtinvestMapper.selectByExample(example,new RowBounds(page.getOffset(),page.getLimit()));
+		page.setCount(list.size());
+		return list;
+	}
+//	通过债权转让用户查询
+	@Override
+	public List<Debtinvest> findByDebttransfer(PageBean page, Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		Userinfo user=null;
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			UserinfoExample userinfoexample=new UserinfoExample();
+			userinfoexample.createCriteria().andUsernameEqualTo(userinfo.getUsername());
+			List<Userinfo> users=userinfoMapper.selectByExample(userinfoexample);
+			if(users.size()!=0) {
+				user=users.get(0);
+			}
+			debtinvests=debtinvestMapper.findByDebttransfer(user.getUserid());
+		}
+		page.setCount(debtinvests.size());
+		return debtinvests;
+	}
+//	通过借款人查询
+	@Override
+	public List<Debtinvest> findByLoanapply(PageBean page, Userinfo userinfo) {
+		// TODO Auto-generated method stub
+		Userinfo user=null;
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			UserinfoExample userinfoexample=new UserinfoExample();
+			userinfoexample.createCriteria().andUsernameEqualTo(userinfo.getUsername());
+			List<Userinfo> users=userinfoMapper.selectByExample(userinfoexample);
+			if(users.size()!=0) {
+				user=users.get(0);
+			}
+			debtinvests=debtinvestMapper.findByLoanapply(user.getUserid());
+		}
+		page.setCount(debtinvests.size());
+		return debtinvests;
+		
+	}
+	
 }

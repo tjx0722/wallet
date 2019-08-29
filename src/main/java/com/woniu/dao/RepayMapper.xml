@@ -15,11 +15,13 @@
     <result column="repaytime" property="repaytime" jdbcType="TIMESTAMP" />
     <result column="actualrepaytime" property="actualrepaytime" jdbcType="TIMESTAMP" />
     <result column="isovertime" property="isovertime" jdbcType="BIT" />
-	<association property="payAmount" column="loanapplyid" select="com.woniu.dao.LoanapplyMapper.findPayAmount" ></association> 
   </resultMap>
   <!--根据贷款申请id查出该笔贷款所有还款记录 -->
   <select id="findByloanapply" resultMap="BaseResultMap">
   	select * from repay where loanapplyid=#{id} and isfinished=1;
+  </select>
+  <select id="findAllRepayByloanapply" resultMap="BaseResultMap">
+  	select * from repay where loanapplyid=#{id};
   </select>
   
   <sql id="Example_Where_Clause" >
