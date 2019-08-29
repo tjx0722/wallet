@@ -11,8 +11,8 @@
     <result column="balance" property="balance" jdbcType="DOUBLE" />
     <result column="debt" property="debt" jdbcType="DOUBLE" />
     <result column="userinfoid" property="userinfoid" jdbcType="INTEGER" />
-     <association column="walletid" property="bankcard" select="com.woniu.dao.BankcardMapper.findByWalletid" />
-  
+    <!-- <association column="walletid" property="bankcard" select="com.woniu.dao.BankcardMapper.findByWalletid" /> -->
+  	<collection property="bankcards" column="walletid"  select="com.woniu.dao.BankcardMapper.findBankcardByWalletid1"></collection>
   </resultMap>
    <select id="selectByPrimaryKey1" resultMap="BaseResultMap">
   	select * from wallet where userinfoid=#{userinfoid}
@@ -23,6 +23,7 @@
   		#{item}
   	</foreach>
   </delete>
+  
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated

@@ -46,13 +46,13 @@ public class UserinfoController {
    }
    @RequestMapping("save")
 	public @ResponseBody Message save(Userinfo userinfo) {
-	 
+	
 		Message msg = null;
 	
 		try {
 			
 			userinfoServiceImpl.save(userinfo);
-			msg = new Message(true, "用户详细信息增加成功");
+			msg = new Message(true, "用户详细信息增加成功点击完善个人资料查看");
 		} catch (Exception e) {
 			// TODO: handle exception
 			msg = new Message(false, "用户详细信息增加失败"+e.getMessage());
@@ -68,19 +68,22 @@ public class UserinfoController {
 	public  List findById() {
 	   
 	   Integer userid=obj;
+	   
 	   User user = userServiceImpl.findByUserid(userid);
-
+       
 	   Userinfo userinfo = user.getUserinfo();
-	   System.out.println(userinfo);
+	   
+	 
 	   List<Userinfo> list= new ArrayList<Userinfo>();
 	   list.add(userinfo);
  	return list;
 	}
    @RequestMapping("skip")
 	public  ModelAndView skip(Integer userid) {
+	   System.out.println("userid"+userid);
 	   obj=userid;
 	   System.out.println(obj+"!!");
-	   ModelAndView mav=new ModelAndView("/userinfo/d");
+	   ModelAndView mav=new ModelAndView("/userinfo/updateone");
 	return mav;
 	}
 	@RequestMapping("delete")
@@ -114,10 +117,12 @@ public class UserinfoController {
 	}
 	@RequestMapping("update")
 	public @ResponseBody Message update(Userinfo userinfo) {
+		System.out.println(userinfo.toString()+"33333333333333333333333333333");
 		Message msg = null;
 		try {
 			
 			userinfoServiceImpl.update(userinfo);
+			System.out.println(userinfo.toString()+"22222222222222222222222222222");
 			msg = new Message(true, "用户详细信息修改成功");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -128,9 +133,8 @@ public class UserinfoController {
 
 	@RequestMapping("findWalletByUserinfoid/{userinfoid}")
 	public ModelAndView findWalletByUserinfoid(@PathVariable Integer userinfoid) {
-		System.out.println(userinfoid);
-		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
 		
+		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
 		System.out.println(wallet.toString());
 		ModelAndView mav=new ModelAndView("userinfo/wallet/list");
 		
