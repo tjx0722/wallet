@@ -30,8 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    title:'可转让账单',
 		    remoteSort:false,
 		    columns:[[   
-		    	{field:'investid',checkbox:'checkbox',title:'编号',width:100},   
-		        {field:'userinfoid',title:'借贷人',width:100,formatter:function(value,row,index){
+		    	{field:'user',title:'借贷人姓名',width:100,formatter:function(value,row,index){
+			    	return row.userinfo.username;
+				 }}, 
+		        {field:'userinfoid',title:'借贷人信息',width:100,formatter:function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/findOneUser/"+row.loandisplayid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;
 				 }},   

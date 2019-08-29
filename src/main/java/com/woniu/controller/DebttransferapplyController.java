@@ -40,6 +40,15 @@ public class DebttransferapplyController {
 		return map;
 	}
 	
+	@RequestMapping("/admin/findAllByUname")
+	public Map findAllByUname(PageBean pageBean,String username) {
+		Map map=new HashMap();
+		List rows=debttransferapplyServiceImpl.findAllByUname(pageBean,username);
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
+	
 	@RequestMapping("/admin/check/{debttransferapplyid}")
 	public ModelAndView check(@PathVariable int debttransferapplyid) {
 		ModelAndView mdv=new ModelAndView("redirect:/debttransferapply/admin/applylist.jsp");

@@ -15,4 +15,6 @@ public interface IDebttransferapplyService {
 	void check(int debttransferapplyid);
 
 	void pass(int debttransferapplyid);
+
+	List findAllByUname(PageBean pageBean, String username);
 }
