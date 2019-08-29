@@ -123,32 +123,40 @@
 								$('.easyui-linkbutton').linkbutton({});
 							}
 						});
-	})
+	});
+
+    function qq(value,name){
+        if(value==""){
+			alert("条件不能为空，请重新输入");
+        }else{
+	        var path="/invest/setselect/"+name+"!"+value;
+	        $.ajax({url:path,async:false});
+	        location.reload();
+        }
+    };
+	function clear(){
+        var path="/invest/setselect/clear!";
+        $.ajax({url:path,async:false});
+        location.reload();
+    };   
 
 </script>
 </head>
 <body>
-	<table id="dg"></table>
-	${list }
-	<div id="tb">
-		<form action="">
-			排序：
-			<select id="cc" class="easyui-combobox" name="dept" style="width:200px;">  
-			    <option value="aa">按贷款金额</option>  
-			    <option>按贷款利率</option>  
-			    <option>按集资截至日期</option>  
-			    <option>按已投资金额</option>
-			    <option>按还款期限 </option>  
-			</select>
-			<select id="cc" class="easyui-combobox" name="dept" style="width:200px;">  
-			    <option value="aa">从大到小</option>  
-			    <option>从小到大</option>  
-			</select>
-			大于<input type="text">
-			小于<input type="text">
-			<div class="easyui-linkbutton" data-options="iconCls:'icon-remove'">筛选</div>
-		</form>  
+	<input id="ss" class="easyui-searchbox" style="width:300px"  
+	        data-options="searcher:qq,prompt:'请输入要筛选的条件',menu:'#mm'"></input>  
+	           
+	<div id="mm" style="width:120px"> 
+	    <div data-options="name:'apply',iconCls:'icon-ok'">贷款人</div>
+	    <div data-options="name:'loanamount'">贷款金额</div>  
+	    <div data-options="name:'loanrate'">贷款利率（%）</div> 
+	    <div data-options="name:'loaninvest'">已投资金额</div>  
+	    <div data-options="name:'restcount'">剩余可投资金额</div>  
+	    <div data-options="name:'repaytime'">还款期限（/月）</div>  
 	</div>
+	<a href="javascript:clear()" class="easyui-linkbutton" data-options="iconCls: 'icon-reload'">清空查询条件</a>  
+
+	<table id="dg"></table>
 
 </body>
 </html>
