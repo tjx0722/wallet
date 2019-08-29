@@ -1,5 +1,6 @@
 package com.woniu.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,5 +36,12 @@ public class LoandisplayController {
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
+	}
+	@RequestMapping("findAllCount")
+	private String   findAllCount(PageBean pageBean){
+		List list=new ArrayList();
+		Map map = new HashMap();
+		map.put("借款次数", list);
+		return null;
 	}
 }
