@@ -111,8 +111,6 @@
 <body>
 <div style="margin:0 auto;width:500px;">
 <br><br><br>
-投资${investamount }
-展示id${loandisplayid }
 <form action="/invest/pay" method="post" id="form_paypsw">
 <div id="payPassword_container" class="alieditContainer clearfix well well-lg" data-busy="0">
 	<label for="i_payPassword" class="i-block">支付密码：</label>
