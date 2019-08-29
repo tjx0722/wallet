@@ -13,16 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.woniu.dao.WalletMapper;
 import com.woniu.domain.Bankcard;
 import com.woniu.domain.Message;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
 import com.woniu.domain.Wallet;
+import com.woniu.service.IUserinfoService;
 import com.woniu.service.IWalletService;
 
 @Controller
 @RequestMapping("userinfo/wallet")
 public class WalletController {
+	@Resource
+	   private IUserinfoService userinfoServiceImpl;
+	   
 	@Resource
 	   private IWalletService walletServiceImpl;
 	@RequestMapping("findAll")
@@ -98,10 +103,47 @@ public class WalletController {
 	@RequestMapping("findBankcardByWalletid")
 	public String findBankcardByWalletid(ModelMap map,Integer walletid) {
 		System.out.println(walletid);
-		Bankcard bankcard=walletServiceImpl.findBankcardByWalletid(walletid);
-		System.out.println(bankcard.toString()+"--------------------");
-		map.put("bankcard",bankcard);
+	//	Bankcard bankcard=walletServiceImpl.findBankcardByWalletid(walletid);
+		System.out.println("66666666666666666");
+		List bankcards=walletServiceImpl.findBankcardByWalletid1(walletid);
+		System.out.println("66666666666666666");
+		System.out.println(bankcards.toString()+"--------------------");
+		map.put("bankcards",bankcards);
+		map.put("walletid",walletid);
 		return "/userinfo/wallet/bankcard/index";
 		
+	}
+	@RequestMapping("walletCZ")
+	public String walletCZ(Integer walletid,Double money) {
+		money=1.0;
+		System.out.println(walletid);
+		Wallet wallet=walletServiceImpl.findById(walletid);
+		wallet.setBalance(wallet.getBalance()+money);	
+		walletServiceImpl.update(wallet);
+		String a="forward:findWalletByUserinfoid/"+wallet.getUserinfoid();
+		return a;
+		
+	}
+	@RequestMapping("walletTX")
+	public String walletTX(Integer walletid,Double money) {
+		money=5.0;
+		System.out.println(walletid);
+		Wallet wallet=walletServiceImpl.findById(walletid);
+		wallet.setBalance(wallet.getBalance()-money);	
+		walletServiceImpl.update(wallet);
+		String a="forward:findWalletByUserinfoid/"+wallet.getUserinfoid();
+		return a;
+		
+	}
+	@RequestMapping("findWalletByUserinfoid/{userinfoid}")
+	public ModelAndView findWalletByUserinfoid(@PathVariable Integer userinfoid) {
+
+		Wallet wallet=userinfoServiceImpl.findWalletByUserinfoid(userinfoid);
+	
+		ModelAndView mav=new ModelAndView("/userinfo/wallet/list");
+		
+		mav.addObject("wallet", wallet);
+		System.out.println(wallet.toString());
+		return mav;
 	}
 }

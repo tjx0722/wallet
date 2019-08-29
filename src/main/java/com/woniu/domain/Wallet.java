@@ -1,6 +1,21 @@
 package com.woniu.domain;
 
+import java.util.List;
+
 public class Wallet {
+	
+  private List<Bankcard> bankcards;
+	
+
+	
+	public List<Bankcard> getBankcards() {
+	return bankcards;
+}
+
+public void setBankcards(List<Bankcard> bankcards) {
+	this.bankcards = bankcards;
+}
+
 	private Bankcard bankcard;
     public Bankcard getBankcard() {
 		return bankcard;

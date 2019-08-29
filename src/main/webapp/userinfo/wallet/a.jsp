@@ -25,52 +25,30 @@
 	  <div class="panel-heading">
 	     <h3 class="panel-title" align="center">我的钱包</h3>
 	  </div>
+	
 	   <div>
-       	<table align="center" font-size="100">
-       		
-       		<tr align="center" >
-       			<td  width="200" height="100">余额</td>
-       			<td  width="200">${wallet.balance }</td>
+       	<table align="center">
+       		<tr border="1">
+       			<td >钱包id</td>
+       			<td>${wallet.walletid }</td>
        		</tr>
-       		<tr align="center" >
+       		<tr border="1" >
+       			<td>余额</td>
+       			<td>${wallet.balance }</td>
+       		</tr>
+       		<tr border="1">
        			<td>欠款</td>
        			<td>${wallet.debt }</td>
        		</tr>
-    		</div>
+    		
        	</table>
-       <form action="/userinfo/wallet/bankcard/findByIdss">
-             <table width="1150px">
+       <form action="/userinfo/wallet/bankcard/skip">
               <input  type="hidden" name="walletid" value="${wallet.walletid }"/>
-              <tr height="50px" align="center">
-            <td width="500"> 
-           		<button class="btn btn-default" type="submit" style="width:1120px">我的银行卡</button> 
-             </td>
-             </tr>
-           </table>
+             <button class="btn btn-default" type="submit" >我的银行卡</button>
        </form>
-       <form action="/userinfo/wallet/walletCZ">
-       <table  width="1150px">
-      
-              <input  type="hidden" name="walletid" value="${wallet.walletid }"/>
-              <tr height="50px" align="center">
-              <td>
-             <button class="btn btn-default" type="submit" style="width:1120px">充值</button>
-               </td>
-               </tr>
-      </table>
-       </form>
-       <form action="/userinfo/wallet/walletTX">
-       <table width="1150px">
-              <input  type="hidden" name="walletid" value="${wallet.walletid }"/>
-            <tr height="50px" align="center"> 
-            <td>
-             <button class="btn btn-default" type="submit" style="width:1120px">提现</button>
-            </td>
-            </tr>
-       </table>
-       </form>
+       </div>
 	  </div>
-  
+ 
 </body>
   <script type="text/javascript">
 	window.onload=function(){

@@ -71,4 +71,10 @@ public class WalletServiceImpl implements IWalletService {
 		List<Wallet> list = walletMapper.selectByExample(example);
 		return list.get(0);
 	}
+
+	@Override
+	public List findBankcardByWalletid1(Integer walletid) {
+		// TODO Auto-generated method stub
+		return bankcardMapper.findBankcardByWalletid1(walletid);
+	}
 }

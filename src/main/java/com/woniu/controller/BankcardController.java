@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,44 +44,68 @@ public class BankcardController {
 		   return map;
 	   }
 	   @RequestMapping("save")
-		public @ResponseBody Message save(Bankcard bankcard) {
+		public String  save(Bankcard bankcard) {
+		  
 			Message msg = null;
-		
+			
+			
+			
 			try {
 				
 				bankcardServiceImpl.save(bankcard);
 				msg = new Message(true, "用户详细信息增加成功");
+			//  String a="forward:findWalletByUserinfoid/"
+				
 			} catch (Exception e) {
 				// TODO: handle exception
 				msg = new Message(false, "用户详细信息增加失败"+e.getMessage());
 			}
-			return msg;
+			return "redirect:/userinfo/wallet/bankcard/c";
 		}
 	   @RequestMapping("findById")
 		public @ResponseBody Bankcard findById(Integer bankcardid) {
 		   Bankcard bankcard = bankcardServiceImpl.findById(bankcardid);
 		return bankcard;
 		}
-	   @ResponseBody
+	     
 	   @RequestMapping("findByIdss")
-		public  List findById() {
-		   Integer walletid=obj;
+		public @ResponseBody ModelAndView  findByIdss(Integer walletid ) {
+		   
 		   System.out.println(walletid+"--------------");
-		   Wallet wallet = walletServiceImpl.findById(walletid);
-                     
-		   Bankcard bankcard = wallet.getBankcard();   
-		   System.out.println(bankcard);
-		   List<Bankcard> list= new ArrayList<Bankcard>();
-		   list.add(bankcard);
-	 	return list;
+		  Wallet wallet = walletServiceImpl.findById(walletid);
+		   System.out.println(wallet.toString()+"..........");
+          //List list=new ArrayList();
+		   ModelAndView mav = new ModelAndView("/userinfo/wallet/bankcard/c");
+		   List bankcard = wallet.getBankcards();  
+//		   System.out.println(bankcard);
+		 // list.add(bankcard);
+		  //list.add(wallet);
+		   mav.addObject("wallet",wallet);
+		   mav.addObject("bankcard", bankcard);
+//		 map.put("wallet",wallet);
+//		 map.put("bankcard", bankcard);
+	 	return mav;
 		}
-	   @RequestMapping("skip")
-		public  ModelAndView skip(Integer walletid) {
-		   obj=walletid;
-		   System.out.println(obj+"!!");
-		   ModelAndView mav=new ModelAndView("/userinfo/wallet/bankcard/yhk");
-		return mav;
-		}
+	  
+//	   @RequestMapping("findByIdss")
+//		public @ResponseBody Map findById() {
+//		   Integer walletid=obj;
+//		   System.out.println(walletid+"--------------");
+//		   Wallet wallet = walletServiceImpl.findById(walletid);
+//		   System.out.println(wallet.toString());
+//		   Map map=new HashMap();   
+//		   Bankcard bankcard = wallet.getBankcard();  
+//		   System.out.println(bankcard);
+//		   map.put("bankcard", bankcard);
+//		   return map;
+//		}
+//	   @RequestMapping("skip")
+//		public  ModelAndView skip(Integer walletid) {
+//		   obj=walletid;
+//		   System.out.println(obj+"!!");
+//		   ModelAndView mav=new ModelAndView("/userinfo/wallet/bankcard/c");
+//		return mav;
+//		}
 		@RequestMapping("delete")
 		public @ResponseBody Message delete(Integer bankcardid) {
 			Message msg = null;

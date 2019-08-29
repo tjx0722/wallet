@@ -34,7 +34,7 @@
 		    toolbar: '#tb',
 		    pageSize:20,
 		    striped:true,
-		    title:'用户详细信息管理',
+		    title:'我的详细信息',
 		    pagination:true,
 		    columns:[[   
 		    	

@@ -17,6 +17,7 @@ import com.woniu.service.IUserinfoService;
 public class UserinfoServiceImpl implements IUserinfoService {
 @Resource
 private UserinfoMapper userinfoMapper;
+
 @Resource
 private WalletMapper walletMapper;
 	@Override
@@ -39,9 +40,20 @@ private WalletMapper walletMapper;
 	}
 	@Override
 	public void save(Userinfo userinfo) {
+		userinfoMapper.insertSelective(userinfo);
 		// TODO Auto-generated method stub
-		userinfoMapper.insert(userinfo);
+		
+		Wallet wallet=new Wallet();
+
+		wallet.setUserinfoid(userinfo.getUserinfoid());
+		wallet.setBalance(0.0);
+		wallet.setDebt(0.0);
+		walletMapper.insert(wallet);
+
+		
+		
 	}
+	
 	@Override
 	public void update(Userinfo userinfo) {
 		// TODO Auto-generated method stub
