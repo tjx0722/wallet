@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.woniu.domain.Debtinvest;
 import com.woniu.domain.Debttransferdisplay;
 import com.woniu.domain.Invest;
+import com.woniu.domain.Message;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Repay;
 import com.woniu.domain.Servicecharge;
@@ -28,6 +29,7 @@ import com.woniu.service.IDebttransferdisplayService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.IRepayService;
 import com.woniu.service.IServicechargeService;
+import com.woniu.service.IUserinfoService;
 import com.woniu.service.IWalletService;
 @Controller
 @RequestMapping("/debtinvest")
@@ -49,6 +51,9 @@ public class DebtInvestController {
 	
 	@Resource
 	private IWalletService walletService;
+	
+	@Resource
+	private IUserinfoService userinfoServiceImpl;
 	
 	@RequestMapping("findUndead")
 	@ResponseBody
@@ -126,10 +131,27 @@ public class DebtInvestController {
 	@ResponseBody
 	public Map findByUserinfo(PageBean page,Userinfo userinfo,Date begin,Date end) {
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo,begin,end);
-		map.put("page", page);
-		map.put("total", page.getCount());
-		map.put("rows", debtinvests);
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			List<Userinfo> userinfos = userinfoServiceImpl.findByName(userinfo.getUsername());
+			if(userinfos.size()==0) {
+				debtinvests = debtInvestServiceImpl.findAll(page);
+				map.put("page", page);
+				map.put("total", page.getCount());
+				map.put("rows", debtinvests);
+				map.put("msg", new Message(false,"用户不存在，已显示所有！"));
+			}else {
+				debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo,begin,end);
+				map.put("page", page);
+				map.put("total", page.getCount());
+				map.put("rows", debtinvests);
+			}
+		}else {
+			debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo,begin,end);
+			map.put("page", page);
+			map.put("total", page.getCount());
+			map.put("rows", debtinvests);
+		}
 		return map;
 	}
 	
@@ -141,10 +163,27 @@ public class DebtInvestController {
 	public Map  findByDebttransfer(PageBean page,Userinfo userinfo,Date begin,Date end) {
 		// TODO Auto-generated method stub
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo,begin,end);
-		map.put("page", page);
-		map.put("total", page.getCount());
-		map.put("rows", debtinvests);
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			List<Userinfo> userinfos = userinfoServiceImpl.findByName(userinfo.getUsername());
+			if(userinfos.size()==0) {
+				debtinvests = debtInvestServiceImpl.findAll(page);
+				map.put("page", page);
+				map.put("total", page.getCount());
+				map.put("rows", debtinvests);
+				map.put("msg", new Message(false,"用户不存在，已显示所有！"));
+			}else {
+				debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo,begin,end);
+				map.put("page", page);
+				map.put("total", page.getCount());
+				map.put("rows", debtinvests);
+			}
+		}else {
+			debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo,begin,end);
+			map.put("page", page);
+			map.put("total", page.getCount());
+			map.put("rows", debtinvests);
+		}
 		return map;
 	}
 //	通过借款人查询
@@ -153,10 +192,27 @@ public class DebtInvestController {
 	public Map  findByLoanapply(PageBean page,Userinfo userinfo,Date begin,Date end) {
 		// TODO Auto-generated method stub
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo,begin,end);
-		map.put("page", page);
-		map.put("total", page.getCount());
-		map.put("rows", debtinvests);
+		List<Debtinvest> debtinvests=null;
+		if(userinfo.getUsername()!=null&&!userinfo.getUsername().equals("")) {
+			List<Userinfo> userinfos = userinfoServiceImpl.findByName(userinfo.getUsername());
+			if(userinfos.size()==0) {
+				debtinvests = debtInvestServiceImpl.findAll(page);
+				map.put("page", page);
+				map.put("total", page.getCount());
+				map.put("rows", debtinvests);
+				map.put("msg", new Message(false,"用户不存在，已显示所有！"));
+			}else {
+				debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo,begin,end);
+				map.put("page", page);
+				map.put("total", page.getCount());
+				map.put("rows", debtinvests);
+			}
+		}else {
+			debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo,begin,end);
+			map.put("page", page);
+			map.put("total", page.getCount());
+			map.put("rows", debtinvests);
+		}
 		return map;
 	}
 	
