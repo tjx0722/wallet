@@ -60,7 +60,6 @@ public class InvestServiceImpl implements IInvestService {
 		com.woniu.domain.LoandisplayExample.Criteria loandisplaycriteria = loandisplayexample.createCriteria();
 		loandisplaycriteria.andIsfinishedEqualTo(false);
 		loandisplaycriteria.andIsdeadEqualTo(false);
-		pb.setCount(loandisplayMapper.countByExample(loandisplayexample));
 		
 		//按筛选条件名进行筛选
 		switch(name) {
@@ -132,7 +131,8 @@ public class InvestServiceImpl implements IInvestService {
 				}
 				break;
 		}
-		
+
+		pb.setCount(loandisplayMapper.countByExample(loandisplayexample));
 		return loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
@@ -254,6 +254,84 @@ public class InvestServiceImpl implements IInvestService {
 	}
 
 	@Override
+	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb, String name, String value) {
+		// TODO Auto-generated method stub
+		LoandisplayExample loandisplayExample = new LoandisplayExample();
+		com.woniu.domain.LoandisplayExample.Criteria criteria = loandisplayExample.createCriteria();
+		
+		List<Loandisplay> list = loandisplayMapper.selectByExample(null, new RowBounds(0, loandisplayMapper.countByExample(null)));
+		List<Integer> ids=new ArrayList<Integer>();
+
+		switch(name) {
+			case "apply":
+				//获取借贷人name
+				String apply=value;
+				for (Loandisplay loandisplay : list) {
+					String username = loandisplay.getLoanapply().getUserinfo().getUsername();
+					if(username.equalsIgnoreCase(apply)) {
+						ids.add(loandisplay.getLoandisplayid());
+					}
+				}
+				break;
+			case "loanamount":
+				double loanamount=Double.valueOf(value);
+				for (Loandisplay loandisplay : list) {
+					double loanamount2 = loandisplay.getLoanapply().getLoanamount();
+					if(loanamount2==loanamount) {
+						ids.add(loandisplay.getLoandisplayid());
+					}
+				}
+				break;
+			case "loanrate":
+				double loanrate=Double.valueOf(value);
+				for (Loandisplay loandisplay : list) {
+					double loanrate2 = loandisplay.getLoanapply().getLoanrate().getLoanrate()*100.0;
+					loanrate2=Math.round(loanrate2*100)/100;
+					if(loanrate2==loanrate) {
+						ids.add(loandisplay.getLoandisplayid());
+					}
+				}
+				break;
+			case "loaninvest":
+				double loaninvest=Double.valueOf(value);
+				for (Loandisplay loandisplay : list) {
+					double investcount = loandisplay.getInvestcount();
+					if(loaninvest==investcount) {
+						ids.add(loandisplay.getLoandisplayid());
+					}
+				}
+				break;
+			case "restcount":
+				double restcount=Double.valueOf(value);
+				for (Loandisplay loandisplay : list) {
+					double investcount = loandisplay.getInvestcount();
+					double loanamount2 = loandisplay.getLoanapply().getLoanamount();
+					double restcount2=loanamount2-investcount;
+					if(restcount2==restcount) {
+						ids.add(loandisplay.getLoandisplayid());
+					}
+				}
+				break;
+			case "repaytime":
+				int repaytime=Integer.valueOf(value);
+				for (Loandisplay loandisplay : list) {
+					int loantime = loandisplay.getLoanapply().getLoantime().getLoantime();
+					if(repaytime==loantime) {
+						ids.add(loandisplay.getLoandisplayid());
+					}
+				}
+				break;
+		}
+		
+		criteria.andLoanapplyidIn(ids);
+		if(ids.size()==0) {
+			return null;
+		}
+		pb.setCount(loandisplayMapper.countByExample(loandisplayExample));
+		return loandisplayMapper.selectByExample(loandisplayExample,new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+
+	@Override
 	public List<Invest> findAllInvested(PageBean pb) {
 		pb.setCount(investMapper.countByExample(null));
 		return investMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
@@ -285,7 +363,7 @@ public class InvestServiceImpl implements IInvestService {
  				List<Invest> list = investMapper.selectByExample(null, new RowBounds(0, investMapper.countByExample(null)));
 				for (Invest invest : list) {
 					String username = invest.getLoandisplay().getLoanapply().getUserinfo().getUsername();
-					if(username.equals(applyname)) {
+					if(username.equalsIgnoreCase(applyname)) {
 						ids1.add(invest.getInvestid());
 					}
 				}

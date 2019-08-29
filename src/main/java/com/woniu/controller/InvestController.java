@@ -120,7 +120,7 @@ public class InvestController {
 	//此controller用来设置筛选条件
 	@RequestMapping("setselect/{name}!{value}")
 	public ModelAndView setselectCondition(@PathVariable String name,@PathVariable String value,HttpSession session) {
-		if(name==null) {
+		if(name.equals("clear")) {
 			session.removeAttribute("name");
 		}else {
 			session.setAttribute("name", name);
@@ -131,7 +131,12 @@ public class InvestController {
 	
 	//admin
 	@RequestMapping("admin/findAllLoanDisplay")
-	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb) {
+	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb,HttpSession session) {
+		String name = (String) session.getAttribute("name");
+		String value = (String) session.getAttribute("value");
+		if(name!=null) {
+			return investServiceImpl.findAllLoanDisplayByadmin(pb,name,value);
+		}
 		return investServiceImpl.findAllLoanDisplayByadmin(pb);
 	}
 	

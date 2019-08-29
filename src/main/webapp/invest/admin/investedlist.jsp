@@ -119,12 +119,16 @@
 	});
 	
     function qq(value,name){
-        var path="/invest/setselect/"+name+"!"+value;
-        $.ajax({url:path,async:false});
-        location.reload();
+        if(value==""){
+			alert("条件不能为空，请重新输入");
+        }else{
+	        var path="/invest/setselect/"+name+"!"+value;
+	        $.ajax({url:path,async:false});
+	        location.reload();
+        }
     };
 	function clear(){
-        var path="/invest/setselect/!";
+        var path="/invest/setselect/clear!";
         $.ajax({url:path,async:false});
         location.reload();
     };    
