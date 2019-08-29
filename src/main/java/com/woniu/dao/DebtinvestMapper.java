@@ -3,14 +3,16 @@ package com.woniu.dao;
 import com.woniu.domain.Debtinvest;
 import com.woniu.domain.DebtinvestExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 public interface DebtinvestMapper {
 	
-	List<Debtinvest> findByLoanapply(Integer userinfoid);
+	List<Debtinvest> findByLoanapply(Map map);
 	
-	List<Debtinvest> findByDebttransfer(Integer userinfoid);
+	List<Debtinvest> findByDebttransfer(Map map);
 	
 	List<Debtinvest> selectByExample(DebtinvestExample example,RowBounds rowBounds);
 	

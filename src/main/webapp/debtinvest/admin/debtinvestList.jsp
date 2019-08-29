@@ -114,7 +114,7 @@ $(function(){
 		}); 
 	}
 	
-    function qq(value,name){   
+/*     function qq(value,name){   
         if(name=="username"){
         	$('#dg').datagrid({
             	url:'findByUserinfo',
@@ -137,10 +137,16 @@ $(function(){
         		}
         	});
         }
-    }
+    } */
     function select(){
 		var begin=$("#begin").datebox("getValue"); 
 		var end=$("#end").datebox("getValue"); 
+		if(begin==null||begin==""){
+			begin=null;
+		}
+		if(end==null||end==""){
+			end=null;
+		}
 		var value=$("#ss").searchbox("getValue");
 		var name=$("#ss").searchbox("getName");
 		if(name=="username"){
@@ -157,8 +163,8 @@ $(function(){
             	url:"findByDebttransfer",
         		queryParams: {
         			"username": value,
-        			"begin":begin,
-        			"end":end
+        			"begin":new Date(begin),
+        			"end":new Date(end)
         		}
         	});
         }else if(name=="loanapply"){
@@ -166,8 +172,8 @@ $(function(){
             	url:"findByLoanapply",
         		queryParams: {
         			"username": value,
-        			"begin":begin,
-        			"end":end
+        			"begin":new Date(begin),
+        			"end":new Date(end)
         		}
         	});
         }
@@ -179,7 +185,7 @@ $(function(){
 
   
 <input id="ss" class="easyui-searchbox" style="width:300px"  
-        data-options="searcher:qq,prompt:'请输入用户名',menu:'#mm'"></input>  
+        data-options="searcher:select,prompt:'请输入用户名',menu:'#mm'"></input>  
            
 <div id="mm" style="width:180px">  
     <div data-options="name:'username',iconCls:'icon-ok'" >按照买进用户查询</div>  

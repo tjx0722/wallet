@@ -125,10 +125,8 @@ public class DebtInvestController {
 	@RequestMapping("admin/findByUserinfo")
 	@ResponseBody
 	public Map findByUserinfo(PageBean page,Userinfo userinfo,Date begin,Date end) {
-		System.out.println(">>>>>>>>>>>>>"+begin);
-		System.out.println(">>>>>>>>>>>>"+end);
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo);
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo,begin,end);
 		map.put("page", page);
 		map.put("total", page.getCount());
 		map.put("rows", debtinvests);
@@ -140,10 +138,10 @@ public class DebtInvestController {
 //	通过债权转让用户查询
 	@RequestMapping("admin/findByDebttransfer")
 	@ResponseBody
-	public Map  findByDebttransfer(PageBean page,Userinfo userinfo) {
+	public Map  findByDebttransfer(PageBean page,Userinfo userinfo,Date begin,Date end) {
 		// TODO Auto-generated method stub
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo);
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo,begin,end);
 		map.put("page", page);
 		map.put("total", page.getCount());
 		map.put("rows", debtinvests);
@@ -152,10 +150,10 @@ public class DebtInvestController {
 //	通过借款人查询
 	@RequestMapping("admin/findByLoanapply")
 	@ResponseBody
-	public Map  findByLoanapply(PageBean page,Userinfo userinfo) {
+	public Map  findByLoanapply(PageBean page,Userinfo userinfo,Date begin,Date end) {
 		// TODO Auto-generated method stub
 		Map map=new HashMap();
-		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo);
+		List<Debtinvest> debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo,begin,end);
 		map.put("page", page);
 		map.put("total", page.getCount());
 		map.put("rows", debtinvests);
