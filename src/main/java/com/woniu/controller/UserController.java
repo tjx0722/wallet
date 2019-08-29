@@ -119,7 +119,6 @@ public class UserController {
 		System.out.println(userinfo.toString());
 		map.put("userinfo",userinfo);
 		return null;
-		
 	}
 	@RequestMapping("delete")
 	public @ResponseBody Map delete(Integer userid,PageBean pb) {

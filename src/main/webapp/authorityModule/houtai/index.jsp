@@ -38,8 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var setting = {
 		view: {
 			dblClickExpand: false,
-			showLine: true,
-			selectedMulti: false
+			showLine: false,
+			selectedMulti: false,
+			
 		},
 		data: {
 			simpleData: {
