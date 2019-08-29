@@ -1,5 +1,6 @@
 package com.woniu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,17 +10,24 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import com.woniu.controller.UserinfoController;
 import com.woniu.dao.InvestMapper;
+import com.woniu.dao.LoanapplyMapper;
 import com.woniu.dao.LoandisplayMapper;
 import com.woniu.dao.RepayMapper;
+import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.Invest;
 import com.woniu.domain.InvestExample;
 import com.woniu.domain.InvestExample.Criteria;
+import com.woniu.domain.Loanapply;
+import com.woniu.domain.LoanapplyExample;
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.LoandisplayExample;
 import com.woniu.domain.Loantime;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Repay;
+import com.woniu.domain.Userinfo;
+import com.woniu.domain.UserinfoExample;
 import com.woniu.service.IInvestService;
 
 @Service
@@ -31,6 +39,10 @@ public class InvestServiceImpl implements IInvestService {
 	private InvestMapper investMapper;
 	@Resource
 	private RepayMapper repayMapper;
+	@Resource
+	private UserinfoMapper userinfoMapper;
+	@Resource
+	private LoanapplyMapper loanapplyMapper;
 	
 	@Override
 	public List<Loandisplay> findAllLoadDisplay(PageBean pb) {
@@ -43,18 +55,85 @@ public class InvestServiceImpl implements IInvestService {
 	}
 
 	@Override
-	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String sort, String order) {
-		LoandisplayExample example=new LoandisplayExample();
-		com.woniu.domain.LoandisplayExample.Criteria criteria = example.createCriteria();
-		criteria.andIsfinishedEqualTo(false);
-		criteria.andIsdeadEqualTo(false);
-		pb.setCount(loandisplayMapper.countByExample(example));
-		switch(sort) {
-			case "deadtime":
-				example.setOrderByClause("deadtime "+order.toUpperCase());
+	public List<Loandisplay> findAllLoadDisplay(PageBean pb, String name, String value) {
+		LoandisplayExample loandisplayexample=new LoandisplayExample();
+		com.woniu.domain.LoandisplayExample.Criteria loandisplaycriteria = loandisplayexample.createCriteria();
+		loandisplaycriteria.andIsfinishedEqualTo(false);
+		loandisplaycriteria.andIsdeadEqualTo(false);
+		pb.setCount(loandisplayMapper.countByExample(loandisplayexample));
+		
+		//按筛选条件名进行筛选
+		switch(name) {
+			case "loanrate":
+				//获取利率
+				double loanrate=Double.valueOf(value);
+				
+				List<Integer> ids1=new ArrayList<Integer>();
+ 				List<Loandisplay> list1 = loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(0, loandisplayMapper.countByExample(loandisplayexample)));
+				for (Loandisplay loandisplay : list1) {
+					double loanrate2 = loandisplay.getLoanapply().getLoanrate().getLoanrate()*100.0;
+					loanrate2=Math.round(loanrate2*100)/100;
+					if(loanrate2==loanrate) {
+						ids1.add(loandisplay.getLoanapplyid());
+					}
+				}
+				if(ids1.size()>0) {
+					loandisplaycriteria.andLoanapplyidIn(ids1);
+				}
+				break;
+			case "restcount":
+				//获取剩余金额
+				double restcount=Double.valueOf(value);
+				
+				List<Integer> ids2=new ArrayList<Integer>();
+ 				List<Loandisplay> list2 = loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(0, loandisplayMapper.countByExample(loandisplayexample)));
+				for (Loandisplay loandisplay : list2) {
+					double investcount = loandisplay.getInvestcount();
+					double loanamount = loandisplay.getLoanapply().getLoanamount();
+					double restcount2=loanamount-investcount;
+					if(restcount2==restcount) {
+						ids2.add(loandisplay.getLoanapplyid());
+					}
+				}
+				if(ids2.size()>0) {
+					loandisplaycriteria.andLoanapplyidIn(ids2);
+				}
+				break;
+			case "loanamount":
+				//获取贷款金额
+				double loanamount=Double.valueOf(value);
+				
+				List<Integer> ids3=new ArrayList<Integer>();
+ 				List<Loandisplay> list3 = loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(0, loandisplayMapper.countByExample(loandisplayexample)));
+				for (Loandisplay loandisplay : list3) {
+					double loanamount2 = loandisplay.getLoanapply().getLoanamount();
+					if(loanamount2==loanamount) {
+						ids3.add(loandisplay.getLoanapplyid());
+					}
+				}
+				if(ids3.size()>0) {
+					loandisplaycriteria.andLoanapplyidIn(ids3);
+				}
+				break;
+			case "repaytime":
+				//获取偿还期数
+				int repaytime=Integer.valueOf(value);
+				
+				List<Integer> ids4=new ArrayList<Integer>();
+ 				List<Loandisplay> list4 = loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(0, loandisplayMapper.countByExample(loandisplayexample)));
+				for (Loandisplay loandisplay : list4) {
+					int loantime = loandisplay.getLoanapply().getLoantime().getLoantime();
+					if(loantime==repaytime) {
+						ids4.add(loandisplay.getLoanapplyid());
+					}
+				}
+				if(ids4.size()>0) {
+					loandisplaycriteria.andLoanapplyidIn(ids4);
+				}
 				break;
 		}
-		return loandisplayMapper.selectByExample(example, new RowBounds(pb.getOffset(), pb.getLimit()));
+		
+		return loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
 	@Override
@@ -172,6 +251,99 @@ public class InvestServiceImpl implements IInvestService {
 	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb) {
 		pb.setCount(loandisplayMapper.countByExample(null));
 		return loandisplayMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+
+	@Override
+	public List<Invest> findAllInvested(PageBean pb) {
+		pb.setCount(investMapper.countByExample(null));
+		return investMapper.selectByExample(null,new RowBounds(pb.getOffset(), pb.getLimit()));
+	}
+	
+	@Override
+	public List<Invest> findAllInvested(PageBean pb,String name,String value) {
+		InvestExample investExample = new InvestExample();
+		Criteria investcriteria = investExample.createCriteria();
+		switch(name) {
+			case "invest":
+				//获取投资人name
+				String investname=value;
+				//根据name查到userinfoid
+				UserinfoExample userinfoExample1 = new UserinfoExample();
+				com.woniu.domain.UserinfoExample.Criteria usernifocriteria1 = userinfoExample1.createCriteria();
+				usernifocriteria1.andUsernameEqualTo(investname);
+				List<Userinfo> userinfolist1 = userinfoMapper.selectByExample(userinfoExample1);
+				if(userinfolist1.size()>0) {
+					Integer userinfoid1 = userinfolist1.get(0).getUserinfoid();
+					investcriteria.andUserinfoidEqualTo(userinfoid1);
+				}
+				break;
+			case "apply":
+				//获取申请人name
+				String applyname=value;
+				
+				List<Integer> ids1=new ArrayList<Integer>();
+ 				List<Invest> list = investMapper.selectByExample(null, new RowBounds(0, investMapper.countByExample(null)));
+				for (Invest invest : list) {
+					String username = invest.getLoandisplay().getLoanapply().getUserinfo().getUsername();
+					if(username.equals(applyname)) {
+						ids1.add(invest.getInvestid());
+					}
+				}
+				if(ids1.size()>0) {
+					investcriteria.andInvestidIn(ids1);
+				}
+				break;
+			case "loanrate":
+				//获取利率
+				double loanrate=Double.valueOf(value)/100.0;
+
+				List<Integer> ids2=new ArrayList<Integer>();
+ 				List<Invest> list2 = investMapper.selectByExample(null, new RowBounds(0, investMapper.countByExample(null)));
+				for (Invest invest : list2) {
+					double loanrate2 = invest.getLoandisplay().getLoanapply().getLoanrate().getLoanrate();
+					if(loanrate==loanrate2) {
+						ids2.add(invest.getInvestid());
+					}
+				}
+				if(ids2.size()>0) {
+					investcriteria.andInvestidIn(ids2);
+				}
+				break;
+			case "repaytime":
+				//获取偿还周期
+				int repaytime=Integer.valueOf(value);
+
+				List<Integer> ids3=new ArrayList<Integer>();
+ 				List<Invest> list3 = investMapper.selectByExample(null, new RowBounds(0, investMapper.countByExample(null)));
+				for (Invest invest : list3) {
+					int loantime = invest.getLoandisplay().getLoanapply().getLoantime().getLoantime();
+					if(loantime==repaytime) {
+						ids3.add(invest.getInvestid());
+					}
+				}
+				if(ids3.size()>0) {
+					investcriteria.andInvestidIn(ids3);
+				}
+				break;
+			case "investamount":
+				//获取投资金额
+				double investamount=Double.valueOf(value);
+
+				List<Integer> ids4=new ArrayList<Integer>();
+ 				List<Invest> list4 = investMapper.selectByExample(null, new RowBounds(0, investMapper.countByExample(null)));
+				for (Invest invest : list4) {
+					double investamount2 = invest.getInvestamount();
+					if(investamount2==investamount) {
+						ids4.add(invest.getInvestid());
+					}
+				}
+				if(ids4.size()>0) {
+					investcriteria.andInvestidIn(ids4);
+				}
+				break;
+		}
+		pb.setCount(investMapper.countByExample(investExample));
+		return investMapper.selectByExample(investExample,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
 }
