@@ -144,7 +144,18 @@ $(function(){
     			if(!data.msg.success){
     				$.messager.alert('来自老韩温馨提示','该用户名不存在，已显示为所有！');   
     				
-    			}
+    			}else{
+    				$.messager.show({
+    					title:'来自老韩温馨提示',
+    					msg:'查询成功',
+    					timeout:5000,
+    					showType:'slide'
+    				});
+
+    									
+        		}
+    			$('.easyui-linkbutton').linkbutton({}); 
+    		 
     		}   
 		});
     }   
@@ -221,6 +232,6 @@ $(function(){
         </div>  
     </div>  
 </div>  
-<table id="dg" height="800px"></table>  
+<table id="dg" height="680px"></table>  
 </body>
 </html>

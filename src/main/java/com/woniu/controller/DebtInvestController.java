@@ -144,12 +144,14 @@ public class DebtInvestController {
 				debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo,begin,end);
 				map.put("page", page);
 				map.put("total", page.getCount());
+				map.put("msg", new Message(true,""));
 				map.put("rows", debtinvests);
 			}
 		}else {
 			debtinvests = debtInvestServiceImpl.findByUserinfo(page,userinfo,begin,end);
 			map.put("page", page);
 			map.put("total", page.getCount());
+			map.put("msg", new Message(true,""));
 			map.put("rows", debtinvests);
 		}
 		return map;
@@ -176,12 +178,14 @@ public class DebtInvestController {
 				debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo,begin,end);
 				map.put("page", page);
 				map.put("total", page.getCount());
+				map.put("msg", new Message(true,""));
 				map.put("rows", debtinvests);
 			}
 		}else {
 			debtinvests = debtInvestServiceImpl.findByDebttransfer(page,userinfo,begin,end);
 			map.put("page", page);
 			map.put("total", page.getCount());
+			map.put("msg", new Message(true,""));
 			map.put("rows", debtinvests);
 		}
 		return map;
@@ -205,12 +209,14 @@ public class DebtInvestController {
 				debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo,begin,end);
 				map.put("page", page);
 				map.put("total", page.getCount());
+				map.put("msg", new Message(true,""));
 				map.put("rows", debtinvests);
 			}
 		}else {
 			debtinvests = debtInvestServiceImpl.findByLoanapply(page,userinfo,begin,end);
 			map.put("page", page);
 			map.put("total", page.getCount());
+			map.put("msg", new Message(true,""));
 			map.put("rows", debtinvests);
 		}
 		return map;
