@@ -148,4 +148,30 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
 		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
+
+	@Override
+	public List findAllByDate(PageBean pageBean, Date begin, Date end) {
+		// TODO Auto-generated method stub
+		DebttransferapplyExample example=new DebttransferapplyExample();
+		example.setOrderByClause("debttransferapplyid DESC");
+		Criteria criteria=example.createCriteria();
+		criteria.andCheckedEqualTo(false);
+		criteria.andIspassEqualTo(false);
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(end);
+		calendar.add(calendar.DATE, 1);
+		Date date=new Date(0);
+		if (!begin.equals(date)&&!end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andApplytimeBetween(begin, end);
+		}else if (!begin.equals(date)&&end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andApplytimeGreaterThanOrEqualTo(begin);
+		}else if (begin.equals(date)&&!end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andApplytimeLessThanOrEqualTo(end);
+		};
+		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
+		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
+	}
 }

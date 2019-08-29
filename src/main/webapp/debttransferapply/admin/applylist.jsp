@@ -93,10 +93,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="mm" style="width:120px">  
 	    <div data-options="name:'username',iconCls:'icon-ok'">按用户名称筛选</div>  
 	</div>  
-	
+	<input id="begin" type="text"></input>  
+	<input id="end" type="text"></input>  
+	<input id="btn" type="button" value="按日期筛选" onclick="dateScreen()"></input>  
+	<button onclick="clearScreen()">清空筛选条件</button>
 	<table id="dg"></table>  
 </body>
 <script type="text/javascript">  
+	$('#begin').datebox({   
+	    required:false  
+	});
+	$('#end').datebox({   
+	    required:false  
+	});
+	function dateScreen(){
+		var begin=$('#begin').datebox('getValue');
+		var end=$('#end').datebox('getValue');
+		if(begin==null||begin==""){
+			begin=null;
+		};
+		if(end==null||end==""){
+			end=null;
+		};
+		$('#dg').datagrid({
+        	url:'findAllByDate',
+        	queryParams:{
+            	'begin':new Date(begin),
+            	'end':new Date(end)
+            }
+        });
+	};
     function qq(value,name){  
     	$('#dg').datagrid({
         	url:'findAllByUname',
@@ -104,6 +130,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	'username':value
             }
         });
-    }   
+    };
+    function clearScreen(){ 
+    	$('#dg').datagrid({
+        	url:'findAll'
+        });
+    }  
 </script>
 </html>

@@ -1,5 +1,6 @@
 package com.woniu.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import java.util.List;
@@ -42,8 +43,20 @@ public class DebttransferapplyController {
 	
 	@RequestMapping("/admin/findAllByUname")
 	public Map findAllByUname(PageBean pageBean,String username) {
+		if (username.equals("")) {
+			return findAll(pageBean);
+		}
 		Map map=new HashMap();
 		List rows=debttransferapplyServiceImpl.findAllByUname(pageBean,username);
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
+	
+	@RequestMapping("/admin/findAllByDate")
+	public Map findAllByDate(PageBean pageBean,Date begin,Date end) {
+		Map map=new HashMap();
+		List rows=debttransferapplyServiceImpl.findAllByDate(pageBean,begin,end);
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
