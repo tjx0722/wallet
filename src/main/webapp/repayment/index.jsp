@@ -27,9 +27,9 @@
 		<hr>
 		<iframe src="/repayment/findRepaymentWithUser" height="530px"
 			width="100%" name="demo" scrolling="auto" id="iframe"
-			sandbox="allow-same-origin" style="border: 0"></iframe>
-
+			 style="border: 0"></iframe>
 	</div>
+
 
 
 </body>

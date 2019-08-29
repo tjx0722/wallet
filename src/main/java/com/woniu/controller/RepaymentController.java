@@ -25,6 +25,8 @@ import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
 import com.woniu.service.ILoanApplyService;
 import com.woniu.service.IRepayService;
+import com.woniu.service.IWalletService;
+import com.woniu.service.impl.WalletServiceImpl;
 
 @RequestMapping("/repayment/")
 @RestController
@@ -33,7 +35,8 @@ public class RepaymentController {
 	private ILoanApplyService loanApplyServiceImpl;
 	@Resource
 	private IRepayService repayServiceImpl;
-	
+	@Resource
+	private IWalletService walletServiceImpl;
 	@RequestMapping("findRepaymentWithUser")
 	public ModelAndView findRepaymentWithUser(HttpSession session) throws JsonProcessingException {
 		ModelAndView mav=new ModelAndView("repayment/list");
@@ -81,6 +84,10 @@ public class RepaymentController {
 		}
          DecimalFormat df = new DecimalFormat("#.00");
          restamount = Double.parseDouble(df.format(restamount));
+         
+//         walletServiceImpl.findBankcardByWalletid(walletid)
+         
+         
          ModelAndView mdv=new ModelAndView("/repayment/repay");
          mdv.addObject("currentRepay",currentRepay);
          mdv.addObject("AllRepay",AllRepay);

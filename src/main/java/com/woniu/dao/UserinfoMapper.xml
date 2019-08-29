@@ -25,6 +25,7 @@
     <result column="loapplyLimit" property="loapplylimit" jdbcType="INTEGER" />
     <result column="chance" property="chance" jdbcType="INTEGER" />
   	<association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
+  	<association property="wallet" column="userinfoid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
   </resultMap>
   <select id="findById" resultMap="BaseResultMap">
   	SELECT * FROM userinfo WHERE userinfoid=#{userinfoid}
