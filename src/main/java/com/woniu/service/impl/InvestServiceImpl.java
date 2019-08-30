@@ -69,11 +69,11 @@ public class InvestServiceImpl implements IInvestService {
 					double loanrate2 = loandisplay.getLoanapply().getLoanrate().getLoanrate()*100.0;
 					loanrate2=Math.round(loanrate2*100)/100;
 					if(loanrate2==loanrate) {
-						ids1.add(loandisplay.getLoanapplyid());
+						ids1.add(loandisplay.getLoandisplayid());
 					}
 				}
 				if(ids1.size()>0) {
-					loandisplaycriteria.andLoanapplyidIn(ids1);
+					loandisplaycriteria.andLoandisplayidIn(ids1);
 				}
 				break;
 			case "restcount":
@@ -83,15 +83,18 @@ public class InvestServiceImpl implements IInvestService {
 				List<Integer> ids2=new ArrayList<Integer>();
  				List<Loandisplay> list2 = loandisplayMapper.selectByExample(loandisplayexample, new RowBounds(0, loandisplayMapper.countByExample(loandisplayexample)));
 				for (Loandisplay loandisplay : list2) {
-					double investcount = loandisplay.getInvestcount();
+					Double investcount = loandisplay.getInvestcount();
+					if(investcount==null) {
+						investcount=0.0;
+					}
 					double loanamount = loandisplay.getLoanapply().getLoanamount();
 					double restcount2=loanamount-investcount;
 					if(restcount2==restcount) {
-						ids2.add(loandisplay.getLoanapplyid());
+						ids2.add(loandisplay.getLoandisplayid());
 					}
 				}
 				if(ids2.size()>0) {
-					loandisplaycriteria.andLoanapplyidIn(ids2);
+					loandisplaycriteria.andLoandisplayidIn(ids2);
 				}
 				break;
 			case "loanamount":
@@ -103,11 +106,11 @@ public class InvestServiceImpl implements IInvestService {
 				for (Loandisplay loandisplay : list3) {
 					double loanamount2 = loandisplay.getLoanapply().getLoanamount();
 					if(loanamount2==loanamount) {
-						ids3.add(loandisplay.getLoanapplyid());
+						ids3.add(loandisplay.getLoandisplayid());
 					}
 				}
 				if(ids3.size()>0) {
-					loandisplaycriteria.andLoanapplyidIn(ids3);
+					loandisplaycriteria.andLoandisplayidIn(ids3);
 				}
 				break;
 			case "repaytime":
@@ -119,11 +122,11 @@ public class InvestServiceImpl implements IInvestService {
 				for (Loandisplay loandisplay : list4) {
 					int loantime = loandisplay.getLoanapply().getLoantime().getLoantime();
 					if(loantime==repaytime) {
-						ids4.add(loandisplay.getLoanapplyid());
+						ids4.add(loandisplay.getLoandisplayid());
 					}
 				}
 				if(ids4.size()>0) {
-					loandisplaycriteria.andLoanapplyidIn(ids4);
+					loandisplaycriteria.andLoandisplayidIn(ids4);
 				}
 				break;
 		}
@@ -143,23 +146,72 @@ public class InvestServiceImpl implements IInvestService {
 	}
 
 	@Override
-	public List<Invest> findAllLoadDisplay(Integer userinfoid, PageBean pb, String sort, String order) {
+	public List<Invest> findInvested(Integer userinfoid, PageBean pb, String name, String value) {
 		InvestExample example = new InvestExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUserinfoidEqualTo(userinfoid);
 		criteria.andIstransferEqualTo(false);
-		pb.setCount(investMapper.countByExample(example));
-		switch(sort) {
-			case "paytime":
-				example.setOrderByClause("deadtime "+order.toUpperCase());
+		
+		List<Invest> list = investMapper.selectByExample(example, new RowBounds(0, investMapper.countByExample(example)));
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		
+		switch(name) {
+			case "repaytime":
+				for (Invest invest : list) {
+					int repaytime = Integer.valueOf(value);
+					int loantime = invest.getLoandisplay().getLoanapply().getLoantime().getLoantime();
+					if(loantime==repaytime) {
+						ids.add(invest.getInvestid());
+					}
+				}
+				break;
+			case "loanamount":
+				for (Invest invest : list) {
+					double loanamount = Double.valueOf(value);
+					double loanamount2 = invest.getLoandisplay().getLoanapply().getLoanamount();
+					if(loanamount==loanamount2) {
+						ids.add(invest.getInvestid());
+					}
+				}
 				break;
 			case "investamount":
-				example.setOrderByClause("investamount "+order.toUpperCase());
+				for (Invest invest : list) {
+					double investamount = Double.valueOf(value);
+					double investamount2 = invest.getInvestamount();
+					if(investamount==investamount2) {
+						ids.add(invest.getInvestid());
+					}
+				}
+				break;
+			case "loanrate":
+				for (Invest invest : list) {
+					double loanrate = Double.valueOf(value)/100.0;
+					double loanrate2 = invest.getLoandisplay().getLoanapply().getLoanrate().getLoanrate();
+					if(loanrate==loanrate2) {
+						ids.add(invest.getInvestid());
+					}
+				}
+				break;
+			case "servicecharge":
+				for (Invest invest : list) {
+					double servicecharge = Double.valueOf(value);
+					double servicecharge2 = invest.getServicecharge();
+					if(servicecharge2==servicecharge) {
+						ids.add(invest.getInvestid());
+					}
+				}
 				break;
 		}
+		
+
+		if(ids.size()==0) {
+			return null;
+		}
+		criteria.andInvestidIn(ids);
+		pb.setCount(investMapper.countByExample(example));
 		return investMapper.selectByExample(example,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
-
+	
 	@Override
 	public void insert(Invest invest) {
 		investMapper.insert(invest);
@@ -291,7 +343,11 @@ public class InvestServiceImpl implements IInvestService {
 			case "loaninvest":
 				double loaninvest=Double.valueOf(value);
 				for (Loandisplay loandisplay : list) {
-					double investcount = loandisplay.getInvestcount();
+					Double investcount = loandisplay.getInvestcount();
+					if(investcount==null) {
+						investcount=0.0;
+					}
+					System.out.println(investcount+" "+loaninvest+"==================");
 					if(loaninvest==investcount) {
 						ids.add(loandisplay.getLoandisplayid());
 					}
@@ -319,7 +375,7 @@ public class InvestServiceImpl implements IInvestService {
 				break;
 		}
 		
-		criteria.andLoanapplyidIn(ids);
+		criteria.andLoandisplayidIn(ids);
 		if(ids.size()==0) {
 			return null;
 		}
@@ -451,7 +507,21 @@ public class InvestServiceImpl implements IInvestService {
 	@Override
 	public List<Invest> findAllByUname(PageBean pageBean, String username, int userinfoid) {
 		// TODO Auto-generated method stub
-		return null;
+		InvestExample example = new InvestExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUserinfoidEqualTo(userinfoid);
+		criteria.andIstransferEqualTo(false);
+		List<Invest> invests=investMapper.selectByExample(example,new RowBounds(0, investMapper.countByExample(example)));
+		List<Integer> investids=new ArrayList<Integer>();
+		for (Invest i:invests) {
+			if (i.getLoandisplay().getLoanapply().getUserinfo().getUsername().equals(username)) {
+				investids.add(i.getInvestid());
+			}
+		}
+		criteria.andInvestidIn(investids);
+		
+		pageBean.setCount(investMapper.countByExample(example));
+		return investMapper.selectByExample(example,new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
 
 }
