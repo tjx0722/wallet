@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
-import com.woniu.controller.UserinfoController;
 import com.woniu.dao.InvestMapper;
 import com.woniu.dao.LoanapplyMapper;
 import com.woniu.dao.LoandisplayMapper;
@@ -19,11 +18,8 @@ import com.woniu.dao.UserinfoMapper;
 import com.woniu.domain.Invest;
 import com.woniu.domain.InvestExample;
 import com.woniu.domain.InvestExample.Criteria;
-import com.woniu.domain.Loanapply;
-import com.woniu.domain.LoanapplyExample;
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.LoandisplayExample;
-import com.woniu.domain.Loantime;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Repay;
 import com.woniu.domain.Userinfo;
@@ -234,7 +230,7 @@ public class InvestServiceImpl implements IInvestService {
 		investMapper.updateByPrimaryKey(invest);
 	}
 	@Override
-	public List findAllInvest(PageBean pageBean, int userinfoid) {
+	public List<Invest> findAllInvest(PageBean pageBean, int userinfoid) {
 		// TODO Auto-generated method stub
 		InvestExample example=new InvestExample();
 		example.setOrderByClause("investid DESC");
@@ -427,7 +423,7 @@ public class InvestServiceImpl implements IInvestService {
 	
 
 	@Override
-	public List findAllByDate(PageBean pageBean, Date begin, Date end, int userinfoid) {
+	public List<Invest> findAllByDate(PageBean pageBean, Date begin, Date end, int userinfoid) {
 		// TODO Auto-generated method stub
 		InvestExample example=new InvestExample();
 		example.setOrderByClause("investid DESC");
@@ -436,7 +432,7 @@ public class InvestServiceImpl implements IInvestService {
 		criteria.andUserinfoidEqualTo(userinfoid);
 		Calendar calendar=Calendar.getInstance();
 		calendar.setTime(end);
-		calendar.add(calendar.DATE, 1);
+		calendar.add(Calendar.DATE, 1);
 		Date date=new Date(0);
 		if (!begin.equals(date)&&!end.equals(date)) {
 			end=calendar.getTime();
@@ -453,7 +449,7 @@ public class InvestServiceImpl implements IInvestService {
 	}
 
 	@Override
-	public List findAllByUname(PageBean pageBean, String username, int userinfoid) {
+	public List<Invest> findAllByUname(PageBean pageBean, String username, int userinfoid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
