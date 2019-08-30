@@ -49,7 +49,7 @@
 						                   return (a<b?1:-1);
 						                },
 										formatter:function(value,row,index){
-											return parseInt(row.loanapply.loanrate.loanrate*100)+"%";
+											return parseInt(row.loanapply.loanrate.loanrate*1000)/10+"%";
 										}
 									},
 									{
@@ -117,19 +117,28 @@
 						});
 	});
 
+	var path="/invest/findAllLoanDisplay";
+	
     function qq(value,name){
         if(value==""){
 			alert("条件不能为空，请重新输入");
         }else{
-	        var path="/invest/setselect/"+name+"!"+value;
-	        $.ajax({url:path,async:false});
-	        location.reload();
+    		$('#dg').datagrid({
+    			url:path,
+        		queryParams: {
+        			"name": name,
+        			"value":value
+        		}  
+    		});
         }
     };
 	function clear(){
-        var path="/invest/setselect/clear!";
-        $.ajax({url:path,async:false});
-        location.reload();
+		$('#dg').datagrid({
+			url:path,
+    		queryParams: {
+    			"name": "clear"
+    		}  
+		});
     };   
 
 </script>

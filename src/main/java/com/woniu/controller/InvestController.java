@@ -2,7 +2,6 @@ package com.woniu.controller;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.woniu.domain.Invest;
-import com.woniu.domain.Loanapply;
 import com.woniu.domain.Loandisplay;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
@@ -30,21 +28,19 @@ public class InvestController {
 	private IUserinfoService userinfoServiceImpl;
 	
 	@RequestMapping("findAllLoanDisplay")
-	public List<Loandisplay> findAllLoanDisplay(PageBean pb,HttpSession session) {
-		String name = (String) session.getAttribute("name");
-		String value = (String) session.getAttribute("value");
-		if(name!=null) {
+	public List<Loandisplay> findAllLoanDisplay(PageBean pb,HttpSession session,String name,String value) {
+		if(name!=null&&!name.equals("clear")&&value!=null) {
 			return investServiceImpl.findAllLoadDisplay(pb,name,value);
 		}
 		return investServiceImpl.findAllLoadDisplay(pb);
 	}
 	
 	@RequestMapping("findInvested")
-	public List<Invest> findInvested(HttpSession session,PageBean pb,String sort,String order) {
+	public List<Invest> findInvested(HttpSession session,PageBean pb,String name,String value) {
 		User user=(User) session.getAttribute("user");
 		Integer userinfoid = user.getUserinfo().getUserinfoid();
-		if(sort!=null&&order!=null) {
-			return investServiceImpl.findAllLoadDisplay(userinfoid,pb,sort,order);
+		if(name!=null&&!name.equals("clear")&&value!=null) {
+			return investServiceImpl.findInvested(userinfoid,pb, name, value);
 		}
 		return investServiceImpl.findInvested(userinfoid,pb);
 	}
@@ -117,34 +113,18 @@ public class InvestController {
 		}
 	}
 	
-	//此controller用来设置筛选条件
-	@RequestMapping("setselect/{name}!{value}")
-	public ModelAndView setselectCondition(@PathVariable String name,@PathVariable String value,HttpSession session) {
-		if(name.equals("clear")) {
-			session.removeAttribute("name");
-		}else {
-			session.setAttribute("name", name);
-			session.setAttribute("value", value);
-		}
-		return null;
-	}
-	
 	//admin
 	@RequestMapping("admin/findAllLoanDisplay")
-	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb,HttpSession session) {
-		String name = (String) session.getAttribute("name");
-		String value = (String) session.getAttribute("value");
-		if(name!=null) {
+	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb,HttpSession session,String name,String value) {
+		if(name!=null&&!name.equals("clear")&&value!=null) {
 			return investServiceImpl.findAllLoanDisplayByadmin(pb,name,value);
 		}
 		return investServiceImpl.findAllLoanDisplayByadmin(pb);
 	}
 	
 	@RequestMapping("admin/findAllInvested")
-	public List<Invest> findAllInvested(PageBean pb,HttpSession session) {
-		String name = (String) session.getAttribute("name");
-		String value = (String) session.getAttribute("value");
-		if(name!=null) {
+	public List<Invest> findAllInvested(PageBean pb,HttpSession session,String name,String value) {
+		if(name!=null&&!name.equals("clear")&&value!=null) {
 			return investServiceImpl.findAllInvested(pb,name,value);
 		}
 		return investServiceImpl.findAllInvested(pb);

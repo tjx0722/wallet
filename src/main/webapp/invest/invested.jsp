@@ -23,7 +23,7 @@
 							fitColumns : true,
 							striped : true,
 							pagination : true,
-							title : '可投资列表',
+							title : '已投资列表',
 							toolbar : '#tb',
 							pageSize : 20,
 							remoteSort:false,
@@ -50,6 +50,39 @@
 						                },
 										formatter:function(value,row,index){
 											return row.loandisplay.loanapply.loantime.loantime+"个月";
+										}
+									},
+									{
+										field : 'loanamount',
+										title : '贷款金额',
+										width : 100,
+										sortable :true,
+										sorter:function (a,b) {
+						                   return (a<b?1:-1);
+						                },
+										formatter:function(value,row,index){
+											return row.loandisplay.loanapply.loanamount;
+										}
+									},
+									{
+										field : 'investamount',
+										title : '投资金额',
+										width : 100,
+										sortable :true,
+										sorter:function (a,b) {
+						                   return (a<b?1:-1);
+						                }
+									},
+									{
+										field : 'loanrate',
+										title : '贷款利率',
+										width : 100,
+										sortable :true,
+										sorter:function (a,b) {
+						                   return (a<b?1:-1);
+						                },
+										formatter:function(value,row,index){
+											return parseInt(row.loandisplay.loanapply.loanrate.loanrate*1000)/10+"%";
 										}
 									},
 									{
@@ -88,11 +121,46 @@
 								$('.easyui-linkbutton').linkbutton({});
 							}
 						});
-	})
+	});
+
+    var path="/invest/findInvested";
+    
+    function qq(value,name){
+        if(value==""){
+			alert("条件不能为空，请重新输入");
+        }else{
+    		$('#dg').datagrid({
+    			url:path,
+        		queryParams: {
+        			"name": name,
+        			"value":value
+        		}  
+    		});
+        }
+    };
+	function clear(){
+		$('#dg').datagrid({
+			url:path,
+    		queryParams: {
+    			"name": "clear"
+    		}  
+		});
+    };   
 
 </script>
 </head>
 <body>
+	<input id="ss" class="easyui-searchbox" style="width:300px"  
+	        data-options="searcher:qq,prompt:'请输入要筛选的条件',menu:'#mm'"></input>  
+	           
+	<div id="mm" style="width:120px">  
+	    <div data-options="name:'repaytime',iconCls:'icon-ok'">还款周期（/月）</div>  
+	    <div data-options="name:'loanamount'">贷款金额</div>
+	    <div data-options="name:'investamount'">投资金额</div>
+	    <div data-options="name:'loanrate'">贷款利率</div>
+	    <div data-options="name:'servicecharge'">手续费</div>    
+	</div>
+	<a href="javascript:clear()" class="easyui-linkbutton" data-options="iconCls: 'icon-reload'">清空查询条件</a>  
 	<table id="dg"></table>
 	<div id="tb">
 	</div>

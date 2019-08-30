@@ -117,20 +117,27 @@
 							}
 						});
 	});
-	
+
     function qq(value,name){
         if(value==""){
 			alert("条件不能为空，请重新输入");
         }else{
-	        var path="/invest/setselect/"+name+"!"+value;
-	        $.ajax({url:path,async:false});
-	        location.reload();
+    		$('#dg').datagrid({
+    			url:path,
+        		queryParams: {
+        			"name": name,
+        			"value":value
+        		}  
+    		});
         }
     };
 	function clear(){
-        var path="/invest/setselect/clear!";
-        $.ajax({url:path,async:false});
-        location.reload();
+		$('#dg').datagrid({
+			url:path,
+    		queryParams: {
+    			"name": "clear"
+    		}  
+		});
     };    
     
 </script>
