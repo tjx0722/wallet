@@ -49,9 +49,9 @@ public class DebttransferapplyController {
 		User user=(User) session.getAttribute("user");
 		int userinfoid=user.getUserinfo().getUserinfoid();
 		Map map=new HashMap();
-		List rows=investServiceImpl.findAllByUname(pageBean,username,userinfoid);
+		/* List rows=investServiceImpl.findAllByUname(pageBean,username,userinfoid); */
 		map.put("total", pageBean.getCount());
-		map.put("rows", rows);
+		/* map.put("rows", rows); */
 		return map;
 	}
 	
@@ -81,9 +81,9 @@ public class DebttransferapplyController {
 		Map map=new HashMap();
 		User user=(User) session.getAttribute("user");
 		int userinfoid=user.getUserinfo().getUserinfoid();
-		List rows=investServiceImpl.findAllByDate(pageBean,begin,end,userinfoid);
+		/* List rows=investServiceImpl.findAllByDate(pageBean,begin,end,userinfoid); */
 		map.put("total", pageBean.getCount());
-		map.put("rows", rows);
+		/* map.put("rows", rows); */
 		return map;
 	}
 	

@@ -23,6 +23,4 @@ public interface IInvestService {
 	List<Invest> findAllLoadDisplay(Integer userinfoid, PageBean pb, String sort, String order);
 	List<Invest> findAllInvested(PageBean pb);
 	List<Invest> findAllInvested(PageBean pb, String name, String value);
-	List findAllByUname(PageBean pageBean, String username, int userinfoid);
-	List findAllByDate(PageBean pageBean, Date begin, Date end, int userinfoid);
 }
