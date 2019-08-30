@@ -455,7 +455,21 @@ public class InvestServiceImpl implements IInvestService {
 	@Override
 	public List findAllByUname(PageBean pageBean, String username, int userinfoid) {
 		// TODO Auto-generated method stub
-		return null;
+		InvestExample example = new InvestExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andUserinfoidEqualTo(userinfoid);
+		criteria.andIstransferEqualTo(false);
+		List<Invest> invests=investMapper.selectByExample(example);
+		List investids=new ArrayList();
+		for (Invest i:invests) {
+			if (i.getLoandisplay().getLoanapply().getUserinfo().getUsername().equals(username)) {
+				investids.add(i.getInvestid());
+			}
+		}
+		criteria.andInvestidIn(investids);
+		
+		pageBean.setCount(investMapper.countByExample(example));
+		return investMapper.selectByExample(example,new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
 
 }
