@@ -4,7 +4,16 @@ import java.util.Date;
 
 public class Debttransferapply {
 	private Userinfo userinfo;
+	private Servicecharge scharge;
 	
+	public Servicecharge getScharge() {
+		return scharge;
+	}
+
+	public void setScharge(Servicecharge scharge) {
+		this.scharge = scharge;
+	}
+
 	public Userinfo getUserinfo() {
 		return userinfo;
 	}

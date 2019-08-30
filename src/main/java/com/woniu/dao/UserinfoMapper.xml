@@ -25,6 +25,10 @@
     <result column="loapplyLimit" property="loapplylimit" jdbcType="INTEGER" />
     <result column="chance" property="chance" jdbcType="INTEGER" />
   	<association property="user" column="userid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association>
+<<<<<<< HEAD
+=======
+  	<!-- <association property="wallet" column="userinfoid" select="com.woniu.dao.UserMapper.selectByPrimaryKey"></association> -->
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
   </resultMap>
   <select id="findById" resultMap="BaseResultMap">
   	SELECT * FROM userinfo WHERE userinfoid=#{userinfoid}

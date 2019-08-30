@@ -1,5 +1,6 @@
 package com.woniu.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import java.util.List;
@@ -35,6 +36,52 @@ public class DebttransferapplyController {
 	public Map findAll(PageBean pageBean) {
 		Map map=new HashMap();
 		List rows=debttransferapplyServiceImpl.findAll(pageBean);
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
+	
+	@RequestMapping("/findAllByUname")
+	public Map findAllByUnamez(PageBean pageBean,String username,HttpSession session) {
+		if (username.equals("")) {
+			return findAll(pageBean);
+		}
+		User user=(User) session.getAttribute("user");
+		int userinfoid=user.getUserinfo().getUserinfoid();
+		Map map=new HashMap();
+		List rows=investServiceImpl.findAllByUname(pageBean,username,userinfoid);
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
+	
+	@RequestMapping("/admin/findAllByUname")
+	public Map findAllByUname(PageBean pageBean,String username) {
+		if (username.equals("")) {
+			return findAll(pageBean);
+		}
+		Map map=new HashMap();
+		List rows=debttransferapplyServiceImpl.findAllByUname(pageBean,username);
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
+	
+	@RequestMapping("/admin/findAllByDate")
+	public Map findAllByDate(PageBean pageBean,Date begin,Date end) {
+		Map map=new HashMap();
+		List rows=debttransferapplyServiceImpl.findAllByDate(pageBean,begin,end);
+		map.put("total", pageBean.getCount());
+		map.put("rows", rows);
+		return map;
+	}
+	
+	@RequestMapping("/findAllByDate")
+	public Map findAllByDatezz(PageBean pageBean,Date begin,Date end,HttpSession session) {
+		Map map=new HashMap();
+		User user=(User) session.getAttribute("user");
+		int userinfoid=user.getUserinfo().getUserinfoid();
+		List rows=investServiceImpl.findAllByDate(pageBean,begin,end,userinfoid);
 		map.put("total", pageBean.getCount());
 		map.put("rows", rows);
 		return map;
@@ -80,10 +127,10 @@ public class DebttransferapplyController {
 		return mdv;
 	}
 	
-	@RequestMapping("/findOneUser/{investId}")
-	public ModelAndView findOneUser(@PathVariable int investId) {
+	@RequestMapping("/findOneUser/{userinfoid}")
+	public ModelAndView findOneUser(@PathVariable int userinfoid) {
 		ModelAndView mdv=new ModelAndView("debttransferapply/userinfo");
-		mdv.addObject("invest",investServiceImpl.findOneInvest(investId));
+		mdv.addObject("userinfo",userinfoServiceImpl.findById(userinfoid));
 		return mdv;
 	}
 	
@@ -150,4 +197,5 @@ public class DebttransferapplyController {
 			}
 		}
 	}
+	
 }

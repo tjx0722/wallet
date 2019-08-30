@@ -30,9 +30,11 @@ public class InvestController {
 	private IUserinfoService userinfoServiceImpl;
 	
 	@RequestMapping("findAllLoanDisplay")
-	public List<Loandisplay> findAllLoanDisplay(PageBean pb,String sort,String order) {
-		if(sort!=null&&order!=null) {
-			return investServiceImpl.findAllLoadDisplay(pb,sort,order);
+	public List<Loandisplay> findAllLoanDisplay(PageBean pb,HttpSession session) {
+		String name = (String) session.getAttribute("name");
+		String value = (String) session.getAttribute("value");
+		if(name!=null) {
+			return investServiceImpl.findAllLoadDisplay(pb,name,value);
 		}
 		return investServiceImpl.findAllLoadDisplay(pb);
 	}
@@ -115,10 +117,37 @@ public class InvestController {
 		}
 	}
 	
+	//此controller用来设置筛选条件
+	@RequestMapping("setselect/{name}!{value}")
+	public ModelAndView setselectCondition(@PathVariable String name,@PathVariable String value,HttpSession session) {
+		if(name.equals("clear")) {
+			session.removeAttribute("name");
+		}else {
+			session.setAttribute("name", name);
+			session.setAttribute("value", value);
+		}
+		return null;
+	}
+	
 	//admin
 	@RequestMapping("admin/findAllLoanDisplay")
-	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb) {
+	public List<Loandisplay> findAllLoanDisplayByadmin(PageBean pb,HttpSession session) {
+		String name = (String) session.getAttribute("name");
+		String value = (String) session.getAttribute("value");
+		if(name!=null) {
+			return investServiceImpl.findAllLoanDisplayByadmin(pb,name,value);
+		}
 		return investServiceImpl.findAllLoanDisplayByadmin(pb);
+	}
+	
+	@RequestMapping("admin/findAllInvested")
+	public List<Invest> findAllInvested(PageBean pb,HttpSession session) {
+		String name = (String) session.getAttribute("name");
+		String value = (String) session.getAttribute("value");
+		if(name!=null) {
+			return investServiceImpl.findAllInvested(pb,name,value);
+		}
+		return investServiceImpl.findAllInvested(pb);
 	}
 	
 	@RequestMapping("admin/findLoandisplayById/{loandisplayid}")
@@ -128,5 +157,14 @@ public class InvestController {
 		mav.addObject("loandisplay", loandisplay);
 		return mav;
 	}
+	
+	@RequestMapping("admin/findUserinfoById/{userinfoid}")
+	public ModelAndView findUserinfoById(@PathVariable Integer userinfoid) {
+		Userinfo userinfo = userinfoServiceImpl.findById(userinfoid);
+		ModelAndView mav=new ModelAndView("invest/admin/userinfo");
+		mav.addObject("userinfo", userinfo);
+		return mav;
+	}
+
 
 }

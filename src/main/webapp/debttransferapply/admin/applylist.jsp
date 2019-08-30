@@ -30,8 +30,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    remoteSort:false,
 		    title:'待审核债权转让申请',
 		    columns:[[   
-		    	{field:'debttransferapplyid',checkbox:'checkbox',title:'编号',width:100},   
-		        {field:'userinfoid',title:'借贷人',width:100,formatter:function(value,row,index){
+		    	{field:'user',title:'借贷人姓名',width:100,formatter:function(value,row,index){
+			    	return row.userinfo.username;
+				 }}, 
+		        {field:'userinfoid',title:'借贷人信息',width:100,formatter:function(value,row,index){
 		        	var btns = "<a id=\"btn\" href=\"/debttransferapply/admin/findOneUser/"+row.userinfoid+"\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-remove'\">查看详情</a>";
 					return btns;
 				 }}, 
@@ -52,10 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        return (a>b?1:-1);
 				    }
 			    },
-		        {field:'servicechargeid',title:'手续费类型',width:100},
-				{field:'operate',title:'是否通过',width:100,formatter: function(value,row,index){ 
-		        	var btns = "<a id=\"btn\" href=\"javascript:ischeck("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">通过审核</a>"; 
-					btns+="<a id=\"btn\" href=\"javascript:ispass("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">拦截审核</a>"; 
+		        {field:'servicechargeid',title:'手续费类型',width:100,formatter:function(value,row,index){
+			    	return row.scharge.servicetype;
+				 }}, 
+				{field:'operate',title:'审核',width:100,formatter: function(value,row,index){ 
+		        	var btns = "<a id=\"btn\" href=\"javascript:ischeck("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">通过</a>"; 
+					btns+="<a id=\"btn\" href=\"javascript:ispass("+row.debttransferapplyid+")\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-edit'\">拦截</a>"; 
 					return btns;
 				}}
 		    ]],
@@ -83,6 +87,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	};
 </script>
 <body>
+	<input id="ss" class="easyui-searchbox" style="width:300px"  
+        data-options="searcher:qq,prompt:'请输入用户名称',menu:'#mm'"></input>  
+           
+	<div id="mm" style="width:120px">  
+	    <div data-options="name:'username',iconCls:'icon-ok'">按用户名称筛选</div>  
+	</div>  
+	<input id="begin" type="text"></input>  
+	<input id="end" type="text"></input>  
+	<input id="btn" type="button" value="按日期筛选" onclick="dateScreen()"></input>  
+	<button onclick="clearScreen()">清空筛选条件</button>
 	<table id="dg"></table>  
 </body>
+<script type="text/javascript">  
+	$('#begin').datebox({   
+	    required:false  
+	});
+	$('#end').datebox({   
+	    required:false  
+	});
+	function dateScreen(){
+		var begin=$('#begin').datebox('getValue');
+		var end=$('#end').datebox('getValue');
+		if(begin==null||begin==""){
+			begin=null;
+		};
+		if(end==null||end==""){
+			end=null;
+		};
+		$('#dg').datagrid({
+        	url:'findAllByDate',
+        	queryParams:{
+            	'begin':new Date(begin),
+            	'end':new Date(end)
+            }
+        });
+	};
+    function qq(value,name){  
+    	$('#dg').datagrid({
+        	url:'findAllByUname',
+        	queryParams:{
+            	'username':value
+            }
+        });
+    };
+    function clearScreen(){ 
+    	$('#dg').datagrid({
+        	url:'findAll'
+        });
+    }  
+</script>
 </html>

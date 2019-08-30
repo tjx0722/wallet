@@ -33,23 +33,23 @@
 		      </tr>
 		      <tr>
 		        <td>借贷人名称</td>
-		        <td>${invest.loandisplay.loanapply.userinfo.username }</td>
+		        <td>${userinfo.username }</td>
 		      </tr>
 		      <tr>
 		        <td>籍贯</td>
-		        <td>${invest.loandisplay.loanapply.userinfo.nativeplace }</td>
+		        <td>${userinfo.nativeplace }</td>
 		      </tr>
 		      <tr>
 		        <td>工作</td>
-		        <td>${invest.loandisplay.loanapply.userinfo.userjob }</td>
+		        <td>${userinfo.userjob }</td>
 		      </tr>
 		      <tr>
 		        <td>学历</td>
-		        <td>${invest.loandisplay.loanapply.userinfo.degree }</td>
+		        <td>${userinfo.degree }</td>
 		      </tr>
 		      <tr>
 		        <td>工资</td>
-		        <td>${invest.loandisplay.loanapply.userinfo.salary }</td>
+		        <td>${userinfo.salary }</td>
 		      </tr>
 		    </tbody>
 		</table>
