@@ -64,6 +64,11 @@ public class WalletServiceImpl implements IWalletService {
 		return bankcardMapper.selectByPrimaryKey(walletid);
 	}
 	@Override
+	public Wallet findWalletByUserId(Integer userinfoid) {
+		// TODO Auto-generated method stub
+		return walletMapper.selectByPrimaryKey1(userinfoid);
+	}
+	@Override
 	public Wallet findByUserinfo(Integer userinfoid) {
 		// TODO Auto-generated method stub
 		WalletExample example=new WalletExample();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +89,7 @@
 							</tr>
 							<tr align="center">
 								<td>还款</td>
-								<td>213</td>
+								<td>${restamount }</td>
 							</tr>
 						</table>
 					</div>
@@ -99,10 +100,9 @@
 					<div class="col-md-8" align="center">
 						<select class="form-control">
 							<option>支付宝</option>
-							<option>银联卡</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+						<c:forEach items="${bankcards }" var="bankcard" varStatus="c">
+							<option>${bankcard.bankcardnum } ${bankcard.bankcardname }</option>
+						</c:forEach>
 						</select>
 					</div>
 				</div>

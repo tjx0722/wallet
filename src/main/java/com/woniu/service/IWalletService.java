@@ -17,4 +17,5 @@ public interface IWalletService {
 		public Bankcard findBankcardByWalletid(Integer walletid);
 		public Wallet findByUserinfo(Integer userinfoid);
 		public List findBankcardByWalletid1(Integer walletid);
+		Wallet findWalletByUserId(Integer userinfoid);
 }

@@ -19,10 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.woniu.domain.Bankcard;
 import com.woniu.domain.Loanapply;
 import com.woniu.domain.Repay;
 import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 import com.woniu.service.ILoanApplyService;
 import com.woniu.service.IRepayService;
 import com.woniu.service.IWalletService;
@@ -85,14 +87,16 @@ public class RepaymentController {
          DecimalFormat df = new DecimalFormat("#.00");
          restamount = Double.parseDouble(df.format(restamount));
          
-//         walletServiceImpl.findBankcardByWalletid(walletid)
+         Wallet wallet = walletServiceImpl.findWalletByUserId(userinfo.getUserinfoid());
+        List<Bankcard> bankcards = wallet.getBankcards();
          
-         
+        
          ModelAndView mdv=new ModelAndView("/repayment/repay");
          mdv.addObject("currentRepay",currentRepay);
          mdv.addObject("AllRepay",AllRepay);
          mdv.addObject("restamount",restamount);
          mdv.addObject("count",count);
+         mdv.addObject("bankcards",bankcards);
 		return mdv;
 	}
 }
