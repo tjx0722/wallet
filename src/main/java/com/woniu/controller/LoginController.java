@@ -41,7 +41,6 @@ public class LoginController {
 		if (LoginUser==null) {
 			return "/authorityModule/GLYlogin";
 		}else {
-			session.removeAttribute("name");			//移除筛选条件中的name——jack
 			List trees = treeService.findAll();
 			ObjectMapper mapper =  new ObjectMapper();
 			String json = mapper.writeValueAsString(LoginUser.getTrees());
