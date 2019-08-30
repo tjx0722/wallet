@@ -44,7 +44,7 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 	public List<Debtinvest> findAll(PageBean page) {
 		// TODO Auto-generated method stub
 		List<Debtinvest> list = debtinvestMapper.selectByExample(null,new RowBounds(page.getOffset(),page.getLimit()));
-		page.setCount(list.size());
+		page.setCount((int)debtinvestMapper.countByExample(null));
 		return list;
 	}
 	@Override

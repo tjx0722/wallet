@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.woniu.domain.Debtinvest;
 import com.woniu.domain.Debttransferdisplay;
@@ -50,7 +51,7 @@ public class DebtInvestController {
 	private IDebttransferdisplayService debttransferdisplayServiceImpl;
 	
 	@Resource
-	private IWalletService walletService;
+	private IWalletService walletServiceImpl;
 	
 	@Resource
 	private IUserinfoService userinfoServiceImpl;
@@ -74,7 +75,7 @@ public class DebtInvestController {
 		User user = (User) session.getAttribute("user");
 		if(user!=null) {
 			Userinfo loginuserinfo = user.getUserinfo();
-			Wallet wallet = walletService.findByUserinfo(loginuserinfo.getUserinfoid());
+			Wallet wallet = walletServiceImpl.findByUserinfo(loginuserinfo.getUserinfoid());
 			map.put("wallet", wallet);
 		}		
 		map.put("invest", debttransfer.getInvest());
@@ -91,11 +92,118 @@ public class DebtInvestController {
 		return "/debtinvest/debtinfo";
 		
 	}
-	@RequestMapping("debtinvestPay/{payment}/{servicechargeid}/{debttransferdisplay}")
-	public String  debtinvsetPay(HttpSession session,@PathVariable double payment,@PathVariable Integer servicechargeid,@PathVariable Integer debttransferdisplay) {
+	@RequestMapping("goPay")
+	public ModelAndView goPay(HttpSession session, double payment,Integer debttransferdisplay,String payMethod,Integer servicechargeid) {
+		ModelAndView mav=new ModelAndView();
 		User user = (User) session.getAttribute("user");
-//	往debtinvset表插数据	
+		Userinfo userinfo =userinfoServiceImpl.findById(user.getUserinfo().getUserinfoid());
+		Integer chance =userinfo.getChance();
+		if(payMethod.equals("0")) {
+			
+			if(chance==0) {
+				mav.setViewName("debtinvest/payfailed");
+				mav.addObject("msg", "您的账户已被锁定，24小时内不能支付");
+				mav.addObject("chance", chance);
+				mav.addObject("isrestAmount",true);
+			}else {
+				mav.setViewName("debtinvest/paypage");
+				mav.addObject("payment", payment);
+				mav.addObject("debttransferdisplay",debttransferdisplay);
+				mav.addObject("servicechargeid", servicechargeid);
+			}
+		
+		}else if(payMethod.equals("1")) {
+			return null;
+		}
+		return mav;
+	}
+	
+	@RequestMapping("repay/{payment}/{debttransferdisplay}/{servicechargeid}")
+	public ModelAndView repay(HttpSession session, @PathVariable double payment,@PathVariable Integer debttransferdisplay, @PathVariable Integer servicechargeid) {
+		ModelAndView mav=new ModelAndView();
+		User user = (User) session.getAttribute("user");
 		Userinfo userinfo = user.getUserinfo();
+		Integer chance = userinfoServiceImpl.findById(userinfo.getUserid()).getChance();
+		if(chance==0) {
+			mav.setViewName("debtinvest/payfailed");
+			mav.addObject("msg", "您的账户已被锁定，24小时内不能支付");
+			mav.addObject("chance", chance);
+			mav.addObject("isrestAmount",true);
+		
+		}else {			
+			mav.setViewName("debtinvest/paypage");
+			mav.addObject("payment", payment);
+			mav.addObject("debttransferdisplay",debttransferdisplay);
+			mav.addObject("servicechargeid", servicechargeid);
+			
+		}
+		return mav;
+	}
+	@RequestMapping("pay")
+	public ModelAndView pay(HttpSession session, double payment,Integer debttransferdisplay,String payPassword_rsainput,Integer servicechargeid) {
+		System.out.println(payment);
+		System.out.println(debttransferdisplay);
+		System.out.println(servicechargeid);
+		User user = (User) session.getAttribute("user");
+		Userinfo userinfo =userinfoServiceImpl.findById(user.getUserinfo().getUserinfoid());
+		Integer chance =userinfo.getChance();
+		String applypass = userinfo.getApplypass();
+		try {
+			if(applypass.equals(payPassword_rsainput)) {
+				Wallet wallet = walletServiceImpl.findByUserinfo(userinfo.getUserinfoid());
+				if(wallet.getBalance()<payment) {
+					throw new Exception();
+				}
+				wallet.setBalance(wallet.getBalance()-payment);
+				walletServiceImpl.update(wallet);
+				//输入密码正确之后，重置密码输错机会为3，入库。
+				userinfo.setChance(3);
+				userinfoServiceImpl.update(userinfo);
+				ModelAndView mav=new ModelAndView("debtinvest/back");
+				debtinvsetPay(userinfo, payment, servicechargeid, debttransferdisplay);
+				return mav;
+			}else {
+				//输错密码之后，机会减一，入库。
+				chance--;
+				userinfo.setChance(chance);
+				userinfoServiceImpl.update(userinfo);
+				
+				if(chance==0) {
+					ModelAndView mav=new ModelAndView("debtinvest/payfailed");
+					mav.addObject("chance", chance);
+					mav.addObject("msg", "您的账户已被锁定，24小时内不能支付");
+					mav.addObject("isrestAmount",true);
+					return mav;
+				}
+				ModelAndView mav=new ModelAndView("debtinvest/payfailed");
+				mav.addObject("chance", chance);
+				mav.addObject("payment", payment);
+				mav.addObject("debttransferdisplay",debttransferdisplay);
+				mav.addObject("servicechargeid", servicechargeid);
+				mav.addObject("msg", "支付密码错误，您还有   "+chance+"次机会");
+				mav.addObject("isrestAmount",true);
+				return mav;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			ModelAndView mav=new ModelAndView("debtinvest/payfailed");
+			mav.addObject("chance", chance);
+			mav.addObject("msg", "您的余额不足，支付失败");
+			mav.addObject("isrestAmount",false);
+			return mav;
+		}
+	}
+	
+
+	
+	
+	
+	
+	
+	@RequestMapping("debtinvestPay")
+	public String  debtinvsetPay(Userinfo userinfo,double payment, Integer servicechargeid, Integer debttransferdisplay) {
+		
+//	往debtinvset表插数据	
 		Debtinvest debtinvest=new Debtinvest();		
 		debtinvest.setUserinfoid(userinfo.getUserinfoid());
 		debtinvest.setInvestamount(payment);
@@ -114,6 +222,8 @@ public class DebtInvestController {
 		invest.setUserinfoid(userinfo.getUserinfoid());
 		investServiceImpl.update(invest);
 		return "redirect:/debtinvest/debttransferdisplay.jsp";
+		
+		
 	}
 	
 	@RequestMapping("admin/findAll")

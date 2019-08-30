@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="col-md-6" style="height:100px;float:left;padding: 15px ">
 	<h4>利率</h4>
 		<div style="text-align: center">
-			<font class="text-success" size="6px">${loanrate.loanrate }%</font> 
+			<font class="text-success" size="6px">${loanrate.loanrate }</font> 
 		</div>
 	</div>
 	<div class="col-md-6" style="height:100px;float:left;padding: 15px ">
@@ -120,24 +120,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               	 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;您的钱包余额：<font class="text-danger">${wallet.balance }</font>
                 </h4>
             </div>
-            <div class="modal-body">请选择支付方式</div>
+          <form action="goPay" method="post">
+            <div class="modal-body" style="height:100px">
+              
+            	<h4>请选择支付方式</h4>
+            	<div class="col-md-12" >
+            		
+            			<input type="hidden" name="payment" value="${payment }">
+            			<input type="hidden" name="servicechargeid" value="${servicecharge.servicechargeid }">
+            			<input type="hidden" name="debttransferdisplay" value="${debttransferdisplay }">
+            			<div class="col-md-6">
+            				<label class="radio-inline" >
+					        <input type="radio" name="payMethod" id="optionsRadios3" value="0" checked > wallet钱包
+					    	</label>
+            			</div>
+					    <div class="col-md-6">
+						    <label class="radio-inline">
+						        <input type="radio" name="payMethod" id="optionsRadios4"  value="1"> 支付宝
+						    </label>
+					    </div>
+            	</div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="pay">确定支付</button>
+                <button type="submit" class="btn btn-primary" id="pay" type="submit">确定支付</button>
             </div>
+            <form/>
         </div>
     </div>
 </div>
 </div>
 </body>
 <script>
-	$(function(){
+	/* $(function(){
 		$("#pay").click(function(){
 			$("#myModal").modal('hide');
 			
 			location.href="debtinvestPay/"+${payment}+"/"+${servicecharge.servicechargeid}+"/"+${debttransferdisplay};
 		});
 
-	});
+	}); */
 </script>
 </html>
