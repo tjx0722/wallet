@@ -94,4 +94,6 @@ public interface InvestMapper {
      * @mbggenerated Mon Aug 19 15:11:02 CST 2019
      */
     int updateByPrimaryKey(Invest record);
+
+	List<Invest> selectByExample(InvestExample example);
 }

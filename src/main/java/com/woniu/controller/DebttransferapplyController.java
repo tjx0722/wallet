@@ -44,7 +44,7 @@ public class DebttransferapplyController {
 	@RequestMapping("/findAllByUname")
 	public Map findAllByUnamez(PageBean pageBean,String username,HttpSession session) {
 		if (username.equals("")) {
-			return findAll(pageBean);
+			return findAllInvest(pageBean,session);
 		}
 		User user=(User) session.getAttribute("user");
 		int userinfoid=user.getUserinfo().getUserinfoid();
@@ -197,5 +197,4 @@ public class DebttransferapplyController {
 			}
 		}
 	}
-	
 }
