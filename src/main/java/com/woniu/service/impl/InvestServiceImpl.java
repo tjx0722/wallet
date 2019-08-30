@@ -424,4 +424,38 @@ public class InvestServiceImpl implements IInvestService {
 		return investMapper.selectByExample(investExample,new RowBounds(pb.getOffset(), pb.getLimit()));
 	}
 
+	
+
+	@Override
+	public List findAllByDate(PageBean pageBean, Date begin, Date end, int userinfoid) {
+		// TODO Auto-generated method stub
+		InvestExample example=new InvestExample();
+		example.setOrderByClause("investid DESC");
+		Criteria criteria=example.createCriteria();
+		criteria.andIstransferEqualTo(false);
+		criteria.andUserinfoidEqualTo(userinfoid);
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(end);
+		calendar.add(calendar.DATE, 1);
+		Date date=new Date(0);
+		if (!begin.equals(date)&&!end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andPaytimeBetween(begin, end);
+		}else if (!begin.equals(date)&&end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andPaytimeGreaterThanOrEqualTo(begin);
+		}else if (begin.equals(date)&&!end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andPaytimeLessThanOrEqualTo(end);
+		};
+		pageBean.setCount((int)investMapper.countByExample(example));
+		return investMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
+	}
+
+	@Override
+	public List findAllByUname(PageBean pageBean, String username, int userinfoid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
