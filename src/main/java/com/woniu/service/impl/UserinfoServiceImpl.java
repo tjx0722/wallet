@@ -11,6 +11,7 @@ import com.woniu.dao.UserinfoMapper;
 import com.woniu.dao.WalletMapper;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.UserinfoExample;
 import com.woniu.domain.Wallet;
 import com.woniu.service.IUserinfoService;
 @Service
@@ -81,4 +82,11 @@ private WalletMapper walletMapper;
 			return false;
 		}
 	}
+	public List<Userinfo> findByName(String name){
+		UserinfoExample example= new UserinfoExample();
+		example.createCriteria().andUsernameEqualTo(name);
+		return userinfoMapper.selectByExample(example);
+		
+	}
+	
 }

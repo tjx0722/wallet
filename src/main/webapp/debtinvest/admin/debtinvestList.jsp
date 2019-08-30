@@ -26,7 +26,7 @@ $(function(){
 	    striped:true,
 	    pagination:true,
 	    title:'债权交易历史',
-	    toolbar: '#tb',  
+	    toolbar: '#tb',
 	    columns:[[   
 	        {field:'debtinvestid',title:'序号',width:100,align:'center'},   
 	        {field:'userinfo',title:'买进用户',width:100,align:'center',formatter: function (value) {
@@ -114,31 +114,9 @@ $(function(){
 		}); 
 	}
 	
-/*     function qq(value,name){   
-        if(name=="username"){
-        	$('#dg').datagrid({
-            	url:'findByUserinfo',
-        		queryParams: {
-        			"username": value
-        		}
-        	});
-        }else if(name=="debttransfer"){
-        	$('#dg').datagrid({
-            	url:"findByDebttransfer",
-        		queryParams: {
-        			"username": value
-        		}
-        	});
-        }else if(name=="loanapply"){
-        	$('#dg').datagrid({
-            	url:"findByLoanapply",
-        		queryParams: {
-        			"username": value
-        		}
-        	});
-        }
-    } */
+
     function select(){
+        var path=null;
 		var begin=$("#begin").datebox("getValue"); 
 		var end=$("#end").datebox("getValue"); 
 		if(begin==null||begin==""){
@@ -150,33 +128,36 @@ $(function(){
 		var value=$("#ss").searchbox("getValue");
 		var name=$("#ss").searchbox("getName");
 		if(name=="username"){
-        	$('#dg').datagrid({
-            	url:'findByUserinfo',
-        		queryParams: {
-        			"username": value,
-        			"begin":new Date(begin),
-        			"end":new Date(end)
+			path="findByUserinfo";
+		}else if(name=="debttransfer"){
+			path="findByDebttransfer";
+		}else if(name=="loanapply"){
+			path="findByLoanapply";
+		}
+		$('#dg').datagrid({
+			url:path,
+    		queryParams: {
+    			"username": value,
+    			"begin":new Date(begin),
+    			"end":new Date(end)
+    		}, onLoadSuccess: function(data){
+    			if(!data.msg.success){
+    				$.messager.alert('来自老韩温馨提示','该用户名不存在，已显示为所有！');   
+    				
+    			}else{
+    				$.messager.show({
+    					title:'来自老韩温馨提示',
+    					msg:'查询成功',
+    					timeout:5000,
+    					showType:'slide'
+    				});
+
+    									
         		}
-        	});
-        }else if(name=="debttransfer"){
-        	$('#dg').datagrid({
-            	url:"findByDebttransfer",
-        		queryParams: {
-        			"username": value,
-        			"begin":new Date(begin),
-        			"end":new Date(end)
-        		}
-        	});
-        }else if(name=="loanapply"){
-        	$('#dg').datagrid({
-            	url:"findByLoanapply",
-        		queryParams: {
-        			"username": value,
-        			"begin":new Date(begin),
-        			"end":new Date(end)
-        		}
-        	});
-        }
+    			$('.easyui-linkbutton').linkbutton({}); 
+    		 
+    		}   
+		});
     }   
 </script>
 </head>
@@ -251,6 +232,6 @@ $(function(){
         </div>  
     </div>  
 </div>  
-<table id="dg" height="800px"></table>  
+<table id="dg" height="680px"></table>  
 </body>
 </html>
