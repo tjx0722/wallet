@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.bouncycastle.pqc.jcajce.provider.rainbow.SignatureSpi.withSha224;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,10 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.woniu.service.IDebttransferapplyService;
 import com.woniu.service.IInvestService;
 import com.woniu.service.IUserinfoService;
+import com.woniu.service.IWalletService;
+import com.woniu.service.impl.WalletServiceImpl;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.PageBean;
 import com.woniu.domain.User;
 import com.woniu.domain.Userinfo;
+import com.woniu.domain.Wallet;
 
 @RestController
 @RequestMapping("/debttransferapply")
@@ -31,6 +35,8 @@ public class DebttransferapplyController {
 	private IInvestService investServiceImpl;
 	@Resource
 	private IUserinfoService userinfoServiceImpl;
+	@Resource
+	private IWalletService walletServiceImpl;
 	
 	@RequestMapping("/admin/findAll")
 	public Map findAll(PageBean pageBean) {
@@ -150,7 +156,6 @@ public class DebttransferapplyController {
 		 
 		/* int userinfoid=3; */
 		Debttransferapply debttransferapply=debttransferapplyServiceImpl.get(investId,userinfoid);
-		System.out.println(debttransferapply.getUserinfo());
 		mdv.addObject("apply", debttransferapply);
 		return mdv;
 	}
@@ -170,17 +175,27 @@ public class DebttransferapplyController {
 	}
 	
 	@RequestMapping("/transfer")
-	public ModelAndView transfer(String payPassword_rsainput,Integer investid,Integer userinfoid) {
+	public ModelAndView transfer(String payPassword_rsainput,Integer investid,Integer userinfoid,HttpSession session) {
 		Userinfo userinfo=userinfoServiceImpl.findById(userinfoid);
 		int count=userinfo.getChance();
 		boolean flag=userinfoServiceImpl.findPwdByUid(userinfoid,payPassword_rsainput);
 		if (flag) {
 			userinfo.setChance(3);
 			userinfoServiceImpl.update(userinfo);
-			ModelAndView mdv=new ModelAndView("debttransferapply/success");
-			investServiceImpl.transfer(investid);
-			debttransferapplyServiceImpl.add(investid,userinfoid);
-			return mdv; 
+			ModelAndView m=istransfer(investid,session);
+			Debttransferapply debttransferapply=(Debttransferapply) m.getModel().get("apply");
+			Wallet wallet=userinfo.getWallet();
+			if (debttransferapply.getServicecharge()<=wallet.getBalance()) {
+				wallet.setBalance(wallet.getBalance()-debttransferapply.getServicecharge());
+				walletServiceImpl.update(wallet);
+				ModelAndView mdv=new ModelAndView("debttransferapply/success");
+				investServiceImpl.transfer(investid);
+				debttransferapplyServiceImpl.add(investid,userinfoid);
+				return mdv; 
+			}else {
+				ModelAndView mdv=new ModelAndView("debttransferapply/banlance");
+				return mdv;
+			}
 		}else {
 			count--;
 			userinfo.setChance(count);

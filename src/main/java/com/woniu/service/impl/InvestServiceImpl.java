@@ -287,7 +287,7 @@ public class InvestServiceImpl implements IInvestService {
 		InvestExample example=new InvestExample();
 		example.setOrderByClause("investid DESC");
 		Criteria criteria=example.createCriteria();
-		/* criteria.andIstransferEqualTo(false); */
+		criteria.andIstransferEqualTo(false); 
 		criteria.andUserinfoidEqualTo(userinfoid);
 		pageBean.setCount((int)investMapper.countByExample(example));
 		return investMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
