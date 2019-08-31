@@ -141,9 +141,6 @@ public class DebtInvestController {
 	}
 	@RequestMapping("pay")
 	public ModelAndView pay(HttpSession session, double payment,Integer debttransferdisplay,String payPassword_rsainput,Integer servicechargeid) {
-		System.out.println(payment);
-		System.out.println(debttransferdisplay);
-		System.out.println(servicechargeid);
 		User user = (User) session.getAttribute("user");
 		Userinfo userinfo =userinfoServiceImpl.findById(user.getUserinfo().getUserinfoid());
 		Integer chance =userinfo.getChance();
@@ -194,13 +191,6 @@ public class DebtInvestController {
 		}
 	}
 	
-
-	
-	
-	
-	
-	
-	@RequestMapping("debtinvestPay")
 	public String  debtinvsetPay(Userinfo userinfo,double payment, Integer servicechargeid, Integer debttransferdisplay) {
 		
 //	往debtinvset表插数据	

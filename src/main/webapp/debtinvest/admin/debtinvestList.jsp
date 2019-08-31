@@ -114,7 +114,12 @@ $(function(){
 		}); 
 	}
 	
+	function clear(){
+        $("#ss").searchbox("setValue","");
+        $("#begin").datebox("setValue",""); 
+        $("#end").datebox("setValue",""); 
 
+    }  
     function select(){
         var path=null;
 		var begin=$("#begin").datebox("getValue"); 
@@ -147,7 +152,7 @@ $(function(){
     			}else{
     				$.messager.show({
     					title:'来自老韩温馨提示',
-    					msg:'查询成功',
+    					msg:'查询成功，共'+data.total+'条记录',
     					timeout:5000,
     					showType:'slide'
     				});
@@ -158,7 +163,8 @@ $(function(){
     		 
     		}   
 		});
-    }   
+    } 
+    
 </script>
 </head>
 <body>
@@ -177,6 +183,7 @@ $(function(){
 开始日期<input id="begin" type="text" class="easyui-datebox" ></input>  
 截止日期<input id="end" type="text" class="easyui-datebox" ></input>  
 <a id="btn" href="javascript:select()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">筛选</a>  
+<a id="btn" href="javascript:clear()" class="easyui-linkbutton" data-options="iconCls:'icon-cut'">清空筛选条件</a>  
 
 </div>
 <div id="win" class="easyui-window" title="交易详情" style="width:800px;height:600px;top:80px;"  

@@ -9,8 +9,11 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 public interface DebtinvestMapper {
-	
 	List<Debtinvest> findByLoanapply(Map map);
+	
+	List<Debtinvest> findByLoanapply(Map map,RowBounds rowBounds);
+	
+	List<Debtinvest> findByDebttransfer(Map map,RowBounds rowBounds);
 	
 	List<Debtinvest> findByDebttransfer(Map map);
 	
