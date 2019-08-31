@@ -56,6 +56,15 @@ public class DebtInvestController {
 	@Resource
 	private IUserinfoService userinfoServiceImpl;
 	
+	@RequestMapping("admin/findUserByChar")
+	@ResponseBody
+	public List<Userinfo> findUserByChar(String username){
+		
+		List<Userinfo> list = userinfoServiceImpl.findUserByChar(username);
+		return list;
+	}
+	
+	
 	@RequestMapping("findUndead")
 	@ResponseBody
 	public Map findUndead(PageBean page) {

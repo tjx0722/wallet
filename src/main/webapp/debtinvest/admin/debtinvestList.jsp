@@ -18,6 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=basePath%>js/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
 <script>
 $(function(){
 	$('#dg').datagrid({   
@@ -173,7 +175,7 @@ $(function(){
   
 <input id="ss" class="easyui-searchbox" style="width:300px"  
         data-options="searcher:select,prompt:'请输入用户名',menu:'#mm'"></input>  
-           
+        
 <div id="mm" style="width:180px">  
     <div data-options="name:'username',iconCls:'icon-ok'" >按照买进用户查询</div>  
      <div data-options="name:'debttransfer',iconCls:'icon-ok'" >按照债权转出用户查询</div>  
@@ -242,3 +244,44 @@ $(function(){
 <table id="dg" height="680px"></table>  
 </body>
 </html>
+<!-- <script>
+	window.onload=function(){
+		var vm= new Vue({
+			el:"#app",
+			data:{
+				list:'',
+				username:''
+			},
+			methods:{
+				find:function(){
+					this.$http({
+						method:'post',
+						url:'findUserByChar',
+						emulateJSON:true,
+						params:{
+							username:this.username
+						}
+					}).then(function(data){
+						this.list=data.body;
+
+					},function(){
+						console.log('请求失败处理');
+					});
+				}
+			}
+
+		});
+
+	
+	
+	}
+</script> -->
+
+
+
+
+
+
+
+
+

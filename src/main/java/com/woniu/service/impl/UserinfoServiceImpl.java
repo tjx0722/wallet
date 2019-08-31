@@ -88,5 +88,12 @@ private WalletMapper walletMapper;
 		return userinfoMapper.selectByExample(example);
 		
 	}
+	@Override
+	public List<Userinfo> findUserByChar(String username) {
+		// TODO Auto-generated method stub
+		List<Userinfo> userinfos = userinfoMapper.findUserByChar(username);
+		
+		return userinfos;
+	}
 	
 }
