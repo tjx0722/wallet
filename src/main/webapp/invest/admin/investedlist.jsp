@@ -117,7 +117,7 @@
 							}
 						});
 	});
-
+<<<<<<< HEAD
 	
     function qq(value,name){
         if(value==""){
@@ -132,6 +132,29 @@
         var path="/invest/setselect/clear!";
         $.ajax({url:path,async:false});
         location.reload();
+=======
+
+    function qq(value,name){
+        if(value==""){
+			alert("条件不能为空，请重新输入");
+        }else{
+    		$('#dg').datagrid({
+    			url:path,
+        		queryParams: {
+        			"name": name,
+        			"value":value
+        		}  
+    		});
+        }
+    };
+	function clear(){
+		$('#dg').datagrid({
+			url:path,
+    		queryParams: {
+    			"name": "clear"
+    		}  
+		});
+>>>>>>> branch 'master' of git@github.com:tjx0722/wallet.git
     };    
     
 </script>
