@@ -7,19 +7,14 @@
 <title>Insert title here</title>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 <script type="text/javascript">
-	$(function(){
-		$.ajax({
-			   type: "POST",
-			   url: "/authorityModule/findAll",
-			   //data: "name=John&location=Boston",
-			   success: function(data){
-			     
-			   }
-			});
-	})
+$(function() {
+	$(".btn").click(function(){
+		return confirm("你确定要删除吗？");
+    })
+});
 </script>
 </head>
 <body>
-	
+	<button class="btn">button</button>
 </body>
 </html>
