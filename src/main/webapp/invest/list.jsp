@@ -49,7 +49,7 @@
 						                   return (a<b?1:-1);
 						                },
 										formatter:function(value,row,index){
-											return parseInt(row.loanapply.loanrate.loanrate*100)+"%";
+											return parseInt(row.loanapply.loanrate.loanrate*1000)/10+"%";
 										}
 									},
 									{
@@ -115,31 +115,47 @@
 								$('.easyui-linkbutton').linkbutton({});
 							}
 						});
-	})
+	});
+
+	var path="/invest/findAllLoanDisplay";
+	
+    function qq(value,name){
+        if(value==""){
+			alert("条件不能为空，请重新输入");
+        }else{
+    		$('#dg').datagrid({
+    			url:path,
+        		queryParams: {
+        			"name": name,
+        			"value":value
+        		}  
+    		});
+        }
+    };
+	function clear(){
+		$('#dg').datagrid({
+			url:path,
+    		queryParams: {
+    			"name": "clear"
+    		}  
+		});
+    };   
 
 </script>
 </head>
 <body>
-	<table id="dg"></table>
-	<div id="tb">
-		<form action="">
-			排序：
-			<select id="cc" class="easyui-combobox" v-model="ordername" name="ordername" style="width:200px;">  
-			    <option value="loanamount">按贷款金额</option>  
-			    <option value="loanrate">按贷款利率</option>  
-			    <option value="deadtime">按集资截至日期</option>  
-			    <option value="investcount">按已投资金额</option>
-			    <option value="loantime">按还款期限 </option>  
-			</select>
-			<select id="cc" class="easyui-combobox" v-model="order" name="order" style="width:200px;">  
-			    <option value="des">从大到小</option>  
-			    <option value="asc">从小到大</option>  
-			</select>
-			大于<input type="text">
-			小于<input type="text">
-			<div class="easyui-linkbutton"  data-options="iconCls:'icon-remove'">筛选</div>
-		</form> 
+	<input id="ss" class="easyui-searchbox" style="width:300px"  
+	        data-options="searcher:qq,prompt:'请输入要筛选的条件',menu:'#mm'"></input>  
+	           
+	<div id="mm" style="width:120px">  
+	    <div data-options="name:'loanrate',iconCls:'icon-ok'">贷款利率（%）</div>  
+	    <div data-options="name:'restcount'">剩余可投资金额</div>  
+	    <div data-options="name:'loanamount'">贷款金额</div>
+	    <div data-options="name:'repaytime'">还款期限（/月）</div>  
 	</div>
+	<a href="javascript:clear()" class="easyui-linkbutton" data-options="iconCls: 'icon-reload'">清空查询条件</a>  
+
+	<table id="dg"></table>
 
 </body>
 </html>

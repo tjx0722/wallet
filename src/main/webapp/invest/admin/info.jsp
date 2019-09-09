@@ -84,7 +84,7 @@
 								<c:forEach items="${loandisplay.invests }" var="invest" varStatus="index">
 									<tr>
 										<td>${invest.userinfo.username }</td>
-										<td><fmt:formatDate value="${invest.paytime }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+										<td><fmt:formatDate value="${invest.paytime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 										<td>${invest.investamount }</td>
 									</tr>
 								</c:forEach>

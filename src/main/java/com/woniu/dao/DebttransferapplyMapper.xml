@@ -16,6 +16,7 @@
     <result column="servicechargeid" property="servicechargeid" jdbcType="INTEGER" />
     <result column="ispass" property="ispass" jdbcType="BIT" />
     <association property="userinfo" column="userinfoid" select="com.woniu.dao.UserinfoMapper.findById"></association> 
+  	<association property="scharge" column="servicechargeid" select="com.woniu.dao.ServicechargeMapper.selectByPrimaryKey"></association> 
   </resultMap>
   <sql id="Example_Where_Clause" >
     <!--

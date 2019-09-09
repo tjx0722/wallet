@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.woniu.dao.DebttransferapplyMapper;
 import com.woniu.domain.Debttransferapply;
 import com.woniu.domain.Loanapply;
+import com.woniu.domain.Loandisplay;
 import com.woniu.domain.Loanrate;
 import com.woniu.domain.Loantime;
 import com.woniu.domain.Repay;
@@ -34,6 +35,7 @@ import com.woniu.service.IRepayService;
 import com.woniu.service.IServicechargeService;
 import com.woniu.service.IUserService;
 import com.woniu.service.IUserinfoService;
+import com.woniu.service.IloandisplayService;
 import com.woniu.service.impl.UserService;
 
 @RequestMapping("/debit/")
@@ -45,6 +47,8 @@ public class DebitController {
 	private IUserService UserServiceImpl;
 	@Resource
 	private IServicechargeService servicechargeServiceImpl;
+	@Resource
+	private IloandisplayService loandisplayServiceImpl;
 
 	@Resource
 	private IUserinfoService UserinfoServiceImpl;
@@ -76,17 +80,17 @@ public class DebitController {
 		} else {
 			loanapply.setChecked(true);
 			Integer loantime = loanapply.getLoantime().getLoantime();
-			for (int i = 1; i <=loantime; i++) {
+			for (int i = 1; i <= loantime; i++) {
 				Repay repay = new Repay();
 				repay.setLoanapplyid(loanapply.getLoanapplyid());
 				repay.setUserinfoid(loanapply.getUserinfoid());
-				double d=(loanapply.getLoanamount())/loantime;
+				double d = (loanapply.getLoanamount()) / loantime;
 				BigDecimal b = new BigDecimal(d);
 				double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 				repay.setRestamount(f1);
 				repay.setIsfinished(false);
 				Date date = new Date();
-				Calendar cal=Calendar.getInstance();
+				Calendar cal = Calendar.getInstance();
 				cal.setTime(date);
 				cal.add(Calendar.MONTH, i);
 				repay.setRepaytime(cal.getTime());
@@ -95,6 +99,18 @@ public class DebitController {
 			}
 		}
 		debitServiceImpl.update(loanapply);
+		
+		
+		Loandisplay loandisplay = new Loandisplay();
+		Date date2 = new Date();
+		loandisplay.setDisplaytime(date2);
+		loandisplay.setIsfinished(false);
+		loandisplay.setIsdead(false);
+		loandisplay.setLoanapplyid(loanapplyid);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DAY_OF_MONTH, 7);// 日期偏移7天
+		loandisplay.setDeadtime(c.getTime());
+		loandisplayServiceImpl.save(loandisplay);
 		return "redirect:/loandisplay/index.jsp";
 	}
 
@@ -104,7 +120,7 @@ public class DebitController {
 		User user = (User) session.getAttribute("user");
 		Userinfo userinfo = user.getUserinfo();
 		double money = loanapply.getLoanamount();
-		userinfo.setLoapplylimit((int)(userinfo.getLoapplylimit()-money));
+		userinfo.setLoapplylimit((int) (userinfo.getLoapplylimit() - money));
 		UserinfoServiceImpl.update(userinfo);
 		debitServiceImpl.save(loanapply);
 		session.removeAttribute("loanapply");

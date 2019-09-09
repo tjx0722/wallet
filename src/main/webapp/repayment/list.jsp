@@ -33,7 +33,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${list }" var="loanapply">
+			<c:forEach items="${list }" var="loanapply" varStatus="c">
 				<tr align="center">
 					<td>${loanapply.loanapplyid}</td>
 					<td><fmt:formatDate value="${loanapply.applytime}"
@@ -41,10 +41,10 @@
 					<td>${loanapply.loanamount }</td>
 					<td>${loanapply.reason }</td>
 					<td>${loanapply.checked==false?'审核中':'已通过'}</td>
-					<td><span id="sy" data-container="body" data-toggle="popover"
-						data-trigger="click" data-placement="top"
+					<td><span id='${c.index }' data-container="body"
+						data-toggle="popover" data-trigger="click" data-placement="top"
 						data-content='客官莫急,该笔交易还在审核中'
-						onclick="fun2(${loanapply.checked},${loanapply.loanapplyid})"
+						onclick='fun2(${c.index },${loanapply.checked},${loanapply.loanapplyid})'
 						class="glyphicon glyphicon-eye-open"></span></td>
 				</tr>
 			</c:forEach>
@@ -111,10 +111,10 @@ Date.prototype.toLocaleString = function() {
         addZero(this.getHours()) + ":" + addZero(this.getMinutes()) + ":" + addZero(this.getSeconds());
 };
 
-function fun2(obj1,obj2){
+function fun2(obj3,obj1,obj2){
 	 if(obj1==true ){
-		 $('#sy').popover('destroy');
-		fun1(obj2);
+		  $("#"+obj3).popover('destroy'); 
+		 fun1(obj2); 
 	 }};
 function fun1(obj){
 	

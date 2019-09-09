@@ -18,4 +18,7 @@ public interface IUserinfoService {
 	public Userinfo findById(Integer userinfoid);
 	public Wallet findWalletByUserinfoid(Integer userinfoid);
 	boolean findPwdByUid(Integer userinfoid, String payPassword_rsainput);
+	public List<Userinfo> findByName(String name);
+//	根据字符进行模糊查询
+	public List<Userinfo> findUserByChar(String username);
 }

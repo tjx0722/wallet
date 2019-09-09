@@ -1,5 +1,6 @@
 package com.woniu.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.woniu.domain.Debttransferapply;
@@ -15,4 +16,8 @@ public interface IDebttransferapplyService {
 	void check(int debttransferapplyid);
 
 	void pass(int debttransferapplyid);
+
+	List findAllByUname(PageBean pageBean, String username);
+
+	List findAllByDate(PageBean pageBean, Date begin, Date end);
 }

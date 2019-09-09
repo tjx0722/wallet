@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,8 @@
 			align="center">
 			<p style="font-size: 30px; color: white; height: 50px">${restamount }
 			<p>
-				<button type="button" class="btn btn-success">去还款</button>
+				<button class="btn btn-success " data-toggle="modal"
+					data-target="#myModal">去还款</button>
 		</div>
 	</div>
 	<div class="col-md-1"></div>
@@ -68,6 +70,48 @@
 		<img alt="" src="ziti2.png">
 	</div>
 
-
+	<!-- 模态框代码 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">支付页面</h4>
+				</div>
+				<div class="modal-body" style="height: 300px">
+					<div>
+						<table class="table table-striped">
+							<tr align="center">
+								<td>交易类型</td>
+								<td>交易金额</td>
+							</tr>
+							<tr align="center">
+								<td>还款</td>
+								<td>${restamount }</td>
+							</tr>
+						</table>
+					</div>
+					<hr>
+					<div class="col-md-4" align="center">
+						<span style="font-size: 25px">请选支付方式</span>
+					</div>
+					<div class="col-md-8" align="center">
+						<select class="form-control">
+							<option>支付宝</option>
+						<c:forEach items="${bankcards }" var="bankcard" varStatus="c">
+							<option>${bankcard.bankcardnum } ${bankcard.bankcardname }</option>
+						</c:forEach>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

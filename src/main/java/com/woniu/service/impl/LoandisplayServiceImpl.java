@@ -2,9 +2,12 @@ package com.woniu.service.impl;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.woniu.dao.LoandisplayMapper;
 import com.woniu.domain.Loandisplay;
 import com.woniu.service.IloandisplayService;
+@Service
 public class LoandisplayServiceImpl implements IloandisplayService{
 
 	@Resource

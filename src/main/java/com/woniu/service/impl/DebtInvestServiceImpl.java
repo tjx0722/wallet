@@ -37,14 +37,15 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 	public List<Debttransferdisplay> findUndead(PageBean page) {
 		// TODO Auto-generated method stub
 		List<Debttransferdisplay> list = debttransferdisplayMapper.findUndead(new RowBounds(page.getOffset(),page.getLimit()));
-		page.setCount(list.size());
+		List<Debttransferdisplay> all = debttransferdisplayMapper.findUndead();
+		page.setCount(all.size());
 		return list;
 	}
 	@Override
 	public List<Debtinvest> findAll(PageBean page) {
 		// TODO Auto-generated method stub
 		List<Debtinvest> list = debtinvestMapper.selectByExample(null,new RowBounds(page.getOffset(),page.getLimit()));
-		page.setCount(list.size());
+		page.setCount((int)debtinvestMapper.countByExample(null));
 		return list;
 	}
 	@Override
@@ -87,7 +88,8 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 			criteria.andPaytimeGreaterThanOrEqualTo(begin);
 		}
 		list = debtinvestMapper.selectByExample(example,new RowBounds(page.getOffset(),page.getLimit()));
-		page.setCount(list.size());
+		int size=(int)debtinvestMapper.countByExample(example);
+		page.setCount(size);
 		return list;
 	}
 //	通过债权转让用户查询
@@ -95,8 +97,9 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 	public List<Debtinvest> findByDebttransfer(PageBean page, Userinfo userinfo,Date begin,Date end) {
 		// TODO Auto-generated method stub
 		Map map = getMap(userinfo,begin,end);
-		List<Debtinvest> debtinvests = debtinvestMapper.findByDebttransfer(map);
-		page.setCount(debtinvests.size());
+		List<Debtinvest> debtinvests = debtinvestMapper.findByDebttransfer(map,new RowBounds(page.getOffset(),page.getLimit()));
+		List<Debtinvest> all=debtinvestMapper.findByDebttransfer(map);
+		page.setCount(all.size());
 		return debtinvests;
 	}
 //	通过借款人查询
@@ -104,8 +107,9 @@ public class DebtInvestServiceImpl implements IDebtInvestService {
 	public List<Debtinvest> findByLoanapply(PageBean page, Userinfo userinfo,Date begin,Date end) {
 		// TODO Auto-generated method stub
 		Map map = getMap(userinfo,begin,end);
-		List<Debtinvest> debtinvests = debtinvestMapper.findByLoanapply(map);
-		page.setCount(debtinvests.size());
+		List<Debtinvest> debtinvests = debtinvestMapper.findByLoanapply(map,new RowBounds(page.getOffset(),page.getLimit()));
+		List<Debtinvest> all=debtinvestMapper.findByLoanapply(map); 
+		page.setCount(all.size());
 		return debtinvests;
 		
 	}

@@ -1,5 +1,6 @@
 package com.woniu.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -126,5 +127,51 @@ public class DebttransferapplyServiceImpl implements IDebttransferapplyService {
 		Debttransferapply debttransferapply=debttransferapplyMapper.selectByPrimaryKey(debttransferapplyid);
 		debttransferapply.setIspass(true);
 		debttransferapplyMapper.updateByPrimaryKeySelective(debttransferapply);
+	}
+
+	@Override
+	public List findAllByUname(PageBean pageBean, String username) {
+		// TODO Auto-generated method stub
+		List<Userinfo> userinfos=userinfoMapper.selectByExample(null);
+		List<Integer> userids=new ArrayList<Integer>();
+		for (Userinfo userinfo:userinfos) {
+			if (userinfo.getUsername().equals(username)) {
+				userids.add(userinfo.getUserinfoid());
+			}
+		};
+		DebttransferapplyExample example=new DebttransferapplyExample();
+		example.setOrderByClause("debttransferapplyid DESC");
+		Criteria criteria=example.createCriteria();
+		criteria.andUserinfoidIn(userids);
+		criteria.andCheckedEqualTo(false);
+		criteria.andIspassEqualTo(false);
+		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
+		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
+	}
+
+	@Override
+	public List findAllByDate(PageBean pageBean, Date begin, Date end) {
+		// TODO Auto-generated method stub
+		DebttransferapplyExample example=new DebttransferapplyExample();
+		example.setOrderByClause("debttransferapplyid DESC");
+		Criteria criteria=example.createCriteria();
+		criteria.andCheckedEqualTo(false);
+		criteria.andIspassEqualTo(false);
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(end);
+		calendar.add(calendar.DATE, 1);
+		Date date=new Date(0);
+		if (!begin.equals(date)&&!end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andApplytimeBetween(begin, end);
+		}else if (!begin.equals(date)&&end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andApplytimeGreaterThanOrEqualTo(begin);
+		}else if (begin.equals(date)&&!end.equals(date)) {
+			end=calendar.getTime();
+			criteria.andApplytimeLessThanOrEqualTo(end);
+		};
+		pageBean.setCount((int)debttransferapplyMapper.countByExample(example));
+		return debttransferapplyMapper.selectByExample(example, new RowBounds(pageBean.getOffset(), pageBean.getLimit()));
 	}
 }

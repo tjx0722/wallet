@@ -9,6 +9,7 @@ import com.woniu.domain.PageBean;
 import com.woniu.domain.Userinfo;
 
 public interface IDebtInvestService {
+	
 	List<Debtinvest> findAll(PageBean page);
 	List<Debtinvest> findByUserinfo(PageBean page,Userinfo userinfo,Date begin,Date end);
 	List<Debttransferdisplay> findUndead(PageBean page);
